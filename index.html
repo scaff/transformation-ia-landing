@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atelier Transformation IA — Équipes Tech | Automatik by Zenith</title>
+<meta name="description" content="Programme de transformation pour CTO d'équipes tech. Installer une vraie pratique d'équipe avec l'IA — partagée, mesurée, qui survit au prochain modèle.">
+<meta property="og:title" content="Atelier Transformation IA — Équipes Tech">
+<meta property="og:description" content="Une équipe qui utilise l'IA. Pas N développeurs qui l'utilisent chacun dans leur coin.">
+<meta property="og:type" content="website">
+
+<style>
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --primary: 45 95% 48%;
+    --primary-glow: 45 95% 58%;
+    --primary-foreground: 0 0% 100%;
+    --accent: 45 95% 48%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --ring: 45 95% 48%;
+
+    --title-gradient-start: 45 95% 48%;
+    --title-gradient-end: 45 95% 40%;
+
+    --gradient-hero: linear-gradient(180deg, hsl(210 40% 98%), hsl(214 95% 95%));
+    --gradient-primary: linear-gradient(135deg, hsl(45 95% 48%), hsl(45 95% 58%));
+    --gradient-title: linear-gradient(135deg, hsl(var(--title-gradient-start)), hsl(var(--title-gradient-end)));
+
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-blur: 20px;
+    --glass-border: rgba(214, 214, 220, 0.5);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+
+    --shadow-elegant: 0 20px 60px -15px hsl(45 95% 48% / 0.3);
+    --shadow-glow: 0 0 50px hsl(45 95% 48% / 0.4);
+    --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.06);
+
+    --radius: 0.75rem;
+    --max-width: 1120px;
+    --max-width-content: 760px;
+
+    --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.65;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+
+  a {
+    color: hsl(var(--primary));
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  a:hover {
+    opacity: 0.85;
+  }
+
+  /* Background ambience */
+  .bg-ambience {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: var(--gradient-hero);
+  }
+
+  .bg-ambience::before {
+    content: "";
+    position: absolute;
+    top: -10%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, hsl(45 95% 58% / 0.18), transparent 65%);
+    filter: blur(40px);
+  }
+
+  .bg-ambience::after {
+    content: "";
+    position: absolute;
+    bottom: 20%;
+    left: -15%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, hsl(214 95% 80% / 0.35), transparent 65%);
+    filter: blur(40px);
+  }
+
+  /* Layout */
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .container-narrow {
+    max-width: var(--max-width-content);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Navigation */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  nav.scrolled {
+    border-bottom-color: var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
+  nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 17px;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+    letter-spacing: -0.01em;
+  }
+
+  .brand .by {
+    font-weight: 400;
+    color: hsl(var(--muted-foreground));
+    font-size: 14px;
+  }
+
+  .brand .zenith {
+    font-weight: 600;
+    background: var(--gradient-title);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .nav-cta {
+    font-size: 14px;
+    font-weight: 500;
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--background));
+    padding: 9px 18px;
+    border-radius: 999px;
+    transition: all 0.2s ease;
+  }
+
+  .nav-cta:hover {
+    background: hsl(var(--foreground));
+    color: hsl(var(--background));
+    border-color: hsl(var(--foreground));
+    opacity: 1;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 140px 24px 100px;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: hsl(var(--primary) / 0.95);
+    margin-bottom: 32px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: hsl(var(--primary) / 0.08);
+    border: 1px solid hsl(var(--primary) / 0.2);
+    width: fit-content;
+  }
+
+  .hero-eyebrow::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: hsl(var(--primary));
+    box-shadow: 0 0 12px hsl(var(--primary));
+  }
+
+  .hero h1 {
+    font-weight: 700;
+    font-size: clamp(2.4rem, 6.5vw, 5rem);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    max-width: 980px;
+    margin-bottom: 36px;
+    color: hsl(var(--foreground));
+  }
+
+  .hero h1 .accent {
+    background: var(--gradient-title);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline;
+  }
+
+  .hero-sub {
+    font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+    line-height: 1.55;
+    color: hsl(var(--muted-foreground));
+    max-width: 640px;
+    margin-bottom: 56px;
+    font-weight: 400;
+  }
+
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 600;
+    background: var(--gradient-primary);
+    color: hsl(var(--primary-foreground));
+    padding: 16px 28px;
+    border-radius: 999px;
+    border: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: var(--shadow-elegant);
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    box-shadow: var(--shadow-glow), var(--shadow-elegant);
+    transform: translateY(-2px);
+    opacity: 1;
+    color: hsl(var(--primary-foreground));
+  }
+
+  .btn-primary .arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .btn-primary:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  .btn-secondary {
+    font-size: 14px;
+    font-weight: 500;
+    color: hsl(var(--muted-foreground));
+    padding: 16px 8px;
+    transition: color 0.2s ease;
+  }
+
+  .btn-secondary:hover {
+    color: hsl(var(--foreground));
+    opacity: 1;
+  }
+
+  /* Sections */
+  section {
+    padding: 120px 0;
+    position: relative;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: hsl(var(--primary));
+    margin-bottom: 24px;
+    display: block;
+    font-weight: 600;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: clamp(1.9rem, 4.5vw, 3.2rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 40px;
+    color: hsl(var(--foreground));
+  }
+
+  h2 .accent {
+    background: var(--gradient-title);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  h3 {
+    font-weight: 600;
+    font-size: 1.35rem;
+    line-height: 1.3;
+    margin-bottom: 14px;
+    letter-spacing: -0.015em;
+    color: hsl(var(--foreground));
+  }
+
+  p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: hsl(var(--foreground));
+    margin-bottom: 1.4em;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  .lead {
+    font-size: 1.18rem;
+    color: hsl(var(--foreground));
+    line-height: 1.6;
+  }
+
+  .pull-quote {
+    font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+    line-height: 1.35;
+    font-weight: 500;
+    font-style: italic;
+    letter-spacing: -0.018em;
+    text-align: center;
+    max-width: 760px;
+    margin: 88px auto;
+    padding: 0 16px;
+    position: relative;
+    color: hsl(var(--foreground));
+    border: none;
+  }
+
+  .pull-quote::before {
+    content: "";
+    display: block;
+    width: 36px;
+    height: 2px;
+    background: var(--gradient-primary);
+    margin: 0 auto 28px;
+    border-radius: 2px;
+  }
+
+  .pull-quote span {
+    display: block;
+  }
+
+  .pull-quote .accent {
+    background: var(--gradient-title);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-style: italic;
+    margin-top: 6px;
+  }
+
+  /* Section: pain mirror */
+  .pain-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .pain-list li {
+    padding: 28px 0;
+    border-bottom: 1px solid hsl(var(--border));
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  .pain-list li:last-child {
+    border-bottom: none;
+  }
+
+  .pain-list li::before {
+    content: counter(pain);
+    counter-increment: pain;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: hsl(var(--primary));
+    padding-top: 6px;
+    letter-spacing: 0.04em;
+  }
+
+  .pain-list {
+    counter-reset: pain;
+  }
+
+  .pain-list li strong {
+    display: block;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+
+  .pain-list li em {
+    font-style: normal;
+    color: hsl(var(--muted-foreground));
+    font-size: 0.98rem;
+    line-height: 1.55;
+    display: block;
+  }
+
+  /* Section: dilemma */
+  .dilemma-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 48px 0;
+  }
+
+  @media (max-width: 720px) {
+    .dilemma-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .dilemma-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--glass-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .dilemma-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-soft), 0 0 0 1px hsl(var(--primary) / 0.2);
+  }
+
+  .dilemma-card-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: hsl(var(--primary));
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+
+  .dilemma-card h4 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+    line-height: 1.25;
+    color: hsl(var(--foreground));
+    letter-spacing: -0.01em;
+  }
+
+  .dilemma-card p {
+    color: hsl(var(--muted-foreground));
+    font-size: 0.97rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  .third-way {
+    text-align: center;
+    margin-top: 56px;
+    font-size: 1.45rem;
+    font-weight: 600;
+    background: var(--gradient-title);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -0.01em;
+  }
+
+  /* Section: competencies */
+  .competencies {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 880px) {
+    .competencies {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .competency {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--glass-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .competency::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .competency:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-soft);
+    border-color: hsl(var(--primary) / 0.25);
+  }
+
+  .competency:hover::before {
+    opacity: 1;
+  }
+
+  .competency-number {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: hsl(var(--primary));
+    margin-bottom: 14px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .competency h3 {
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+  }
+
+  .competency p {
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 0;
+    font-size: 0.97rem;
+    line-height: 1.65;
+  }
+
+  .competency code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: hsl(var(--muted));
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* Section: périmètre — greenfield / legacy / production */
+  .perimetre-header {
+    max-width: var(--max-width-content);
+    margin: 0 auto 64px;
+  }
+
+  .perimetre-intro {
+    color: hsl(var(--muted-foreground));
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  .scope-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 880px) {
+    .scope-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .scope-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    box-shadow: var(--glass-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scope-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 36px;
+    bottom: 36px;
+    width: 2px;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transform: scaleY(0.4);
+    transform-origin: center;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .scope-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-soft);
+    border-color: hsl(var(--primary) / 0.3);
+  }
+
+  .scope-card:hover::before {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  .scope-card-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: hsl(var(--primary));
+    margin-bottom: 20px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .scope-card-label::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: hsl(var(--primary));
+    box-shadow: 0 0 8px hsl(var(--primary) / 0.5);
+  }
+
+  .scope-card h3 {
+    font-size: 1.35rem;
+    margin-bottom: 16px;
+  }
+
+  .scope-card p {
+    color: hsl(var(--muted-foreground));
+    font-size: 0.97rem;
+    line-height: 1.65;
+    margin-bottom: 0;
+  }
+
+  /* Section: format — sur-mesure */
+  .format-header {
+    max-width: var(--max-width-content);
+    margin: 0 auto 64px;
+  }
+
+  .format-intro {
+    color: hsl(var(--muted-foreground));
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  .formats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  @media (max-width: 880px) {
+    .formats-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .format-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--glass-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .format-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .format-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-soft);
+    border-color: hsl(var(--primary) / 0.3);
+  }
+
+  .format-card:hover::before {
+    opacity: 1;
+  }
+
+  .format-card-tier {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: hsl(var(--primary));
+    margin-bottom: 18px;
+    font-weight: 600;
+  }
+
+  .format-card-tier .dots {
+    display: inline-flex;
+    gap: 4px;
+  }
+
+  .format-card-tier .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: hsl(var(--primary) / 0.25);
+  }
+
+  .format-card-tier .dot.on {
+    background: hsl(var(--primary));
+  }
+
+  .format-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+  }
+
+  .format-card p {
+    color: hsl(var(--muted-foreground));
+    font-size: 0.97rem;
+    line-height: 1.65;
+    margin-bottom: 0;
+    flex: 1;
+  }
+
+  .format-tagline {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid hsl(var(--border));
+    font-size: 0.88rem;
+    color: hsl(var(--foreground));
+    font-weight: 500;
+  }
+
+  .format-pricing-note {
+    color: hsl(var(--muted-foreground));
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 16px;
+  }
+
+  /* Legacy format-highlight kept hidden in case re-needed */
+  .format-highlight {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid hsl(var(--primary) / 0.3);
+    border-radius: var(--radius);
+    padding: 36px;
+    margin: 40px 0;
+    box-shadow: var(--shadow-elegant);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .format-highlight::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+  }
+
+  .format-highlight strong {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: hsl(var(--foreground));
+    display: block;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+
+  .format-highlight p {
+    color: hsl(var(--foreground));
+    margin-bottom: 0;
+  }
+
+  .format-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 640px) {
+    .format-options {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .format-option {
+    padding: 24px 0;
+    border-top: 1px solid hsl(var(--border));
+  }
+
+  .format-option-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: hsl(var(--primary));
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .format-option p {
+    margin-bottom: 0;
+    color: hsl(var(--muted-foreground));
+    font-size: 0.97rem;
+  }
+
+  /* Section: who for */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  @media (max-width: 720px) {
+    .audience-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .audience-block {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--glass-shadow);
+  }
+
+  .audience-block.include {
+    border-color: hsl(var(--primary) / 0.3);
+  }
+
+  .audience-block h3 {
+    margin-bottom: 24px;
+  }
+
+  .audience-block.include h3 {
+    color: hsl(var(--foreground));
+  }
+
+  .audience-block.exclude h3 {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .audience-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .audience-list li {
+    padding: 12px 0;
+    padding-left: 28px;
+    position: relative;
+    line-height: 1.55;
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  .audience-list li:last-child {
+    border-bottom: none;
+  }
+
+  .audience-list li::before {
+    position: absolute;
+    left: 0;
+    top: 12px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .audience-block.include .audience-list li {
+    color: hsl(var(--foreground));
+  }
+
+  .audience-block.include .audience-list li::before {
+    content: "+";
+    color: hsl(var(--primary));
+  }
+
+  .audience-block.exclude .audience-list li {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .audience-block.exclude .audience-list li::before {
+    content: "−";
+    color: hsl(var(--muted-foreground));
+  }
+
+  .qualification-note {
+    margin-top: 48px;
+    color: hsl(var(--muted-foreground));
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  /* Section: who we are */
+  .who-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 48px;
+    box-shadow: var(--glass-shadow);
+    margin-top: 32px;
+  }
+
+  .who-name {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+    color: hsl(var(--foreground));
+  }
+
+  .who-name .accent {
+    background: var(--gradient-title);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Final CTA */
+  .final-cta {
+    text-align: center;
+    padding: 140px 24px 120px;
+    position: relative;
+  }
+
+  .final-cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, hsl(45 95% 88% / 0.6), transparent 70%);
+    pointer-events: none;
+  }
+
+  .final-cta > * {
+    position: relative;
+  }
+
+  .final-cta h2 {
+    margin-bottom: 28px;
+  }
+
+  .final-cta p {
+    color: hsl(var(--muted-foreground));
+    font-size: 1.1rem;
+    max-width: 540px;
+    margin: 0 auto 48px;
+  }
+
+  /* Footer */
+  footer {
+    padding: 48px 24px;
+    border-top: 1px solid hsl(var(--border));
+    text-align: center;
+    background: hsl(var(--background));
+  }
+
+  footer p {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Reveal animation */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 640px) {
+    section {
+      padding: 80px 0;
+    }
+    .hero {
+      padding-top: 120px;
+      padding-bottom: 80px;
+    }
+    .pull-quote {
+      padding-left: 20px;
+      margin: 40px 0;
+    }
+    .who-card {
+      padding: 32px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-ambience" aria-hidden="true"></div>
+
+<nav id="nav">
+  <div class="container">
+    <div class="brand">
+      Automatik
+      <span class="by">by</span>
+      <span class="zenith">Zenith</span>
+    </div>
+    <a href="#qualification" class="nav-cta">Vérifier si vous êtes prêt</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">Atelier Transformation IA — Équipes Tech</div>
+    <h1>Une équipe qui utilise l'IA. <span class="accent">Pas N développeurs qui l'utilisent chacun dans leur coin.</span></h1>
+    <p class="hero-sub">Programme de transformation pour CTO d'équipes tech qui veulent installer une vraie pratique d'équipe — partagée, mesurée, qui survit au prochain modèle et au départ du formateur.</p>
+    <div class="cta-row">
+      <a href="#qualification" class="btn-primary">
+        Vérifier si votre équipe est prête
+        <span class="arrow">→</span>
+      </a>
+      <a href="#competences" class="btn-secondary">Voir ce que votre équipe saura faire</a>
+    </div>
+  </div>
+</header>
+
+<!-- Section 1: Pain mirror -->
+<section id="constat">
+  <div class="container-narrow">
+    <span class="eyebrow">Le constat</span>
+    <h2>Ce que vous voyez tous les jours.</h2>
+    <ul class="pain-list">
+      <li>
+        <div>
+          <strong>Chaque dev a son outil, ses prompts, ses tricks.</strong>
+          <em>Claude Code, Cursor, Copilot — utilisés en parallèle, jamais comparés. Aucune pratique n'est mutualisée, aucune n'est documentée.</em>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Le code IA passe en review à l'intuition.</strong>
+          <em>Pas de grille de lecture, pas de checklist. Celle d'un senior fatigué, en fin de journée, sur une PR qui « a l'air OK ».</em>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Vous ne savez chiffrer ni les gains, ni les pertes.</strong>
+          <em>Vos seniors doutent, vos juniors foncent, et vous arbitrez à l'aveugle, sans donnée pour trancher.</em>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Le savoir-faire IA marche avec les gens.</strong>
+          <em>Un dev part : il emporte sa pratique. Un dev arrive : il recommence à zéro. Rien ne se transmet, rien ne se capitalise.</em>
+        </div>
+      </li>
+    </ul>
+    <div class="pull-quote">
+      <span>Vous n'avez pas une équipe qui utilise l'IA.</span>
+      <span class="accent">Chaque dev a la sienne — et aucune ne dialogue avec les autres.</span>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: The trap -->
+<section id="dilemme">
+  <div class="container-narrow">
+    <span class="eyebrow">Le piège</span>
+    <h2>L'orchestration d'agents <span class="accent">a six mois.</span> La discipline n'existait pas en 2025. Elle s'invente sous vos yeux.</h2>
+    <p class="lead">Deux options se présentent à vous, et aucune n'est acceptable.</p>
+    <div class="dilemma-grid">
+      <div class="dilemma-card">
+        <div class="dilemma-card-label">Option 1</div>
+        <h4>Attendre que ça mûrisse.</h4>
+        <p>Vos concurrents s'y mettent, vos devs s'y mettent en perso, vos juniors s'y forment seuls. Vous prenez six à dix-huit mois de retard, sans option de rattrapage facile.</p>
+      </div>
+      <div class="dilemma-card">
+        <div class="dilemma-card-label">Option 2</div>
+        <h4>Former dans l'urgence, sans cadre.</h4>
+        <p>Bootcamp d'une semaine, formation IA générique, slide deck. Trois semaines plus tard, plus personne ne se souvient de rien. Six mois plus tard, vous avez des PRs IA non reviewées en prod, des secrets exposés, des seniors qui ont perdu confiance dans la review.</p>
+      </div>
+    </div>
+    <p class="third-way">Il y a une troisième voie. C'est la nôtre.</p>
+  </div>
+</section>
+
+<!-- Section 3: Our posture -->
+<section id="posture">
+  <div class="container-narrow">
+    <span class="eyebrow">Notre posture</span>
+    <h2>L'IA agentique sur le code <span class="accent">a six mois.</span> On ne vous vendra pas dix ans d'expérience.</h2>
+    <p>La discipline n'existait pas avant fin 2025. Elle est devenue praticable quand les modèles ont enfin été capables de tenir un agent sur du vrai code, en autonomie réelle. Personne, sérieusement, ne peut prétendre une décennie d'expérience sur un sujet qui en a six mois.</p>
+    <p>Ce qu'on peut prétendre, en revanche : avoir pris la vague dès qu'elle est devenue viable. On utilise les modèles depuis leur sortie. On met en place des agents pour des clients depuis que la notion d'agent existe. Et on déploie de l'orchestration sur du code en production tous les jours — c'est <strong>notre métier de delivery au quotidien</strong>.</p>
+    <p>Le meilleur modèle change tous les trois mois. C'est la nature du métier en ce moment, et ce n'est pas ce qui doit dicter votre architecture. Tout dev qui se respecte sait qu'une brique se remplace sans casser le reste. Le modèle est une brique. On vous outille pour qu'il le reste.</p>
+    <p>Ce programme, c'est ce savoir-faire opérationnel qu'on transfère à votre équipe. Pas de la théorie sur slides. Les principes qu'on a vus tenir sur de vraies codebases, qui survivent au prochain modèle.</p>
+  </div>
+</section>
+
+<!-- Section: Périmètre — greenfield / legacy / production -->
+<section id="perimetre">
+  <div class="container">
+    <div class="perimetre-header">
+      <span class="eyebrow">Le périmètre</span>
+      <h2>Greenfield, legacy, production. <span class="accent">Trois terrains, trois enjeux différents.</span></h2>
+      <p class="perimetre-intro">L'IA ne change pas le métier de la même façon selon le moment de la vie d'un code. Sur chacun de ces terrains, ce n'est pas la même équipe qui en sort. Et ce n'est pas la même valeur qui se crée.</p>
+    </div>
+    <div class="scope-grid">
+
+      <div class="scope-card">
+        <div class="scope-card-label">Greenfield</div>
+        <h3>Tout est encore possible.</h3>
+        <p>Le terrain le plus généreux pour l'IA : pas d'historique, pas de dette, aucune contrainte d'existant. C'est aussi là que se forment les automatismes de votre équipe — sa façon de cadrer une demande, de valider une sortie, de garder le contrôle. Bien outillé, c'est là que la pratique se construit. Mal outillé, les mauvais réflexes s'y installent durablement.</p>
+      </div>
+
+      <div class="scope-card">
+        <div class="scope-card-label">Legacy</div>
+        <h3>Là où votre équipe passe l'essentiel de son temps.</h3>
+        <p>Le terrain le plus dur pour l'IA. Code mal compris par les modèles, conventions tacites, dette qui n'est documentée nulle part. C'est aussi le terrain qui pèse le plus dans votre business. Une IA mal cadrée y casse plus qu'elle ne construit. Bien cadrée, elle devient le levier le plus puissant que vous ayez.</p>
+      </div>
+
+      <div class="scope-card">
+        <div class="scope-card-label">Production</div>
+        <h3>Le passage qui change le métier.</h3>
+        <p>On ne code plus avec l'IA — on opère un système qui code à votre place, en partie. Ce n'est plus un outil de dev, c'est une nouvelle catégorie d'infrastructure : à surveiller, à mesurer, à contenir. C'est l'étape qui transforme une équipe — elle ne fait plus le même métier qu'avant.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: Competencies -->
+<section id="competences">
+  <div class="container">
+    <div style="max-width: var(--max-width-content); margin: 0 auto 0;">
+      <span class="eyebrow">Ce que votre équipe saura faire</span>
+      <h2>Pas une liste de modules. Une liste de compétences <span class="accent">vérifiables sur votre code.</span></h2>
+    </div>
+    <div class="competencies">
+
+      <div class="competency">
+        <div class="competency-number">01</div>
+        <h3>Cadrer le contexte donné à l'IA.</h3>
+        <p>Vos devs sauront pourquoi un même prompt produit du code propre dans un module isolé et de la bouillie dans un repo en vrac. Ils sauront comment préparer un périmètre pour qu'il soit orchestrable.</p>
+      </div>
+
+      <div class="competency">
+        <div class="competency-number">02</div>
+        <h3>Décider à quel niveau d'autonomie laisser tourner un agent.</h3>
+        <p>Quatre paliers, des critères de bascule explicites, et — surtout — savoir <strong>redescendre</strong> quand le contexte ne s'y prête pas. Pas d'autonomie par espoir.</p>
+      </div>
+
+      <div class="competency">
+        <div class="competency-number">03</div>
+        <h3>Reviewer du code IA avec une grille, pas à l'intuition.</h3>
+        <p>Vos seniors connaîtront les neuf erreurs IA classiques, les trois biais qui les font passer en review, et la différence entre une review humaine et une review IA-par-IA — qui sont complémentaires, pas substituables.</p>
+      </div>
+
+      <div class="competency">
+        <div class="competency-number">04</div>
+        <h3>Mesurer la transformation.</h3>
+        <p>Vous aurez des chiffres avant / après opposables à un board. Vous saurez si l'équipe est plus rapide. Vous saurez aussi quand la productivité ressentie diverge de la productivité mesurée — et ce que ça veut dire.</p>
+      </div>
+
+      <div class="competency">
+        <div class="competency-number">05</div>
+        <h3>Documenter la pratique pour qu'elle se transmette.</h3>
+        <p>Un <code>claude.md</code> d'équipe vivant, des conventions écrites, une gouvernance formalisée. Le savoir-faire IA reste dans l'équipe quand un dev part.</p>
+      </div>
+
+      <div class="competency">
+        <div class="competency-number">06</div>
+        <h3>Maîtriser le vocabulaire d'industrie.</h3>
+        <p>Slash commands, MCP, skills, hooks — les primitives sont devenues cross-tool. Votre équipe parle ce langage indépendamment de l'outil retenu, et choisit ses outils sur des critères, pas sur le buzz.</p>
+      </div>
+
+      <div class="competency">
+        <div class="competency-number">07</div>
+        <h3>Instrumenter la chaîne de fabrication.</h3>
+        <p>Comme vous instrumentez la prod. Vous voyez ce que les agents font, ce que ça coûte, où ils dérapent — et vous corrigez la pratique d'équipe en conséquence.</p>
+      </div>
+
+      <div class="competency">
+        <div class="competency-number">08</div>
+        <h3>Déployer de l'orchestration semi-autonome avec garde-fous.</h3>
+        <p>Branche dédiée, cap de coût, timeout, review humaine obligatoire, rollback testé. Cinq garde-fous non négociables. C'est ce qui sépare une boucle qui apporte de la valeur d'une boucle qui finit dans un post-mortem.</p>
+      </div>
+
+      <div class="competency">
+        <div class="competency-number">09</div>
+        <h3>Faire progresser sa pratique sans nous.</h3>
+        <p>Boucles de compounding sur l'agent, la codebase, l'observabilité, l'équipe. Quand on s'en va, l'équipe s'améliore d'elle-même.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Section 5: How we work — sur-mesure -->
+<section id="format">
+  <div class="container">
+    <div class="format-header">
+      <span class="eyebrow">Comment on travaille avec vous</span>
+      <h2>Pas un programme. Un savoir-faire qu'on adapte <span class="accent">à votre équipe.</span></h2>
+      <p class="format-intro">Vous n'êtes pas au même stade qu'une autre équipe. Vos contraintes ne sont pas les mêmes, votre codebase non plus, vos pratiques actuelles non plus. Notre rôle, c'est de construire avec vous le programme qui fait monter votre équipe en compétence — depuis là où elle est, vers là où vous voulez l'amener.</p>
+    </div>
+
+    <div class="formats-grid">
+
+      <div class="format-card">
+        <div class="format-card-tier">
+          Format 1
+          <span class="dots">
+            <span class="dot on"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </span>
+        </div>
+        <h3>Formation</h3>
+        <p>Pour ancrer les fondamentaux sans bouleverser le quotidien. Sessions structurées, blocs courts, périmètre cadré. Le format classique, repensé pour notre sujet.</p>
+        <div class="format-tagline">Idéal pour démarrer.</div>
+      </div>
+
+      <div class="format-card">
+        <div class="format-card-tier">
+          Format 2
+          <span class="dots">
+            <span class="dot on"></span>
+            <span class="dot on"></span>
+            <span class="dot"></span>
+          </span>
+        </div>
+        <h3>Rituel quotidien</h3>
+        <p>Pour basculer durablement la pratique de l'équipe. Capsule courte chaque jour ouvré, mise en pratique immédiate sur votre code, atelier collectif hebdomadaire pour les blocs de fond. La répétition fait la transformation.</p>
+        <div class="format-tagline">Idéal pour transformer la pratique.</div>
+      </div>
+
+      <div class="format-card">
+        <div class="format-card-tier">
+          Format 3
+          <span class="dots">
+            <span class="dot on"></span>
+            <span class="dot on"></span>
+            <span class="dot on"></span>
+          </span>
+        </div>
+        <h3>Transformation</h3>
+        <p>Pour installer une nouvelle façon de travailler en profondeur. Accompagnement étendu sur plusieurs mois, méta-observation continue, gouvernance d'équipe formalisée. Notre format le plus engagé.</p>
+        <div class="format-tagline">Idéal pour ancrer une nouvelle culture tech.</div>
+      </div>
+
+    </div>
+
+    <p class="format-pricing-note">Le format se choisit en appel de qualification — pas dans un catalogue. Le prix s'aligne sur ce qu'on construit ensemble.</p>
+  </div>
+</section>
+
+<!-- Section 6: Who for -->
+<section id="audience">
+  <div class="container-narrow">
+    <span class="eyebrow">Pour qui</span>
+    <h2>Le programme est calibré. Tout le monde n'est pas la bonne cible — <span class="accent">et c'est tant mieux.</span></h2>
+    <div class="audience-grid">
+      <div class="audience-block include">
+        <h3>Pour vous, si</h3>
+        <ul class="audience-list">
+          <li>Vous êtes CTO ou dirigeant tech, avec un sponsor côté direction.</li>
+          <li>Votre équipe compte 4 à 12 développeurs, à dominante senior.</li>
+          <li>Votre codebase est connue de votre équipe, avec des tests, une CI, une observabilité minimale.</li>
+          <li>Vous voulez une pratique d'équipe, pas un dev individuel formé en BtoC.</li>
+        </ul>
+      </div>
+      <div class="audience-block exclude">
+        <h3>Pas pour vous, si</h3>
+        <ul class="audience-list">
+          <li>Votre équipe est très junior, sans senior pour porter les conventions.</li>
+          <li>Votre codebase n'a ni tests ni CI — il faut commencer par là.</li>
+          <li>Vous cherchez un slide deck à présenter à un comité, pas une transformation.</li>
+          <li>Vous voulez « l'IA qui code à votre place » — ce n'est pas ce qu'on vend.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="qualification-note">Avant de signer, on fait un appel de qualification. Si votre équipe n'est pas prête, on vous le dit franchement plutôt que d'enclencher un programme qui n'apportera rien.</p>
+  </div>
+</section>
+
+<!-- Section 7: Who we are -->
+<section id="qui">
+  <div class="container-narrow">
+    <span class="eyebrow">Qui on est</span>
+    <h2>On code avec l'IA tous les jours. <span class="accent">Ce n'est pas un side-project.</span></h2>
+    <div class="who-card">
+      <p class="who-name">Thibault Roussel — Automatik <span class="accent">by Zenith</span>.</p>
+      <p>On met en place de l'orchestration d'agents sur le code de nos clients. C'est notre métier de delivery au quotidien. Ce qu'on a appris sur le terrain — choix d'architecture, garde-fous, rituels d'équipe, pièges — c'est ce qu'on transfère ici.</p>
+      <p style="margin-top: 1em;">On documente ce qu'on voit, on partage ce qui tient, on assume ce qu'on ignore encore. C'est ce qu'on fait à plein temps.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta" id="qualification">
+  <div class="container-narrow">
+    <span class="eyebrow">Appel de qualification</span>
+    <h2>Vérifier si votre équipe est <span class="accent">prête.</span></h2>
+    <p>Un appel de 30 minutes. Pas de pitch commercial. On regarde ensemble votre équipe, votre codebase, vos contraintes. À la sortie, on vous dit franchement si le programme a du sens pour vous — ou pas.</p>
+    <a href="#" class="btn-primary">
+      Réserver un créneau
+      <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>Automatik by Zenith — Thibault Roussel</p>
+  <p>Programme de transformation IA pour équipes tech</p>
+</footer>
+
+<script>
+  // Sticky nav border on scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 8) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }, { passive: true });
+
+  // Reveal-on-scroll
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('section .container > *, section .container-narrow > *, .competency').forEach((el) => {
+      el.classList.add('reveal');
+      observer.observe(el);
+    });
+  }
+</script>
+
+</body>
+</html>
