@@ -1066,6 +1066,292 @@
     letter-spacing: 0.04em;
   }
 
+  /* Giant ghost numbers in section margins */
+  section[data-num] {
+    position: relative;
+  }
+
+  section[data-num]::before {
+    content: attr(data-num);
+    position: absolute;
+    top: 64px;
+    left: clamp(16px, 4vw, 80px);
+    font-size: clamp(8rem, 16vw, 18rem);
+    font-weight: 900;
+    color: hsl(var(--foreground) / 0.035);
+    line-height: 0.85;
+    pointer-events: none;
+    font-family: var(--font-sans);
+    letter-spacing: -0.06em;
+    z-index: 0;
+    user-select: none;
+  }
+
+  @media (max-width: 1080px) {
+    section[data-num]::before {
+      top: 48px;
+      left: 12px;
+      font-size: clamp(6rem, 14vw, 10rem);
+    }
+  }
+
+  @media (max-width: 640px) {
+    section[data-num]::before {
+      display: none;
+    }
+  }
+
+  section .container,
+  section .container-narrow {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Hero — split layout */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 64px;
+    align-items: center;
+  }
+
+  @media (max-width: 1080px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 64px;
+    }
+  }
+
+  .hero-visual {
+    width: 100%;
+    max-width: 480px;
+    justify-self: end;
+  }
+
+  @media (max-width: 1080px) {
+    .hero-visual {
+      justify-self: start;
+      max-width: 520px;
+    }
+  }
+
+  .code-card {
+    background: hsl(var(--background));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-elegant);
+    overflow: hidden;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.65;
+    position: relative;
+    transform: rotate(0.6deg);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .code-card:hover {
+    transform: rotate(0deg) translateY(-4px);
+    box-shadow: var(--shadow-glow), var(--shadow-elegant);
+  }
+
+  .code-card-header {
+    background: hsl(var(--muted));
+    border-bottom: 1px solid hsl(var(--border));
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .code-card-header .dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: hsl(var(--border));
+  }
+
+  .code-card-header .filename {
+    margin-left: 14px;
+    font-size: 12px;
+    color: hsl(var(--muted-foreground));
+    letter-spacing: 0.02em;
+  }
+
+  .code-card pre {
+    padding: 22px 24px;
+    margin: 0;
+    white-space: pre;
+    overflow-x: auto;
+    color: hsl(var(--foreground));
+  }
+
+  .code-card .h1 { color: hsl(var(--foreground)); font-weight: 700; }
+  .code-card .h2 { color: hsl(var(--primary)); font-weight: 600; }
+  .code-card .c  { color: hsl(var(--muted-foreground)); }
+  .code-card .b  { color: hsl(var(--foreground)); }
+
+  /* Stats ticker — full-bleed band */
+  .stats-ticker {
+    padding: 64px 0;
+    background: linear-gradient(90deg, hsl(214 95% 96%) 0%, hsl(45 95% 94%) 50%, hsl(214 95% 96%) 100%);
+    border-top: 1px solid hsl(var(--primary) / 0.18);
+    border-bottom: 1px solid hsl(var(--primary) / 0.18);
+    position: relative;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  @media (max-width: 720px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px 16px;
+    }
+  }
+
+  .stat {
+    text-align: center;
+    padding: 0 8px;
+  }
+
+  .stat-num {
+    font-size: clamp(3rem, 6.5vw, 4.6rem);
+    font-weight: 800;
+    line-height: 0.95;
+    background: var(--gradient-title);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -0.04em;
+    margin-bottom: 10px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: hsl(var(--foreground));
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+  }
+
+  /* Perimetre — zigzag layout */
+  .scope-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .scope-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  @media (max-width: 880px) {
+    .scope-row {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .scope-row .scope-quote { order: -1; }
+  }
+
+  .scope-row--right .scope-quote { order: 0; }
+  .scope-row--right .scope-card { order: 1; }
+
+  @media (max-width: 880px) {
+    .scope-row--right .scope-quote { order: -1; }
+    .scope-row--right .scope-card { order: 0; }
+  }
+
+  .scope-quote {
+    padding: 24px 32px;
+    position: relative;
+  }
+
+  .scope-quote-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: hsl(var(--primary));
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .scope-quote-label::before {
+    content: "";
+    width: 32px;
+    height: 1.5px;
+    background: var(--gradient-primary);
+  }
+
+  .scope-quote p {
+    font-size: clamp(1.4rem, 2.5vw, 1.95rem);
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.3;
+    letter-spacing: -0.018em;
+    background: var(--gradient-title);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin: 0;
+  }
+
+  /* Compétences — sticky aside layout */
+  .competences-layout {
+    display: grid;
+    grid-template-columns: 340px minmax(0, 1fr);
+    gap: 64px;
+    align-items: start;
+  }
+
+  @media (max-width: 1024px) {
+    .competences-layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  .competences-aside {
+    position: sticky;
+    top: 110px;
+  }
+
+  @media (max-width: 1024px) {
+    .competences-aside {
+      position: static;
+    }
+  }
+
+  .competences-aside .eyebrow {
+    margin-bottom: 24px;
+  }
+
+  .competences-aside h2 {
+    font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+    margin-bottom: 24px;
+    line-height: 1.12;
+  }
+
+  .competences-aside-desc {
+    color: hsl(var(--muted-foreground));
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .competencies {
+    margin-top: 0;
+  }
+
   /* Reveal animation */
   @media (prefers-reduced-motion: no-preference) {
     .reveal {
@@ -1116,21 +1402,50 @@
 <!-- Hero -->
 <header class="hero">
   <div class="container">
-    <div class="hero-eyebrow">Atelier Transformation IA — Équipes Tech</div>
-    <h1>Une équipe qui utilise l'IA. <span class="accent">Pas N développeurs qui l'utilisent chacun dans leur coin.</span></h1>
-    <p class="hero-sub">Programme de transformation pour CTO d'équipes tech qui veulent installer une vraie pratique d'équipe — partagée, mesurée, qui survit au prochain modèle et au départ du formateur.</p>
-    <div class="cta-row">
-      <a href="#qualification" class="btn-primary">
-        Vérifier si votre équipe est prête
-        <span class="arrow">→</span>
-      </a>
-      <a href="#competences" class="btn-secondary">Voir ce que votre équipe saura faire</a>
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Atelier Transformation IA — Équipes Tech</div>
+        <h1>Une équipe qui utilise l'IA. <span class="accent">Pas N développeurs qui l'utilisent chacun dans leur coin.</span></h1>
+        <p class="hero-sub">Programme de transformation pour CTO d'équipes tech qui veulent installer une vraie pratique d'équipe — partagée, mesurée, qui survit au prochain modèle et au départ du formateur.</p>
+        <div class="cta-row">
+          <a href="#qualification" class="btn-primary">
+            Vérifier si votre équipe est prête
+            <span class="arrow">→</span>
+          </a>
+          <a href="#competences" class="btn-secondary">Voir ce que votre équipe saura faire</a>
+        </div>
+      </div>
+      <aside class="hero-visual" aria-hidden="true">
+        <div class="code-card">
+          <div class="code-card-header">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="filename">team/claude.md</span>
+          </div>
+<pre><span class="h1"># Conventions équipe</span>
+
+<span class="h2">## Palier A — IA assistante</span>
+<span class="c">- autocomplétion uniquement</span>
+<span class="c">- dev valide chaque ligne</span>
+
+<span class="h2">## Palier B — Pair programmer</span>
+<span class="c">- hunks générés, validés</span>
+<span class="c">  au hunk</span>
+
+<span class="h2">## Palier C — IA contributrice</span>
+<span class="c">- PR entière + checklist review</span>
+
+<span class="h2">## Palier D — Boucle autonome</span>
+<span class="c">- branche dédiée, jamais main</span>
+<span class="c">- cap budget + timeout dur</span>
+<span class="c">- rollback testé</span></pre>
+        </div>
+      </aside>
     </div>
   </div>
 </header>
 
 <!-- Section 1: Pain mirror -->
-<section id="constat">
+<section data-num="01" id="constat">
   <div class="container-narrow">
     <span class="eyebrow">Le constat</span>
     <h2>Ce que vous voyez tous les jours.</h2>
@@ -1168,7 +1483,7 @@
 </section>
 
 <!-- Section 2: The trap -->
-<section id="dilemme">
+<section data-num="02" id="dilemme">
   <div class="container-narrow">
     <span class="eyebrow">Le piège</span>
     <h2>L'orchestration d'agents <span class="accent">a six mois.</span> La discipline n'existait pas en 2025. Elle s'invente sous vos yeux.</h2>
@@ -1190,7 +1505,7 @@
 </section>
 
 <!-- Section 3: Our posture -->
-<section id="posture">
+<section data-num="03" id="posture">
   <div class="container-narrow">
     <span class="eyebrow">Notre posture</span>
     <h2>L'IA agentique sur le code <span class="accent">a six mois.</span> On ne vous vendra pas dix ans d'expérience.</h2>
@@ -1201,46 +1516,90 @@
   </div>
 </section>
 
+<!-- Stats ticker — full-bleed band between Posture and Périmètre -->
+<section class="stats-ticker" aria-label="Repères quantitatifs du programme">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-num">9</div>
+        <div class="stat-label">erreurs IA classiques</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5</div>
+        <div class="stat-label">garde-fous non négociables</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">paliers d'autonomie</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">terrains couverts</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Section: Périmètre — greenfield / legacy / production -->
-<section id="perimetre">
+<section data-num="04" id="perimetre">
   <div class="container">
     <div class="perimetre-header">
       <span class="eyebrow">Le périmètre</span>
       <h2>Greenfield, legacy, production. <span class="accent">Trois terrains, trois enjeux différents.</span></h2>
       <p class="perimetre-intro">L'IA ne change pas le métier de la même façon selon le moment de la vie d'un code. Sur chacun de ces terrains, ce n'est pas la même équipe qui en sort. Et ce n'est pas la même valeur qui se crée.</p>
     </div>
-    <div class="scope-grid">
+    <div class="scope-stack">
 
-      <div class="scope-card">
-        <div class="scope-card-label">Greenfield</div>
-        <h3>Tout est encore possible.</h3>
-        <p>Le terrain le plus généreux pour l'IA : pas d'historique, pas de dette, aucune contrainte d'existant. C'est aussi là que se forment les automatismes de votre équipe — sa façon de cadrer une demande, de valider une sortie, de garder le contrôle. Bien outillé, c'est là que la pratique se construit. Mal outillé, les mauvais réflexes s'y installent durablement.</p>
+      <div class="scope-row scope-row--left">
+        <div class="scope-card">
+          <div class="scope-card-label">Greenfield</div>
+          <h3>Tout est encore possible.</h3>
+          <p>Le terrain le plus généreux pour l'IA : pas d'historique, pas de dette, aucune contrainte d'existant. C'est aussi là que se forment les automatismes de votre équipe — sa façon de cadrer une demande, de valider une sortie, de garder le contrôle. Bien outillé, c'est là que la pratique se construit. Mal outillé, les mauvais réflexes s'y installent durablement.</p>
+        </div>
+        <div class="scope-quote">
+          <span class="scope-quote-label">L'enjeu</span>
+          <p>C'est là que votre équipe forme ses automatismes — pour des années.</p>
+        </div>
       </div>
 
-      <div class="scope-card">
-        <div class="scope-card-label">Legacy</div>
-        <h3>Là où votre équipe passe l'essentiel de son temps.</h3>
-        <p>Le terrain le plus dur pour l'IA. Code mal compris par les modèles, conventions tacites, dette qui n'est documentée nulle part. C'est aussi le terrain qui pèse le plus dans votre business. Une IA mal cadrée y casse plus qu'elle ne construit. Bien cadrée, elle devient le levier le plus puissant que vous ayez.</p>
+      <div class="scope-row scope-row--right">
+        <div class="scope-quote">
+          <span class="scope-quote-label">L'enjeu</span>
+          <p>L'IA peut tout casser, ou tout démultiplier. Au choix.</p>
+        </div>
+        <div class="scope-card">
+          <div class="scope-card-label">Legacy</div>
+          <h3>Là où votre équipe passe l'essentiel de son temps.</h3>
+          <p>Le terrain le plus dur pour l'IA. Code mal compris par les modèles, conventions tacites, dette qui n'est documentée nulle part. C'est aussi le terrain qui pèse le plus dans votre business. Une IA mal cadrée y casse plus qu'elle ne construit. Bien cadrée, elle devient le levier le plus puissant que vous ayez.</p>
+        </div>
       </div>
 
-      <div class="scope-card">
-        <div class="scope-card-label">Production</div>
-        <h3>Le passage qui change le métier.</h3>
-        <p>On ne code plus avec l'IA — on opère un système qui code à votre place, en partie. Ce n'est plus un outil de dev, c'est une nouvelle catégorie d'infrastructure : à surveiller, à mesurer, à contenir. C'est l'étape qui transforme une équipe — elle ne fait plus le même métier qu'avant.</p>
+      <div class="scope-row scope-row--left">
+        <div class="scope-card">
+          <div class="scope-card-label">Production</div>
+          <h3>Le passage qui change le métier.</h3>
+          <p>On ne code plus avec l'IA — on opère un système qui code à votre place, en partie. Ce n'est plus un outil de dev, c'est une nouvelle catégorie d'infrastructure : à surveiller, à mesurer, à contenir. C'est l'étape qui transforme une équipe — elle ne fait plus le même métier qu'avant.</p>
+        </div>
+        <div class="scope-quote">
+          <span class="scope-quote-label">L'enjeu</span>
+          <p>Une nouvelle catégorie d'infrastructure à opérer — pas un outil de plus.</p>
+        </div>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- Section 4: Competencies -->
-<section id="competences">
+<!-- Section 4: Competencies — sticky aside layout -->
+<section data-num="05" id="competences">
   <div class="container">
-    <div style="max-width: var(--max-width-content); margin: 0 auto 0;">
-      <span class="eyebrow">Ce que votre équipe saura faire</span>
-      <h2>Pas une liste de modules. Une liste de compétences <span class="accent">vérifiables sur votre code.</span></h2>
-    </div>
-    <div class="competencies">
+    <div class="competences-layout">
+      <aside class="competences-aside">
+        <span class="eyebrow">Ce que votre équipe saura faire</span>
+        <h2>Neuf compétences <span class="accent">vérifiables sur votre code.</span></h2>
+        <p class="competences-aside-desc">Pas une liste de modules. Chaque compétence se mesure et se vérifie sur le périmètre cible que vous choisissez en début de programme.</p>
+      </aside>
+      <div class="competencies">
 
       <div class="competency">
         <div class="competency-number">01</div>
@@ -1296,12 +1655,13 @@
         <p>Boucles de compounding sur l'agent, la codebase, l'observabilité, l'équipe. Quand on s'en va, l'équipe s'améliore d'elle-même.</p>
       </div>
 
+      </div>
     </div>
   </div>
 </section>
 
 <!-- Section 5: How we work — sur-mesure -->
-<section id="format">
+<section data-num="06" id="format">
   <div class="container">
     <div class="format-header">
       <span class="eyebrow">Comment on travaille avec vous</span>
@@ -1360,7 +1720,7 @@
 </section>
 
 <!-- Section 6: Who for -->
-<section id="audience">
+<section data-num="07" id="audience">
   <div class="container-narrow">
     <span class="eyebrow">Pour qui</span>
     <h2>Le programme est calibré. Tout le monde n'est pas la bonne cible — <span class="accent">et c'est tant mieux.</span></h2>
@@ -1389,7 +1749,7 @@
 </section>
 
 <!-- Section 7: Who we are -->
-<section id="qui">
+<section data-num="08" id="qui">
   <div class="container-narrow">
     <span class="eyebrow">Qui on est</span>
     <h2>On code avec l'IA tous les jours. <span class="accent">Ce n'est pas un side-project.</span></h2>
