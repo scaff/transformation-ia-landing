@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Atelier Transformation IA — Équipes Tech | Automatik by Zenith</title>
-<meta name="description" content="Programme de transformation pour CTO d'équipes tech. Installer une vraie pratique d'équipe avec l'IA — partagée, mesurée, qui survit au prochain modèle.">
+<meta name="description" content="Une formation pour faire monter les développeurs d'un cran dans l'abstraction. Six jours sur cinq à huit semaines, 70 % de pratique. Pour des équipes qui veulent passer de l'écriture du code à la formulation d'une intention.">
 <meta property="og:title" content="Atelier Transformation IA — Équipes Tech">
-<meta property="og:description" content="Une équipe qui utilise l'IA. Pas N développeurs qui l'utilisent chacun dans leur coin.">
+<meta property="og:description" content="L'IA change le métier des développeurs. Pas pour les remplacer — pour les faire monter d'un cran.">
 <meta property="og:type" content="website">
 
 <style>
@@ -37,7 +37,16 @@
     --glass-bg: rgba(255, 255, 255, 0.75);
     --glass-blur: 20px;
     --glass-border: rgba(214, 214, 220, 0.5);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    /* Multi-layer shadow — profondeur perçue sans lourdeur */
+    --glass-shadow:
+      0 1px 2px rgba(15, 23, 42, 0.04),
+      0 4px 12px rgba(15, 23, 42, 0.05),
+      0 16px 40px -8px rgba(15, 23, 42, 0.08);
+    /* Hover state — élévation marquée, teinte dorée douce */
+    --glass-shadow-hover:
+      0 2px 4px rgba(15, 23, 42, 0.05),
+      0 12px 28px rgba(15, 23, 42, 0.08),
+      0 28px 60px -12px hsl(45 95% 48% / 0.18);
 
     --shadow-elegant: 0 20px 60px -15px hsl(45 95% 48% / 0.3);
     --shadow-glow: 0 0 50px hsl(45 95% 48% / 0.4);
@@ -562,7 +571,9 @@
     border-radius: var(--radius);
     padding: 32px;
     box-shadow: var(--glass-shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.2, 0.6, 0.3, 1),
+                box-shadow 0.4s ease,
+                border-color 0.3s ease;
     position: relative;
     overflow: hidden;
   }
@@ -580,9 +591,9 @@
   }
 
   .competency:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-soft);
-    border-color: hsl(var(--primary) / 0.25);
+    transform: translateY(-6px);
+    box-shadow: var(--glass-shadow-hover);
+    border-color: hsl(var(--primary) / 0.3);
   }
 
   .competency:hover::before {
@@ -908,17 +919,227 @@
     font-size: 0.97rem;
   }
 
-  /* Section: who for */
+  /* Section: Place des développeurs — manifesto-grid 2x2 (sobre, polish) */
+  .manifesto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 56px;
+    margin-top: 56px;
+  }
+
+  @media (max-width: 720px) {
+    .manifesto-grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+
+  .manifesto-cell {
+    position: relative;
+    padding: 4px 0 4px 24px;
+    border-left: 2px solid hsl(var(--primary) / 0.45);
+  }
+
+  .manifesto-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: hsl(var(--primary));
+    font-weight: 700;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .manifesto-cell h3 {
+    font-size: 1.15rem;
+    line-height: 1.3;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .manifesto-cell p {
+    margin: 0;
+    color: hsl(var(--muted-foreground));
+    font-size: 0.97rem;
+    line-height: 1.65;
+  }
+
+  /* Section: Programme — timeline zigzag (alternée gauche/droite) */
+  .timeline {
+    position: relative;
+    margin: 64px auto 32px;
+    max-width: 920px;
+    padding: 0;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    transform: translateX(-1px);
+    background: linear-gradient(180deg,
+      hsl(var(--primary) / 0.5) 0%,
+      hsl(var(--primary) / 0.3) 70%,
+      hsl(var(--primary) / 0.08) 100%);
+  }
+
+  .timeline-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 64px;
+    padding-bottom: 40px;
+    align-items: start;
+  }
+
+  .timeline-item:last-child {
+    padding-bottom: 0;
+  }
+
+  /* Items impairs (1, 3, 5, 7) → contenu à gauche, marker à droite */
+  .timeline-item:nth-child(odd) .timeline-marker {
+    grid-column: 2;
+    text-align: left;
+    padding-left: 28px;
+  }
+
+  .timeline-item:nth-child(odd) .timeline-content {
+    grid-column: 1;
+    text-align: right;
+  }
+
+  /* Items pairs (2, 4, 6) → contenu à droite, marker à gauche */
+  .timeline-item:nth-child(even) .timeline-marker {
+    grid-column: 1;
+    text-align: right;
+    padding-right: 28px;
+  }
+
+  .timeline-item:nth-child(even) .timeline-content {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .timeline-marker {
+    position: relative;
+    top: 4px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: hsl(var(--primary));
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* Le dot central — toujours sur la ligne médiane */
+  .timeline-item::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: hsl(var(--primary));
+    transform: translateX(-50%);
+    box-shadow:
+      0 0 0 4px hsl(0 0% 100% / 0.95),
+      0 0 0 5px hsl(var(--primary) / 0.35);
+    z-index: 1;
+  }
+
+  .timeline-item--bilan::after {
+    background: hsl(0 0% 100%);
+    box-shadow:
+      0 0 0 4px hsl(0 0% 100% / 0.95),
+      0 0 0 5px hsl(var(--primary) / 0.5),
+      inset 0 0 0 2px hsl(var(--primary) / 0.5);
+  }
+
+  .timeline-content {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    box-shadow: var(--glass-shadow);
+    transition: transform 0.4s cubic-bezier(0.2, 0.6, 0.3, 1),
+                box-shadow 0.4s ease,
+                border-color 0.3s ease;
+  }
+
+  .timeline-content:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--glass-shadow-hover);
+    border-color: hsl(var(--primary) / 0.3);
+  }
+
+  .timeline-content h3 {
+    font-size: 1.1rem;
+    line-height: 1.3;
+    margin: 0 0 6px;
+  }
+
+  .timeline-content p {
+    margin: 0;
+    color: hsl(var(--muted-foreground));
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .timeline-item--bilan .timeline-content {
+    border-style: dashed;
+    background: transparent;
+  }
+
+  @media (max-width: 720px) {
+    .timeline {
+      max-width: 100%;
+    }
+    .timeline::before {
+      left: 18px;
+      transform: none;
+    }
+    .timeline-item {
+      grid-template-columns: 1fr;
+      padding-left: 48px;
+    }
+    .timeline-item:nth-child(odd) .timeline-marker,
+    .timeline-item:nth-child(even) .timeline-marker {
+      grid-column: 1;
+      text-align: left;
+      padding-left: 0;
+      padding-right: 0;
+      margin-bottom: 8px;
+    }
+    .timeline-item:nth-child(odd) .timeline-content,
+    .timeline-item:nth-child(even) .timeline-content {
+      grid-column: 1;
+      text-align: left;
+    }
+    .timeline-item::after {
+      left: 18px;
+    }
+  }
+
+  /* Section: who for — vrai effet zoom (loupe) sur include */
   .audience-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-top: 48px;
+    gap: 56px;
+    align-items: start;
+    margin-top: 64px;
   }
 
   @media (max-width: 720px) {
     .audience-grid {
       grid-template-columns: 1fr;
+      gap: 32px;
     }
   }
 
@@ -930,10 +1151,35 @@
     border-radius: var(--radius);
     padding: 32px;
     box-shadow: var(--glass-shadow);
+    transform-origin: center;
+    transition: transform 0.45s cubic-bezier(0.2, 0.6, 0.3, 1),
+                box-shadow 0.4s ease,
+                opacity 0.4s ease;
+    position: relative;
   }
 
+  /* Include — zoomée comme à la loupe (scale > 1, plus présente) */
   .audience-block.include {
-    border-color: hsl(var(--primary) / 0.3);
+    transform: scale(1.06);
+    z-index: 2;
+    border-color: hsl(var(--primary) / 0.4);
+    box-shadow: var(--glass-shadow-hover);
+  }
+
+  .audience-block.include:hover {
+    transform: scale(1.08);
+  }
+
+  /* Exclude — visuellement reculée (scale < 1, opacité moindre) */
+  .audience-block.exclude {
+    transform: scale(0.94);
+    opacity: 0.65;
+    z-index: 1;
+  }
+
+  .audience-block.exclude:hover {
+    transform: scale(0.97);
+    opacity: 0.95;
   }
 
   .audience-block h3 {
@@ -1009,6 +1255,13 @@
     padding: 48px;
     box-shadow: var(--glass-shadow);
     margin-top: 32px;
+    transition: transform 0.4s cubic-bezier(0.2, 0.6, 0.3, 1),
+                box-shadow 0.4s ease;
+  }
+
+  .who-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--glass-shadow-hover);
   }
 
   .who-name {
@@ -1195,6 +1448,7 @@
   .code-card .h2 { color: hsl(var(--primary)); font-weight: 600; }
   .code-card .c  { color: hsl(var(--muted-foreground)); }
   .code-card .b  { color: hsl(var(--foreground)); }
+
 
   /* Stats ticker — full-bleed band */
   .stats-ticker {
@@ -1401,9 +1655,10 @@
       <span class="by">by</span>
       <span class="zenith">Zenith</span>
     </div>
-    <a href="#qualification" class="nav-cta">Vérifier si vous êtes prêt</a>
+    <a href="#qualification" class="nav-cta">Demander un appel de cadrage</a>
   </div>
 </nav>
+
 
 <!-- Hero -->
 <header class="hero">
@@ -1411,254 +1666,136 @@
     <div class="hero-grid">
       <div class="hero-content">
         <div class="hero-eyebrow">Atelier Transformation IA — Équipes Tech</div>
-        <h1>Une équipe qui utilise l'IA. <span class="accent">Pas N développeurs qui l'utilisent chacun dans leur coin.</span></h1>
-        <p class="hero-sub">Programme de transformation pour CTO d'équipes tech qui veulent installer une vraie pratique d'équipe — partagée, mesurée, qui survit au prochain modèle et au départ du formateur.</p>
+        <h1>L'IA change le métier des développeurs. <span class="accent">Pas pour les remplacer. Pour les faire monter d'un cran.</span></h1>
+        <p class="hero-sub">Une formation de six jours, étalés sur cinq à huit semaines — 70&nbsp;% de pratique. Pour des équipes qui passent de l'ancien monde, où on écrit le code à la main, à celui où on donne <strong>une intention</strong>. On vous outille pour faire le geste, ensemble.</p>
         <div class="cta-row">
           <a href="#qualification" class="btn-primary">
-            Vérifier si votre équipe est prête
-            <span class="arrow">→</span>
+            Demander un appel de cadrage
+            <span class="arrow">&rarr;</span>
           </a>
-          <a href="#competences" class="btn-secondary">Voir ce que votre équipe saura faire</a>
+          <a href="#programme" class="btn-secondary">Voir le programme</a>
         </div>
       </div>
       <aside class="hero-visual" aria-hidden="true">
         <div class="code-card">
           <div class="code-card-header">
             <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-            <span class="filename">team/claude.md</span>
+            <span class="filename">hierarchie-intention.md</span>
           </div>
-<pre><span class="h1"># Conventions équipe</span>
+<pre><span class="h1"># Hiérarchie d'intention</span>
 
-<span class="h2">## Palier A — IA assistante</span>
-<span class="c">- autocomplétion uniquement</span>
-<span class="c">- dev valide chaque ligne</span>
+<span class="h2">intention</span>      <span class="c">→ ce que vous voulez</span>
+   ↓
+<span class="h2">décisions &amp; conventions</span> <span class="c">→ comment vous décidez</span>
+   ↓
+<span class="h2">spec</span>           <span class="c">→ ce que la machine doit faire</span>
+   ↓
+<span class="h2">tests</span>          <span class="c">→ la limite objective</span>
+   ↓
+<span class="h2">implémentation</span> <span class="c">→ ce que l'agent produit</span>
 
-<span class="h2">## Palier B — Pair programmer</span>
-<span class="c">- hunks générés, validés</span>
-<span class="c">  au hunk</span>
-
-<span class="h2">## Palier C — IA contributrice</span>
-<span class="c">- PR entière + checklist review</span>
-
-<span class="h2">## Palier D — Boucle autonome</span>
-<span class="c">- branche dédiée, jamais main</span>
-<span class="c">- cap budget + timeout dur</span>
-<span class="c">- rollback testé</span></pre>
+<span class="c">L'agent travaille de bas en haut.</span>
+<span class="c">Vous travaillez de haut en bas.</span>
+<span class="c">La rencontre se fait sur les tests.</span></pre>
         </div>
       </aside>
     </div>
   </div>
 </header>
 
-<!-- Section 1: Pain mirror -->
-<section data-num="01" id="constat">
+<!-- Section 1: Le geste change -->
+<section data-num="01" id="geste">
   <div class="container-narrow">
-    <span class="eyebrow">Le constat</span>
-    <h2>Ce que vous voyez tous les jours.</h2>
-    <ul class="pain-list">
-      <li>
-        <div>
-          <strong>Chaque dev a son outil, ses prompts, ses tricks.</strong>
-          <em>Claude Code, Cursor, Copilot — utilisés en parallèle, jamais comparés. Aucune pratique n'est mutualisée, aucune n'est documentée.</em>
-        </div>
-      </li>
-      <li>
-        <div>
-          <strong>Le code IA passe en review à l'intuition.</strong>
-          <em>Pas de grille de lecture, pas de checklist. Celle d'un senior fatigué, en fin de journée, sur une PR qui « a l'air OK ».</em>
-        </div>
-      </li>
-      <li>
-        <div>
-          <strong>Vous ne savez chiffrer ni les gains, ni les pertes.</strong>
-          <em>Vos seniors doutent, vos juniors foncent, et vous arbitrez à l'aveugle, sans donnée pour trancher.</em>
-        </div>
-      </li>
-      <li>
-        <div>
-          <strong>Le savoir-faire IA marche avec les gens.</strong>
-          <em>Un dev part : il emporte sa pratique. Un dev arrive : il recommence à zéro. Rien ne se transmet, rien ne se capitalise.</em>
-        </div>
-      </li>
-    </ul>
-    <div class="pull-quote">
-      <span>Vous n'avez pas une équipe qui utilise l'IA.</span>
-      <span class="accent">Chaque dev a la sienne — et aucune ne dialogue avec les autres.</span>
-    </div>
+    <span class="eyebrow">Le geste change</span>
+    <h2>On ne tape plus le code. <span class="accent">On donne une intention.</span></h2>
+    <p>C'est le passage qu'aucune formation IA générique n'enseigne vraiment. <strong>L'agent traduit une intention en code</strong>. Le métier du développeur monte d'un cran — il devient celui qui formule, qui cadre, qui valide.</p>
+    <p>Cette montée d'abstraction repose sur une chaîne précise&nbsp;: <strong>intention → décisions structurantes → conventions → spec → tests → implémentation</strong>. Chaque couche en amont rend la suivante possible. Sans décisions documentées ni conventions, pas de spec lisible. Sans spec, pas de test objectif. Sans test, pas d'implémentation fiable. C'est ce qu'on apprend à pratiquer dans le bon ordre.</p>
+    <p>Les pratiques d'ingénierie classiques — DDD, hexagonal, TDD, deep modules — retrouvent toute leur valeur. <strong>Pas comme dogmes architecturaux. Comme outils de réduction de contexte</strong> pour que l'agent fasse bien son travail.</p>
   </div>
 </section>
 
-<!-- Section 2: The trap -->
-<section data-num="02" id="dilemme">
+<!-- Section 2: La place des développeurs — manifesto-grid 2x2 -->
+<section data-num="02" id="place">
   <div class="container-narrow">
-    <span class="eyebrow">Le piège</span>
-    <h2>L'orchestration d'agents <span class="accent">a six mois.</span> La discipline n'existait pas en 2025. Elle s'invente sous vos yeux.</h2>
-    <p class="lead">Deux options se présentent à vous, et aucune n'est acceptable.</p>
-    <div class="dilemma-grid">
-      <div class="dilemma-card">
-        <div class="dilemma-card-label">Option 1</div>
-        <h4>Attendre que ça mûrisse.</h4>
-        <p>Vos concurrents s'y mettent, vos devs s'y mettent en perso, vos juniors s'y forment seuls. Vous prenez six à dix-huit mois de retard, sans option de rattrapage facile.</p>
-      </div>
-      <div class="dilemma-card">
-        <div class="dilemma-card-label">Option 2</div>
-        <h4>Former dans l'urgence, sans cadre.</h4>
-        <p>Bootcamp d'une semaine, formation IA générique, slide deck. Trois semaines plus tard, plus personne ne se souvient de rien. Six mois plus tard, vous avez des PRs IA non reviewées en prod, des secrets exposés, des seniors qui ont perdu confiance dans la review.</p>
-      </div>
-    </div>
-    <p class="third-way">Il y a une troisième voie. C'est la nôtre.</p>
-  </div>
-</section>
+    <span class="eyebrow">La place des développeurs</span>
+    <h2>Pas un déclassement. <span class="accent">Une montée d'un cran.</span></h2>
+    <p class="lead">Cette transformation, qu'est-ce qu'on en pense ? Honnêtement&nbsp;: <strong>plus de positif que de négatif</strong>. Et c'est ce qu'on veut partager — sans naïveté, sans peur, en regardant les deux côtés.</p>
 
-<!-- Section 3: Our posture -->
-<section data-num="03" id="posture">
-  <div class="container-narrow">
-    <span class="eyebrow">Notre posture</span>
-    <h2>L'IA agentique sur le code <span class="accent">a six mois.</span> On ne vous vendra pas dix ans d'expérience.</h2>
-    <p>La discipline n'existait pas avant fin 2025. Elle est devenue praticable quand les modèles ont enfin été capables de tenir un agent sur du vrai code, en autonomie réelle. Personne, sérieusement, ne peut prétendre une décennie d'expérience sur un sujet qui en a six mois.</p>
-    <p>Ce qu'on peut prétendre, en revanche : avoir pris la vague dès qu'elle est devenue viable. On utilise les modèles depuis leur sortie. On met en place des agents pour des clients depuis que la notion d'agent existe. Et on déploie de l'orchestration sur du code en production tous les jours — c'est <strong>notre métier de delivery au quotidien</strong>.</p>
-    <p>Le meilleur modèle change tous les trois mois. C'est la nature du métier en ce moment, et ce n'est pas ce qui doit dicter votre architecture. Tout dev qui se respecte sait qu'une brique se remplace sans casser le reste. Le modèle est une brique. On vous outille pour qu'il le reste.</p>
-    <p>Ce programme, c'est ce savoir-faire opérationnel qu'on transfère à votre équipe. Pas de la théorie sur slides. Les principes qu'on a vus tenir sur de vraies codebases, qui survivent au prochain modèle.</p>
-  </div>
-</section>
+    <div class="manifesto-grid">
 
-<!-- Stats ticker — full-bleed band between Posture and Périmètre -->
-<section class="stats-ticker" aria-label="Repères quantitatifs du programme">
-  <div class="container">
-    <div class="stats-grid">
-      <div class="stat">
-        <div class="stat-num">9</div>
-        <div class="stat-label">erreurs IA classiques</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">5</div>
-        <div class="stat-label">garde-fous non négociables</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">4</div>
-        <div class="stat-label">paliers d'autonomie</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">3</div>
-        <div class="stat-label">terrains couverts</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Section: Périmètre — greenfield / legacy / production -->
-<section data-num="04" id="perimetre">
-  <div class="container">
-    <div class="perimetre-header">
-      <span class="eyebrow">Le périmètre</span>
-      <h2>Greenfield, legacy, production. <span class="accent">Trois terrains, trois enjeux différents.</span></h2>
-      <p class="perimetre-intro">L'IA ne change pas le métier de la même façon selon le moment de la vie d'un code. Sur chacun de ces terrains, ce n'est pas la même équipe qui en sort. Et ce n'est pas la même valeur qui se crée.</p>
-    </div>
-    <div class="scope-stack">
-
-      <div class="scope-row scope-row--left">
-        <div class="scope-card">
-          <div class="scope-card-label">Greenfield</div>
-          <h3>Tout est encore possible.</h3>
-          <p>Le terrain le plus généreux pour l'IA : pas d'historique, pas de dette, aucune contrainte d'existant. C'est aussi là que se forment les automatismes de votre équipe — sa façon de cadrer une demande, de valider une sortie, de garder le contrôle. Bien outillé, c'est là que la pratique se construit. Mal outillé, les mauvais réflexes s'y installent durablement.</p>
-        </div>
-        <div class="scope-quote">
-          <span class="scope-quote-label">L'enjeu</span>
-          <p>C'est là que votre équipe forme ses automatismes — pour des années.</p>
-        </div>
+      <div class="manifesto-cell">
+        <span class="manifesto-num">01</span>
+        <h3>Le métier monte d'un cran.</h3>
+        <p>Coder devenait routinier. Formuler une intention, cadrer un contexte, valider une sortie — c'est plus exigeant, plus créatif, plus proche du sens. <strong>Les développeurs y gagnent.</strong></p>
       </div>
 
-      <div class="scope-row scope-row--right">
-        <div class="scope-quote">
-          <span class="scope-quote-label">L'enjeu</span>
-          <p>L'IA peut tout casser, ou tout démultiplier. Au choix.</p>
-        </div>
-        <div class="scope-card">
-          <div class="scope-card-label">Legacy</div>
-          <h3>Là où votre équipe passe l'essentiel de son temps.</h3>
-          <p>Le terrain le plus dur pour l'IA. Code mal compris par les modèles, conventions tacites, dette qui n'est documentée nulle part. C'est aussi le terrain qui pèse le plus dans votre business. Une IA mal cadrée y casse plus qu'elle ne construit. Bien cadrée, elle devient le levier le plus puissant que vous ayez.</p>
-        </div>
+      <div class="manifesto-cell">
+        <span class="manifesto-num">02</span>
+        <h3>Les pratiques d'ingénierie reprennent toute leur valeur.</h3>
+        <p>DDD, hexagonal, TDD, deep modules. Pas comme dogmes — comme outils pour donner à l'agent un contexte qu'il peut traiter. <strong>Les seniors qui les maîtrisaient vont voir leur expertise revalorisée.</strong></p>
       </div>
 
-      <div class="scope-row scope-row--left">
-        <div class="scope-card">
-          <div class="scope-card-label">Production</div>
-          <h3>Le passage qui change le métier.</h3>
-          <p>On ne code plus avec l'IA — on opère un système qui code à votre place, en partie. Ce n'est plus un outil de dev, c'est une nouvelle catégorie d'infrastructure : à surveiller, à mesurer, à contenir. C'est l'étape qui transforme une équipe — elle ne fait plus le même métier qu'avant.</p>
-        </div>
-        <div class="scope-quote">
-          <span class="scope-quote-label">L'enjeu</span>
-          <p>Une nouvelle catégorie d'infrastructure à opérer — pas un outil de plus.</p>
-        </div>
+      <div class="manifesto-cell">
+        <span class="manifesto-num">03</span>
+        <h3>La review devient l'activité différenciante du senior.</h3>
+        <p>L'agent produit. L'humain arbitre. Reviewer du code IA avec une grille — pas à l'intuition — devient la compétence qui change tout. <strong>C'est un nouveau métier dans le métier.</strong></p>
+      </div>
+
+      <div class="manifesto-cell">
+        <span class="manifesto-num">04</span>
+        <h3>L'intelligence ne coûte plus rien.</h3>
+        <p>Avant, le coût d'écrire 200 lignes obligeait à avoir une vision claire dès le départ. Maintenant, on peut explorer, jeter, recommencer. <strong>C'est un changement de nature de l'activité dev.</strong> Pas une accélération — un autre rapport au code.</p>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- Section 4: Competencies — sticky aside layout -->
-<section data-num="05" id="competences">
+<!-- Section 3: Six modes d'échec — competences-layout (sticky aside) -->
+<section data-num="03" id="modes-echec">
   <div class="container">
     <div class="competences-layout">
       <aside class="competences-aside">
-        <span class="eyebrow">Ce que votre équipe saura faire</span>
-        <h2>Neuf compétences <span class="accent">vérifiables sur votre code.</span></h2>
-        <p class="competences-aside-desc">Pas une liste de modules. Chaque compétence se mesure et se vérifie sur le périmètre cible que vous choisissez en début de programme.</p>
+        <span class="eyebrow">Ce qu'on évite</span>
+        <h2>Six manières de rater le passage. <span class="accent">Six manières de l'éviter.</span></h2>
+        <p class="competences-aside-desc">Le passage à l'IA produit toujours les mêmes accidents. On les a vus chez nos clients, on les a tous traversés. Six grandes catégories — chacune avec sa parade enseignée dans le programme.</p>
       </aside>
       <div class="competencies">
 
       <div class="competency">
         <div class="competency-number">01</div>
-        <h3>Cadrer le contexte donné à l'IA.</h3>
-        <p>Vos devs sauront pourquoi un même prompt produit du code propre dans un module isolé et de la bouillie dans un repo en vrac. Ils sauront comment préparer un périmètre pour qu'il soit orchestrable.</p>
+        <h3>Intention non captée.</h3>
+        <p>L'agent produit du code plausible qui ne réalise pas ce que vous vouliez.</p>
       </div>
 
       <div class="competency">
         <div class="competency-number">02</div>
-        <h3>Décider à quel niveau d'autonomie laisser tourner un agent.</h3>
-        <p>Quatre paliers, des critères de bascule explicites, et — surtout — savoir <strong>redescendre</strong> quand le contexte ne s'y prête pas. Pas d'autonomie par espoir.</p>
+        <h3>Qualité de codebase.</h3>
+        <p>Surcomplexité, duplication, conventions tacites violées. La codebase se charge en silence.</p>
       </div>
 
       <div class="competency">
         <div class="competency-number">03</div>
-        <h3>Reviewer du code IA avec une grille, pas à l'intuition.</h3>
-        <p>Vos seniors connaîtront les neuf erreurs IA classiques, les trois biais qui les font passer en review, et la différence entre une review humaine et une review IA-par-IA — qui sont complémentaires, pas substituables.</p>
+        <h3>Véracité.</h3>
+        <p>Hallucinations d'API, conseils sécurité confiants et faux, doc qui dérive du code.</p>
       </div>
 
       <div class="competency">
         <div class="competency-number">04</div>
-        <h3>Mesurer la transformation.</h3>
-        <p>Vous aurez des chiffres avant / après opposables à un board. Vous saurez si l'équipe est plus rapide. Vous saurez aussi quand la productivité ressentie diverge de la productivité mesurée — et ce que ça veut dire.</p>
+        <h3>Confiance déplacée.</h3>
+        <p>Tests qui passent sans rien tester, code « qui a l'air bon » qui passe en review à l'intuition.</p>
       </div>
 
       <div class="competency">
         <div class="competency-number">05</div>
-        <h3>Documenter la pratique pour qu'elle se transmette.</h3>
-        <p>Un <code>claude.md</code> d'équipe vivant, des conventions écrites, une gouvernance formalisée. Le savoir-faire IA reste dans l'équipe quand un dev part.</p>
+        <h3>Opérationnel.</h3>
+        <p>Coût qui explose, fuites de secrets, dépendances vulnérables introduites silencieusement.</p>
       </div>
 
       <div class="competency">
         <div class="competency-number">06</div>
-        <h3>Maîtriser le vocabulaire d'industrie.</h3>
-        <p>Slash commands, MCP, skills, hooks — les primitives sont devenues cross-tool. Votre équipe parle ce langage indépendamment de l'outil retenu, et choisit ses outils sur des critères, pas sur le buzz.</p>
-      </div>
-
-      <div class="competency">
-        <div class="competency-number">07</div>
-        <h3>Instrumenter la chaîne de fabrication.</h3>
-        <p>Comme vous instrumentez la prod. Vous voyez ce que les agents font, ce que ça coûte, où ils dérapent — et vous corrigez la pratique d'équipe en conséquence.</p>
-      </div>
-
-      <div class="competency">
-        <div class="competency-number">08</div>
-        <h3>Déployer de l'orchestration semi-autonome avec garde-fous.</h3>
-        <p>Branche dédiée, cap de coût, timeout, review humaine obligatoire, rollback testé. Cinq garde-fous non négociables. C'est ce qui sépare une boucle qui apporte de la valeur d'une boucle qui finit dans un post-mortem.</p>
-      </div>
-
-      <div class="competency">
-        <div class="competency-number">09</div>
-        <h3>Faire progresser sa pratique sans nous.</h3>
-        <p>Boucles de compounding sur l'agent, la codebase, l'observabilité, l'équipe. Quand on s'en va, l'équipe s'améliore d'elle-même.</p>
+        <h3>Humain.</h3>
+        <p>Atrophie senior par fatigue de review, dépendance junior à l'outil, ressenti +20&nbsp;% / mesuré −20&nbsp;%.</p>
       </div>
 
       </div>
@@ -1666,61 +1803,62 @@
   </div>
 </section>
 
-<!-- Section 5 bis: Douze étapes du cycle de dev -->
-<section data-num="06" id="etapes">
-  <div class="container">
-    <div class="perimetre-header">
-      <span class="eyebrow">Treize étapes, pas une seule</span>
-      <h2>La plupart des équipes utilisent l'IA <span class="accent">sur une seule étape — le codage.</span></h2>
-      <p class="perimetre-intro">Elles ratent les trois quarts des gains possibles, et accumulent des angles morts sur les étapes où l'IA est précisément la plus utile — et la plus dangereuse. Le programme couvre <strong>treize étapes du cycle de dev</strong> où l'IA apporte de la valeur, regroupées en quatre phases. À chaque étape, un palier d'autonomie dominant et un piège-type à neutraliser.</p>
-    </div>
-    <div class="scope-stack">
+<!-- Section 4: Le programme — timeline (version single-side) -->
+<section data-num="04" id="programme">
+  <div class="container-narrow">
+    <span class="eyebrow">Le programme</span>
+    <h2>Six modules. <span class="accent">Cinq à huit semaines. 70 % de pratique.</span></h2>
+    <p class="lead">Pas de slide deck à présenter à un comité. Du contenu pur, des exercices fil rouge sur des <strong>codebases qu'on fournit</strong> — un greenfield, un legacy, un projet de production.</p>
+  </div>
 
-      <div class="scope-row scope-row--left">
-        <div class="scope-card">
-          <div class="scope-card-label">En amont du code</div>
-          <h3>Spec, recherche, conception, architecture.</h3>
-          <p>L'étape la plus sous-exploitée par les équipes — celle où l'IA évite le plus de coût en aval. Désambiguïser un besoin, explorer l'état de l'art, esquisser plusieurs designs en parallèle, instrumenter une décision d'architecture. C'est là que se gagnent les semaines en aval, ou qu'on se condamne à des arbitrages flous tout le reste du projet.</p>
-        </div>
-        <div class="scope-quote">
-          <span class="scope-quote-label">L'enjeu</span>
-          <p>L'IA est meilleure pour t'aider à formuler une question que pour répondre à une question mal formulée.</p>
+  <div class="container-narrow">
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-marker">Sem. 1</div>
+        <div class="timeline-content">
+          <h3>Module 1 — Cadrage &amp; sens</h3>
+          <p>Pourquoi la transition. La place du dev. La hiérarchie d'intention. <strong>Mesure baseline</strong>, qu'on rejouera à la fin et trois mois après.</p>
         </div>
       </div>
 
-      <div class="scope-row scope-row--right">
-        <div class="scope-quote">
-          <span class="scope-quote-label">L'enjeu</span>
-          <p>Le palier d'autonomie change de tâche en tâche. La discipline aussi.</p>
-        </div>
-        <div class="scope-card">
-          <div class="scope-card-label">Pendant le développement</div>
-          <h3>Codage, tests, review, debug, documentation.</h3>
-          <p>Le cœur quotidien. C'est là que les paliers d'autonomie A→D s'enseignent explicitement, et que la compétence de <strong>review IA-spécifique</strong> devient l'activité la plus différenciante d'un senior. Une PR IA autonome sur de la doc, oui ; sur du code de paiement, jamais sans revue hunk par hunk. Vos devs apprennent à arbitrer.</p>
+      <div class="timeline-item">
+        <div class="timeline-marker">Sem. 2</div>
+        <div class="timeline-content">
+          <h3>Module 2 — Fondations IA-natives</h3>
+          <p>Prompt engineering vs context engineering. Les trois couches de contexte (tacite, technique, stratégique). Architecture orientée agent. Tests revisités (TDD, mutation, property-based).</p>
         </div>
       </div>
 
-      <div class="scope-row scope-row--left">
-        <div class="scope-card">
-          <div class="scope-card-label">Sur le legacy</div>
-          <h3>Refactor en confiance, capitalisation de l'historique.</h3>
-          <p>Characterization tests pour figer le comportement actuel avant de toucher à quoi que ce soit. Codebook synthétique pour donner à l'IA le contexte que dix ans de bug fixes ont enseigné à votre équipe. L'orchestration permet enfin de toucher au legacy <strong>avec un filet de sécurité</strong> — celui que les équipes n'avaient pas avant.</p>
-        </div>
-        <div class="scope-quote">
-          <span class="scope-quote-label">L'enjeu</span>
-          <p>L'IA refactor en simplifiant ce qu'elle ne comprend pas. C'est exactement ce qu'il ne faut pas la laisser faire.</p>
+      <div class="timeline-item">
+        <div class="timeline-marker">Sem. 4</div>
+        <div class="timeline-content">
+          <h3>Module 3 — Greenfield</h3>
+          <p>Spec-first vs explore-first. Itérations parallèles autorisées. <strong>Quand prototyper, quand cadrer.</strong></p>
         </div>
       </div>
 
-      <div class="scope-row scope-row--right">
-        <div class="scope-quote">
-          <span class="scope-quote-label">L'enjeu</span>
-          <p>Là où l'IA donne des conseils plausibles et faux si on ne les vérifie pas.</p>
+      <div class="timeline-item">
+        <div class="timeline-marker">Sem. 5</div>
+        <div class="timeline-content">
+          <h3>Module 4 — Legacy</h3>
+          <p>Audit de codebase, characterization tests (Feathers), refactor guidé par churn × complexité (Tornhill). C'est là que se joue <strong>80&nbsp;% du temps des équipes établies</strong>.</p>
         </div>
-        <div class="scope-card">
-          <div class="scope-card-label">En opérationnel</div>
-          <h3>Sécurité, déploiement et CI/CD, observabilité.</h3>
-          <p>Là où les garde-fous ne sont pas négociables. Audit de patterns à risque, génération de pipelines, queries d'observabilité, formulation d'hypothèses d'incident. L'IA accélère — mais sur la sécurité et la prod, jamais elle ne décide. Cinq garde-fous non négociables sur la boucle semi-autonome déployée : branche dédiée, cap de coût, timeout, review humaine, rollback testé.</p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-marker">Sem. 7</div>
+        <div class="timeline-content">
+          <h3>Module 5 — Review &amp; qualité</h3>
+          <p>Six modes d'échec, grille de review IA-spécifique, journal d'erreurs détectées. <strong>La compétence qui change le métier du senior.</strong></p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-marker">Sem. 8</div>
+        <div class="timeline-content">
+          <h3>Module 6 — Production, perf, multi-agent</h3>
+          <p>Observabilité LLM + applicative, méta-observation, garde-fous, multi-agent (et quand <em>ne pas</em> l'utiliser — 80&nbsp;% des cas un agent unique suffit).</p>
         </div>
       </div>
 
@@ -1728,103 +1866,56 @@
   </div>
 </section>
 
-<!-- Section 6: How we work — sur-mesure -->
-<section data-num="07" id="format">
-  <div class="container">
-    <div class="format-header">
-      <span class="eyebrow">Comment on travaille avec vous</span>
-      <h2>Pas un programme. Un savoir-faire qu'on adapte <span class="accent">à votre équipe.</span></h2>
-      <p class="format-intro">Vous n'êtes pas au même stade qu'une autre équipe. Vos contraintes ne sont pas les mêmes, votre codebase non plus, vos pratiques actuelles non plus. Notre rôle, c'est de construire avec vous le programme qui fait monter votre équipe en compétence — depuis là où elle est, vers là où vous voulez l'amener.</p>
-    </div>
-
-    <div class="formats-grid">
-
-      <div class="format-card">
-        <div class="format-card-tier">
-          Format 1
-          <span class="dots">
-            <span class="dot on"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-          </span>
-        </div>
-        <h3>Formation</h3>
-        <p>Pour ancrer les fondamentaux sans bouleverser le quotidien. Sessions structurées, blocs courts, périmètre cadré. Le format classique, repensé pour notre sujet.</p>
-        <div class="format-tagline">Idéal pour démarrer.</div>
-      </div>
-
-      <div class="format-card">
-        <div class="format-card-tier">
-          Format 2
-          <span class="dots">
-            <span class="dot on"></span>
-            <span class="dot on"></span>
-            <span class="dot"></span>
-          </span>
-        </div>
-        <h3>Rituel quotidien</h3>
-        <p>Pour basculer durablement la pratique de l'équipe. Capsule courte chaque jour ouvré, mise en pratique immédiate sur votre code, atelier collectif hebdomadaire pour les blocs de fond. La répétition fait la transformation.</p>
-        <div class="format-tagline">Idéal pour transformer la pratique.</div>
-      </div>
-
-      <div class="format-card">
-        <div class="format-card-tier">
-          Format 3
-          <span class="dots">
-            <span class="dot on"></span>
-            <span class="dot on"></span>
-            <span class="dot on"></span>
-          </span>
-        </div>
-        <h3>Transformation</h3>
-        <p>Pour installer une nouvelle façon de travailler en profondeur. Accompagnement étendu sur plusieurs mois, méta-observation continue, gouvernance d'équipe formalisée. Notre format le plus engagé.</p>
-        <div class="format-tagline">Idéal pour ancrer une nouvelle culture tech.</div>
-      </div>
-
-    </div>
-
-    <p class="format-pricing-note">Le format se choisit en appel de qualification — pas dans un catalogue. Le prix s'aligne sur ce qu'on construit ensemble.</p>
+<!-- Section 5: La mesure -->
+<section data-num="05" id="mesure">
+  <div class="container-narrow">
+    <span class="eyebrow">La mesure</span>
+    <h2>Cinq à sept métriques. <span class="accent">Avant. Après.</span></h2>
+    <p>DORA-like (lead time, change failure rate, MTTR), métriques IA-spécifiques (taux d'acceptation, coût par feature, taux de revert post-IA), qualité (bugs en sortie de review, taux de tautologie sur les tests générés). <strong>Cinq à sept indicateurs choisis avec vous, pas un tableau de cinquante.</strong></p>
+    <p>Le ressenti des équipes diverge souvent du mesuré (+20&nbsp;% perçu, −20&nbsp;% réel sur certains protocoles d'étude). On vous donne les deux, et on vous apprend à les lire ensemble. <strong>Vous présentez le résultat à votre direction, pas une opinion.</strong></p>
   </div>
 </section>
 
-<!-- Section 7: Who for -->
-<section data-num="08" id="audience">
+<!-- Section 6: Pour qui -->
+<section data-num="06" id="audience">
   <div class="container-narrow">
     <span class="eyebrow">Pour qui</span>
-    <h2>Le programme est calibré. Tout le monde n'est pas la bonne cible — <span class="accent">et c'est tant mieux.</span></h2>
+    <h2>Conçu pour les équipes tech. <span class="accent">Ouvert au leadership.</span></h2>
     <div class="audience-grid">
       <div class="audience-block include">
         <h3>Pour vous, si</h3>
         <ul class="audience-list">
-          <li>Vous êtes CTO ou dirigeant tech, avec un sponsor côté direction.</li>
-          <li>Votre équipe compte 4 à 12 développeurs, à dominante senior.</li>
-          <li>Votre codebase est connue de votre équipe, avec des tests, une CI, une observabilité minimale.</li>
-          <li>Vous voulez une pratique d'équipe, pas un dev individuel formé en BtoC.</li>
+          <li>Vous êtes CTO, dirigeant tech, ou tech lead, avec un sponsor côté direction.</li>
+          <li>Votre équipe compte au moins 4 développeurs, à dominante senior.</li>
+          <li>Votre codebase a tests, CI, observabilité minimale (sinon&nbsp;: on commence par auditer).</li>
+          <li>Vous voulez <strong>outiller vos développeurs et leur donner leur place</strong> dans cette transformation.</li>
         </ul>
       </div>
       <div class="audience-block exclude">
         <h3>Pas pour vous, si</h3>
         <ul class="audience-list">
           <li>Votre équipe est très junior, sans senior pour porter les conventions.</li>
-          <li>Votre codebase n'a ni tests ni CI — il faut commencer par là.</li>
-          <li>Vous cherchez un slide deck à présenter à un comité, pas une transformation.</li>
-          <li>Vous voulez « l'IA qui code à votre place » — ce n'est pas ce qu'on vend.</li>
+          <li>Votre codebase est zombie, sans tests ni CI. Il faut commencer par là.</li>
+          <li>Vous voulez « l'IA qui code à votre place ». Ce n'est pas ce qu'on vend, et ce n'est pas ce qui marche.</li>
+          <li>Vous cherchez un slide deck pour un comité. Notre matière, c'est la pratique.</li>
         </ul>
       </div>
     </div>
-    <p class="qualification-note">Avant de signer, on fait un appel de qualification. Si votre équipe n'est pas prête, on vous le dit franchement plutôt que d'enclencher un programme qui n'apportera rien.</p>
+    <p class="qualification-note"><strong>Variante exécutive.</strong> Format condensé d'un à deux jours pour CTO et leadership&nbsp;: cadrage, six modes d'échec, mesure, posture. Sans la pratique technique, mais avec les arbitrages structurants. À demander en appel de cadrage.</p>
   </div>
 </section>
 
-<!-- Section 8: Who we are -->
-<section data-num="09" id="qui">
+<!-- Section 7: Pourquoi nous -->
+<section data-num="07" id="qui">
   <div class="container-narrow">
-    <span class="eyebrow">Qui on est</span>
-    <h2>On code avec l'IA tous les jours. <span class="accent">Ce n'est pas un side-project.</span></h2>
+    <span class="eyebrow">Pourquoi nous</span>
+    <h2>On code avec l'IA tous les jours. <span class="accent">C'est ce qu'on transmet.</span></h2>
+    <p>La discipline de l'orchestration d'agents sur le code a six mois. Personne ne peut prétendre dix ans d'expérience sur un sujet qui en a six — pas nous, pas eux. <strong>Ce qu'on a, c'est la pratique quotidienne</strong> sur le code de nos clients. C'est notre métier de delivery au jour le jour.</p>
+    <p>La méthode qu'on transfère ici est extraite de ce qu'on observe sur le terrain. Choix d'architecture, garde-fous, modes d'échec, mitigations. <strong>Pas de la théorie sur slides — du contenu pur.</strong></p>
+    <p>Il y a plus de positif que de négatif dans cette transformation. <strong>C'est ce qu'on veut partager.</strong> Pas en niant les pièges — en les nommant pour mieux les éviter.</p>
     <div class="who-card">
       <p class="who-name">Thibault Roussel — Automatik <span class="accent">by Zenith</span>.</p>
-      <p>On met en place de l'orchestration d'agents sur le code de nos clients. C'est notre métier de delivery au quotidien. Ce qu'on a appris sur le terrain — choix d'architecture, garde-fous, rituels d'équipe, pièges — c'est ce qu'on transfère ici.</p>
-      <p style="margin-top: 1em;">On documente ce qu'on voit, on partage ce qui tient, on assume ce qu'on ignore encore. C'est ce qu'on fait à plein temps.</p>
+      <p>On documente ce qu'on voit, on partage ce qui tient, on assume ce qu'on ignore encore. <strong>Quatre cohortes par trimestre, pas plus.</strong></p>
     </div>
   </div>
 </section>
@@ -1832,19 +1923,19 @@
 <!-- Final CTA -->
 <section class="final-cta" id="qualification">
   <div class="container-narrow">
-    <span class="eyebrow">Appel de qualification</span>
-    <h2>Vérifier si votre équipe est <span class="accent">prête.</span></h2>
-    <p>Un appel de 30 minutes. Pas de pitch commercial. On regarde ensemble votre équipe, votre codebase, vos contraintes. À la sortie, on vous dit franchement si le programme a du sens pour vous — ou pas.</p>
+    <span class="eyebrow">Appel de cadrage</span>
+    <h2>Voir si le passage <span class="accent">est pour votre équipe.</span></h2>
+    <p>Trente minutes. Pas de pitch. On regarde votre équipe, votre codebase, vos contraintes. À la sortie, vous savez si le programme a du sens pour vous — et sous quelle forme — ou pas.</p>
     <a href="#" class="btn-primary">
       Réserver un créneau
-      <span class="arrow">→</span>
+      <span class="arrow">&rarr;</span>
     </a>
   </div>
 </section>
 
 <footer>
   <p>Automatik by Zenith — Thibault Roussel</p>
-  <p>Programme de transformation IA pour équipes tech</p>
+  <p>Une formation pour faire monter les développeurs d'un cran dans l'abstraction</p>
 </footer>
 
 <script>
