@@ -293,17 +293,8 @@
     border: 1px solid hsl(var(--primary) / 0.2);
     width: fit-content;
     max-width: 100%;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  @media (max-width: 720px) {
-    .hero-eyebrow {
-      white-space: normal;
-      flex-wrap: wrap;
-    }
+    flex-wrap: wrap;
+    line-height: 1.5;
   }
 
   .hero-eyebrow::before {
