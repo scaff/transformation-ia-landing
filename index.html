@@ -215,12 +215,24 @@
 
   .brand {
     display: flex;
-    align-items: baseline;
-    gap: 8px;
+    align-items: center;
+    gap: 10px;
     font-size: 17px;
     font-weight: 600;
     color: hsl(var(--foreground));
     letter-spacing: -0.01em;
+  }
+
+  .brand-logo {
+    height: 28px;
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .brand-text {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
   }
 
   .brand .by {
@@ -1507,11 +1519,14 @@
 
 <nav id="nav">
   <div class="container">
-    <div class="brand">
-      Automatik
-      <span class="by">by</span>
-      <span class="zenith">Zenith</span>
-    </div>
+    <a href="#" class="brand" style="text-decoration:none;color:inherit;">
+      <img src="logo-zenith.svg" alt="Zenith" class="brand-logo">
+      <span class="brand-text">
+        Automatik
+        <span class="by">by</span>
+        <span class="zenith">Zenith</span>
+      </span>
+    </a>
     <a href="mailto:thibault@automatik-by-zenith.com?subject=Atelier%20Transformation%20IA%20%E2%80%94%20Appel%20de%20cadrage" class="nav-cta">Écrire pour un appel</a>
   </div>
 </nav>
@@ -1926,23 +1941,37 @@
 
     <div class="faq-list">
       <details class="faq-item" open>
-        <summary>Présentiel ou distanciel&nbsp;?</summary>
+        <summary>Combien ça coûte&nbsp;?</summary>
         <div class="faq-item-content">
-          <strong>Distanciel uniquement.</strong> Le format est conçu pour le distanciel — pas de perte pédagogique, et la logistique reste simple côté équipe comme côté formateur.
+          <strong>9 000 € HT en offre de lancement</strong> (au lieu de 12 000 € HT), pour la cohorte complète : 4 à 8 développeurs, 6 jours étalés sur 6 à 8 semaines, distanciel intra-entreprise. Tarif valable pour les premières cohortes, places limitées.
         </div>
       </details>
 
       <details class="faq-item" open>
+        <summary>En quoi vous différez d'un cabinet de conseil tech qui ajoute l'IA à son catalogue&nbsp;?</summary>
+        <div class="faq-item-content">
+          Octo, Theodo, Zenika vont tous sortir leur offre IA. Ils adaptent leur pratique de delivery classique à l'IA. Nous, c'est l'inverse&nbsp;: on code IA-natif tous les jours, sur nos propres outils, depuis six mois. La méthode qu'on transmet, on l'a apprise en la pratiquant, pas en interviewant des clients qui pratiquent. C'est notre métier au quotidien, pas une ligne ajoutée à un catalogue.
+        </div>
+      </details>
+
+      <details class="faq-item" open>
+        <summary>Présentiel ou distanciel&nbsp;?</summary>
+        <div class="faq-item-content">
+          <strong>Distanciel par choix.</strong> On met le budget dans la matière, pas dans le déplacement. Et l'étalement sur 6 à 8 semaines bat structurellement le bootcamp en salle&nbsp;: pas de fatigue marathon, pratique sur votre vraie codebase entre les sessions, cohorte de 4 à 8 devs où personne ne se cache derrière la caméra.
+        </div>
+      </details>
+
+      <details class="faq-item">
         <summary>Quelle taille d'équipe&nbsp;?</summary>
         <div class="faq-item-content">
-          4 à 8 développeurs par cohorte. En dessous, on perd la dynamique de groupe et le coût/personne devient prohibitif. Au-dessus, la pratique guidée perd en qualité.
+          4 à 8 développeurs par cohorte. En dessous de 4, on perd la dynamique de groupe et le coût par personne n'a plus de sens. Au-dessus de 8, la pratique guidée perd en qualité. Si vous avez 3 développeurs ou moins, ce programme n'est pas pour vous&nbsp;: il faut attendre une cohorte inter-entreprise (en projet, pas encore datée), ou viser la variante exécutive 1 à 2 jours.
         </div>
       </details>
 
       <details class="faq-item">
         <summary>Quels prérequis techniques&nbsp;?</summary>
         <div class="faq-item-content">
-          Stack moderne (Git, CI, tests), au moins un senior dans l'équipe, accès à un assistant IA (Claude Code, Cursor, Copilot ou équivalent). On adapte au stack — pas au framework du mois.
+          Stack moderne (Git, CI, tests), équipe à dominante senior, accès à un assistant IA (Claude Code, Cursor, Copilot ou équivalent). On adapte au stack, pas au framework du mois.
         </div>
       </details>
 
@@ -1956,21 +1985,14 @@
       <details class="faq-item">
         <summary>Quel est le délai entre l'appel de cadrage et le démarrage&nbsp;?</summary>
         <div class="faq-item-content">
-          4 à 8 semaines en moyenne. Pour les premières cohortes en offre de lancement, on peut démarrer plus vite si vos disponibilités sont alignées — calendrier calé dès l'appel.
+          4 à 8 semaines en moyenne. Pour les premières cohortes en offre de lancement, on peut démarrer plus vite si vos disponibilités sont alignées. Calendrier calé dès l'appel.
         </div>
       </details>
 
       <details class="faq-item">
         <summary>Que se passe-t-il après la formation&nbsp;?</summary>
         <div class="faq-item-content">
-          Vos seniors ont la méthode et la grille de review. On propose un suivi optionnel (1 demi-journée/mois pendant 3 mois) pour les cas durs et les ajustements. Pas obligatoire.
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>Combien ça coûte&nbsp;?</summary>
-        <div class="faq-item-content">
-          <strong>9 000 € HT en offre de lancement</strong> (au lieu de 12 000 € HT), pour la cohorte complète : 4 à 8 développeurs, 6 jours étalés sur 6 à 8 semaines, format distanciel intra-entreprise. Tarif valable pour les premières cohortes ; places limitées.
+          Vos seniors ont la méthode et la grille de review. On propose un suivi optionnel&nbsp;: 1 demi-journée par mois pendant 3 mois, pour les cas durs et les ajustements, à <strong>2 500 € HT</strong>. Pas obligatoire, beaucoup d'équipes se débrouillent seules.
         </div>
       </details>
     </div>

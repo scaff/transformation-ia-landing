@@ -134,7 +134,8 @@
     font-size: 10pt;
     letter-spacing: 0.04em;
   }
-  .cover-top .brand { font-size: 14pt; font-weight: 600; letter-spacing: -0.01em; }
+  .cover-top .brand { font-size: 14pt; font-weight: 600; letter-spacing: -0.01em; display: inline-flex; align-items: center; gap: 12px; }
+  .cover-brand-logo { height: 40px; width: auto; flex-shrink: 0; }
   .cover-top .brand .by { font-weight: 400; color: hsl(var(--muted-foreground)); margin: 0 4px; }
   .cover-top .brand .zenith {
     color: hsl(45 95% 42%);
@@ -291,22 +292,23 @@
     color: hsl(var(--muted-foreground));
   }
 
-  /* Vue d'ensemble 5 axes — grid */
+  /* Vue d'ensemble 5 axes — stack vertical (print-safe) */
   .axes-overview {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
     margin-top: 16px;
   }
   .axe-overview-card {
     border: 1px solid hsl(var(--border));
     border-top: 3px solid hsl(var(--primary));
     border-radius: 4px;
-    padding: 14px 16px;
+    padding: 12px 16px;
     background: white;
+    margin-bottom: 10px;
+    page-break-inside: avoid;
+  }
+  .axe-overview-card:last-child {
+    margin-bottom: 0;
   }
   .axe-overview-card.featured {
-    grid-column: 1 / -1;
     background: hsl(var(--primary) / 0.04);
   }
   .axe-overview-card .num {
@@ -761,7 +763,7 @@
 <!-- ============= PAGE 1 — COUVERTURE ============= -->
 <section class="page cover">
   <div class="cover-top">
-    <div class="brand">Automatik <span class="by">by</span><span class="zenith">Zenith</span></div>
+    <div class="brand"><img src="logo-zenith.svg" alt="" class="cover-brand-logo"><span>Automatik <span class="by">by</span><span class="zenith">Zenith</span></span></div>
     <div class="doc-type">Programme · 2026</div>
   </div>
 
@@ -919,27 +921,14 @@
     <span class="section-eyebrow">Axe 1 sur 5</span>
     <h2>Quatre paliers d'autonomie. <span class="accent">D'IA assistante à boucle semi-autonome.</span></h2>
 
-    <p>Le palier d'autonomie répond à la question : <strong>qui décide à quoi ?</strong> À chaque grain de décision (la ligne, le hunk, la PR), c'est soit le développeur, soit l'IA. Quatre paliers progressifs, qu'on installe l'un après l'autre.</p>
-
-    <table class="data">
-      <thead>
-        <tr><th>Palier</th><th>Nom</th><th>À la ligne</th><th>Au hunk</th><th>À la PR</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="palier">A</td><td>IA assistante</td><td>Dev</td><td>Dev</td><td>Dev</td></tr>
-        <tr><td class="palier">B</td><td>IA pair programmer</td><td>IA propose / Dev valide</td><td>Dev</td><td>Dev</td></tr>
-        <tr><td class="palier">C</td><td>IA contributrice</td><td>IA</td><td>IA</td><td>Dev (review)</td></tr>
-        <tr><td class="palier">D</td><td>IA en boucle semi-autonome</td><td>IA</td><td>IA</td><td>IA propose / Dev supervise résultat</td></tr>
-      </tbody>
-    </table>
+    <p>Le palier d'autonomie répond à la question : <strong>qui décide ?</strong> Quatre paliers progressifs, du développeur pilote à la boucle semi-autonome, qu'on installe l'un après l'autre.</p>
 
     <div class="palier-card">
       <div class="palier-card-header">
-        <div class="palier-card-title">Palier A — IA assistante (suggest only)</div>
+        <div class="palier-card-title">Palier A — IA assistante</div>
         <div class="palier-card-tag">Palier A</div>
       </div>
-      <p>Suggestions uniquement, le dev valide chaque ligne. L'IA est un correcteur orthographique de code. Le dev est pilote.</p>
-      <div class="meta"><strong>Outils</strong>Copilot inline, Cursor en mode tab. <strong>Risque</strong>Sous-utilisation, dev qui n'apprend jamais à laisser l'IA prendre la main.</div>
+      <p>L'IA suggère, le dev valide chaque ligne. C'est le palier d'entrée : l'IA tient le rôle d'un correcteur orthographique de code, le dev reste pilote.</p>
     </div>
 
     <div class="palier-card">
@@ -947,17 +936,15 @@
         <div class="palier-card-title">Palier B — IA pair programmer</div>
         <div class="palier-card-tag">Palier B</div>
       </div>
-      <p>L'IA génère des hunks ou fonctions entières, le dev valide chaque hunk. Le dev cadre la demande, l'IA produit, le dev arbitre.</p>
-      <div class="meta"><strong>Outils</strong>Cursor / Claude Code en chat-to-edit. <strong>Compétences clés</strong>Décomposition de tâche, prompt cadré, review fine.</div>
+      <p>L'IA génère du code à plus grande échelle, fonctions ou méthodes entières. Le dev cadre la demande, l'IA produit, le dev arbitre à chaque étape.</p>
     </div>
 
     <div class="palier-card">
       <div class="palier-card-header">
-        <div class="palier-card-title">Palier C — IA contributrice (PR entière)</div>
+        <div class="palier-card-title">Palier C — IA contributrice</div>
         <div class="palier-card-tag">Palier C</div>
       </div>
-      <p>L'IA produit une PR entière, le dev review en sortie. <strong>Bascule pédagogique majeure</strong> : la review du code IA devient distincte de la review classique. C'est l'activité qui change radicalement le quotidien d'un senior.</p>
-      <div class="meta"><strong>Outils</strong>Claude Code autonome, agent custom orchestré. <strong>Compétences clés</strong>Taxonomie des erreurs IA, biais de plausibilité, checklist IA-spécifique.</div>
+      <p>L'IA produit une pull request entière, le dev review en sortie. Bascule majeure : la review du code IA devient une activité distincte de la review classique, et c'est ce qui change radicalement le quotidien d'un senior.</p>
     </div>
   </div>
 
@@ -979,24 +966,14 @@
         <div class="palier-card-title">Palier D — IA en boucle semi-autonome</div>
         <div class="palier-card-tag">Palier D</div>
       </div>
-      <p>L'agent itère seul (planifie, code, teste, corrige). Supervision sur le <strong>résultat</strong> et les <strong>métriques</strong>, pas sur les étapes intermédiaires.</p>
-      <div class="meta"><strong>Périmètre</strong>Un module ou une slice cadrée du code client.</div>
-      <div class="meta" style="margin-top:8px;"><strong>Garde-fous non négociables</strong>Branche dédiée jamais sur main · Cap de coût par run · Timeout dur · Review humaine obligatoire · Rollback testé une fois pour de vrai.</div>
+      <p>L'agent itère seul (planifie, code, teste, corrige). La supervision se déplace : le dev ne regarde plus les étapes intermédiaires, il valide le résultat et les métriques.</p>
     </div>
 
-    <h3 style="margin-top:18px;">Critères de bascule entre paliers</h3>
-    <ul class="clean">
-      <li><strong>A → B</strong> : le dev a un <code>claude.md</code> personnel fonctionnel et a accepté/rejeté consciemment 20+ hunks IA.</li>
-      <li><strong>B → C</strong> : le dev a produit une PR de bout en bout en mode pair, avec tests, qui passe la review d'un pair humain sans modification majeure.</li>
-      <li><strong>C → D</strong> : l'équipe a un périmètre cadré, des invariants métier couverts par tests, un codebook synthétique, et les garde-fous palier D installés.</li>
-    </ul>
-
-    <h3 style="margin-top:14px;">Pourquoi c'est un axe et pas une compétence</h3>
-    <p>Le palier d'autonomie n'est pas un outil ni une posture — c'est <strong>la décision principale</strong> qu'une équipe prend, par tâche et par contexte. La même équipe peut être en palier B sur le code de paiement, en C sur les CRUD, en D sur les renames. Choisir le palier juste, c'est l'arbitrage permanent du métier qui change.</p>
+    <p style="margin-top:18px;">Dans le programme, on travaille pour chaque palier <strong>les outils adaptés</strong> (de l'autocomplétion inline à l'agent autonome avec garde-fous) et <strong>les critères de bascule</strong> qui permettent de passer d'un palier au suivant sans accident.</p>
 
     <div class="programme-link">
       <div class="label">Où on voit ça dans le programme</div>
-      <p>L'axe est traversé du début à la fin. <span class="module-tag">Jour 1</span> introduction du palier A et premier passage <em>suggest only</em>. <span class="module-tag">Jour 2</span> et <span class="module-tag">Jour 3</span> consolidation du palier B sur hunks puis greenfield. <span class="module-tag">Jour 4</span> palier B en contexte legacy — le plus exigeant. <span class="module-tag">Jour 5</span> bascule au palier C avec la grille de review IA-spécifique. <span class="module-tag">Jour 6</span> mise en place d'une boucle semi-autonome au palier D, avec ses garde-fous non négociables.</p>
+      <p>L'axe est traversé du début à la fin. <span class="module-tag">Jour 1</span> introduction du palier A. <span class="module-tag">Jour 2</span> et <span class="module-tag">Jour 3</span> consolidation du palier B en pair programming puis sur greenfield. <span class="module-tag">Jour 4</span> palier B en contexte legacy, le plus exigeant. <span class="module-tag">Jour 5</span> bascule au palier C avec la grille de review IA-spécifique. <span class="module-tag">Jour 6</span> mise en place d'une boucle semi-autonome au palier D, avec ses garde-fous non négociables.</p>
     </div>
   </div>
 
@@ -1054,26 +1031,16 @@
   </div>
 
   <div class="page-content">
-    <h3>La phase amont — le retour en grâce</h3>
-    <p>Avant qu'une ligne de code soit écrite, l'IA peut être un <strong>partenaire de cadrage</strong> qui interroge le besoin, fait remonter les ambiguïtés non résolues, propose plusieurs designs alternatifs en parallèle. Le passage <em>besoin → spec → décomposition</em> devient un dialogue, pas un monologue. <strong>Piège dominant</strong> : les sorties IA sont plausibles et complètes en apparence, mais lisses sur les cas limites — précisément ceux qui contiennent les bugs et les choix coûteux.</p>
-
-    <h3>La phase développement — le cœur du gain mesurable</h3>
-    <p>C'est là que les paliers A → D prennent tout leur sens. Génération de code à différents grains, tests, review, debug. <strong>Piège dominant</strong> : l'augmentation de la vélocité masque la dégradation de la qualité — pendant un trimestre. La courbe classique : +30 % de PRs mergées au premier mois, +50 % de bugs en production trois mois après. La vélocité n'est <em>jamais</em> une métrique seule.</p>
-
-    <h3>La phase legacy — le terrain qui pèse 80 % du temps</h3>
-    <p>Les LLMs ont moins d'exposition à <em>cette</em> codebase qu'à du code générique. Les conventions implicites passent à côté. Les outils de capitalisation (codebook synthétique, characterization tests) deviennent <strong>nécessaires</strong>, pas optionnels. <strong>Piège dominant</strong> : refactor qui efface des cas limites. L'IA « nettoie » un <code>if (user.legacyFlag === 'A_2018')</code> sans réaliser que c'est dix ans de bugfix encodé.</p>
-
-    <h3>La phase opérationnelle — la nouvelle infrastructure</h3>
-    <p>Sécurité, déploiement, supervision. C'est là que la boucle semi-autonome (palier D) opère réellement. <strong>Piège dominant</strong> : le coût qui explose quand un agent boucle sans cap, et la dérive d'autonomie quand un agent qu'on laisse en D sans audit régulier dévie progressivement de sa mission.</p>
+    <p>Pour chaque étape, le programme expose <strong>ce que l'IA y apporte</strong>, <strong>le palier d'autonomie acceptable</strong>, et <strong>les pièges propres à cette étape</strong>. Une équipe qui n'utilise l'IA qu'au codage rate la moitié des gains ; une équipe qui l'utilise partout sans grille de palier produit des accidents.</p>
 
     <div class="promesse-box">
       <div class="label">La règle d'or transversale</div>
-      <p><em>L'IA accélère la formation d'une opinion. Elle ne valide jamais une décision.</em> Cette règle s'applique à toutes les étapes — particulièrement aux décisions structurantes (architecture, choix de stack, choix de modèle de données) qui se mesurent à 6-18 mois et sur lesquelles l'IA n'a aucun feedback de justesse.</p>
+      <p><em>L'IA accélère la formation d'une opinion. Elle ne valide jamais une décision.</em> Particulièrement vrai pour les décisions structurantes (architecture, stack, modèle de données) qui se mesurent à 6-18 mois, où l'IA n'a aucun feedback de justesse.</p>
     </div>
 
     <div class="programme-link">
       <div class="label">Où on voit ça dans le programme</div>
-      <p>Cet axe traverse tous les modules. <span class="module-tag">Jour 2</span> couvre la spec et la conception. <span class="module-tag">Jour 3</span> et <span class="module-tag">Jour 4</span> sont centrés sur l'itération et le refactor. <span class="module-tag">Jour 5</span> est dédié à la review (étape 7) — la seule qui exige de redescendre au palier A. <span class="module-tag">Jour 6</span> couvre les étapes opérationnelles 11-13.</p>
+      <p>Cet axe traverse tous les modules. <span class="module-tag">Jour 2</span> couvre la spec et la conception. <span class="module-tag">Jour 3</span> et <span class="module-tag">Jour 4</span> sont centrés sur l'itération et le refactor. <span class="module-tag">Jour 5</span> est dédié à la review, la seule étape qui exige de redescendre au palier A. <span class="module-tag">Jour 6</span> couvre les étapes opérationnelles 11 à 13.</p>
     </div>
   </div>
 
@@ -1138,40 +1105,16 @@
   </div>
 
   <div class="page-content">
-    <h3>Les pièges propres à chaque terrain</h3>
-
-    <table class="data">
-      <thead>
-        <tr><th>Terrain</th><th>Forme typique des problèmes</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="palier">Greenfield</td>
-          <td>Surcomplexité initiale (architectures sur-dimensionnées) · Cargo-culting (Repository / Factory imposés sans nécessité) · Conventions inconsistantes · <em>Faux sentiment de maîtrise — « si ça marche en greenfield, ça marchera ailleurs ». C'est faux.</em></td>
-        </tr>
-        <tr>
-          <td class="palier">Legacy</td>
-          <td>Refactor qui efface des cas limites (bugfix de 10 ans encodé en silence) · Hallucinations sur les conventions · Régressions silencieuses · Contexte trop volumineux qui noie l'IA</td>
-        </tr>
-        <tr>
-          <td class="palier">Production</td>
-          <td>Coût qui explose (agent en boucle sans cap) · Sécurité dégradée (secrets en dur, dépendances vulnérables) · Confidentialité (code propriétaire envoyé hors politique) · Drift d'autonomie sans audit régulier</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3 style="margin-top:14px;">La discipline du <em>chaque PR laisse le code plus orchestrable</em></h3>
-    <p>Sur les trois terrains, mais surtout en legacy, chaque PR IA touche le code et — bien faite — le laisse dans un état plus orchestrable qu'avant. Plus le code est orchestrable, plus les PRs suivantes coûtent peu et sont fiables. <strong>Compounding positif.</strong></p>
-    <p>L'inverse existe aussi : chaque PR IA mal faite ajoute une convention silencieusement violée, une fonction dupliquée, un test tautologique. La courbe descend en silence pendant deux trimestres avant que personne ne s'en aperçoive. <strong>Compounding négatif.</strong> Le programme installe le bon sens d'évolution.</p>
+    <p>Pour chaque terrain, le programme expose <strong>les paliers d'autonomie atteignables</strong>, <strong>les pièges spécifiques</strong> et <strong>les mitigations</strong> à mettre en place. Trois terrains, trois disciplines.</p>
 
     <div class="promesse-box">
       <div class="label">Le piège du laboratoire</div>
-      <p>Le greenfield est le terrain où l'IA brille. C'est aussi celui où l'on prend des mauvaises habitudes par sur-confiance. <strong>Discipline imposée dans le programme</strong> : appliquer en greenfield les mêmes garde-fous qu'on appliquerait en legacy. Les automatismes pris en greenfield sont ceux qui resteront en legacy.</p>
+      <p>Le greenfield est le terrain où l'IA brille. C'est aussi celui où l'on prend des mauvaises habitudes par sur-confiance. Discipline imposée dans le programme : appliquer en greenfield les mêmes garde-fous qu'on appliquerait en legacy. Les automatismes pris en greenfield sont ceux qui resteront en legacy.</p>
     </div>
 
     <div class="programme-link">
       <div class="label">Où on voit ça dans le programme</div>
-      <p><span class="module-tag">Jour 3</span> est dédié au greenfield (kata fil rouge orchestré). <span class="module-tag">Jour 4</span> est dédié au legacy (audit, characterization tests, codebook). <span class="module-tag">Jour 6</span> est dédié à la production (boucle semi-autonome déployée avec garde-fous, méta-observation, gouvernance). Les trois terrains sont travaillés <strong>dans cet ordre précis</strong> : observer en laboratoire, appliquer sur le réel, déployer en infrastructure.</p>
+      <p><span class="module-tag">Jour 3</span> est dédié au greenfield. <span class="module-tag">Jour 4</span> est dédié au legacy. <span class="module-tag">Jour 6</span> est dédié à la production, avec ses garde-fous non négociables. Les trois terrains sont travaillés <strong>dans cet ordre précis</strong> : observer en laboratoire, appliquer sur le réel, déployer en infrastructure.</p>
     </div>
   </div>
 
@@ -1206,8 +1149,6 @@
           <h4>Boucle Agent</h4>
         </div>
         <p>L'agent qu'on utilise s'améliore par l'usage : prompts mieux ciblés, slash commands accumulés, skills réutilisables, hooks installés, <code>claude.md</code> affiné, MCPs branchés. Plus on utilise, plus on configure ; plus on configure, plus l'agent devient compétent <strong>sur ce projet précis</strong>.</p>
-        <div class="label-mini">Rituel central</div>
-        <p style="margin:0;">Revue hebdo des prompts qui ont marché et ratés (15 min, vendredi). Ceux qui marchent → skill ou slash command.</p>
       </div>
 
       <div class="boucle-card">
@@ -1215,9 +1156,7 @@
           <div class="num">02</div>
           <h4>Boucle Codebase</h4>
         </div>
-        <p>Le code lui-même devient progressivement <strong>plus orchestrable</strong>. Modularité accrue, tests qui couvrent les invariants, conventions documentées, dette caractérisée. Chaque PR IA touche le code et, bien faite, le laisse plus orchestrable qu'avant.</p>
-        <div class="label-mini">Rituel central</div>
-        <p style="margin:0;">Mesure baseline → intermédiaire → finale. Discipline du <em>chaque PR laisse le code plus orchestrable</em> formalisée en checklist.</p>
+        <p>Le code lui-même devient progressivement <strong>plus orchestrable</strong>. Modularité accrue, tests qui couvrent les invariants, conventions documentées. Chaque PR IA touche le code et, bien faite, le laisse plus orchestrable qu'avant.</p>
       </div>
 
       <div class="boucle-card">
@@ -1225,9 +1164,7 @@
           <div class="num">03</div>
           <h4>Boucle Observabilité</h4>
         </div>
-        <p>On instrumente la <strong>chaîne de fabrication</strong> comme on instrumente la prod. Logs des interactions agent, traces des PRs IA (modèle, coût, temps, taux d'acceptation), méta-patterns d'échec. Ces données informent l'amélioration des autres boucles.</p>
-        <div class="label-mini">Rituel central</div>
-        <p style="margin:0;">Méta-debrief hebdo de 15 min : qu'est-ce qui a marché, qu'est-ce qui a raté, qu'est-ce qu'on apprend ? Audit aléatoire d'une PR IA sur dix par senior tournant.</p>
+        <p>On instrumente la <strong>chaîne de fabrication</strong> comme on instrumente la prod. Logs des interactions agent, traces des PRs IA, méta-patterns d'échec. Ces données informent l'amélioration des autres boucles.</p>
       </div>
 
       <div class="boucle-card">
@@ -1235,9 +1172,7 @@
           <div class="num">04</div>
           <h4>Boucle Équipe</h4>
         </div>
-        <p>L'équipe apprend des unes des autres. Chaque dev ramène ses prompts, ses échecs ; l'équipe fusionne, débriefe, ajuste les conventions. La compétence individuelle alimente la compétence d'équipe, qui à son tour relève chaque individu. <strong>La plus humaine, la plus difficile à installer.</strong></p>
-        <div class="label-mini">Rituel central</div>
-        <p style="margin:0;">Méta-debrief hebdo en équipe (15-30 min). Onboarding IA explicite pour les nouveaux. Échange croisé inter-équipes en post-formation.</p>
+        <p>L'équipe apprend des unes des autres. Chaque dev ramène ses prompts, ses échecs ; l'équipe fusionne, débriefe, ajuste les conventions. La compétence individuelle alimente celle d'équipe, qui à son tour relève chaque individu. <strong>La plus humaine, la plus difficile à installer.</strong></p>
       </div>
     </div>
   </div>
@@ -1255,31 +1190,18 @@
   </div>
 
   <div class="page-content">
-    <h3>Comment les quatre boucles se nourrissent</h3>
+    <p>Les quatre boucles ne sont pas équivalentes. <strong>Sans observabilité</strong>, les trois autres tournent à l'aveugle. <strong>Sans équipe</strong>, les améliorations restent individuelles. <strong>Sans agent</strong>, pas de levier d'automatisation. <strong>Sans codebase orchestrable</strong>, les agents ne peuvent pas opérer. Une seule boucle activée = compounding faible. Les quatre = compounding qui se renforce.</p>
 
-    <p style="font-family:var(--font-mono);font-size:9pt;background:hsl(var(--muted));padding:14px 18px;border-radius:6px;line-height:1.7;text-align:center;color:hsl(var(--foreground));">
-      Agent ←─────────── Équipe<br>
-      &nbsp;&nbsp;↑ partage prompts/skills&nbsp;&nbsp;&nbsp;&nbsp;↓ documente conventions<br>
-      &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓<br>
-      &nbsp;&nbsp;└── Observabilité ─→ Codebase
-    </p>
+    <div class="promesse-box">
+      <div class="label">Anti-pattern central</div>
+      <p>Une boucle agent dégradée par individualisme : chaque dev a sa config locale qui ne se partage pas. Quand un dev part, ses commands partent avec lui. <em>« Vous n'avez pas une équipe qui utilise l'IA, vous avez N développeurs qui l'utilisent chacun dans leur coin. »</em> C'est la boucle équipe qui répare ça.</p>
+    </div>
 
-    <ul class="clean">
-      <li>Sans <strong>observabilité</strong>, les trois autres tournent à l'aveugle. <em>On améliore quoi ? On ne sait pas.</em> C'est la boucle la plus structurellement importante.</li>
-      <li>Sans <strong>équipe</strong>, les améliorations restent individuelles. Les boucles agent et codebase plafonnent au niveau du dev le plus discipliné.</li>
-      <li>Sans <strong>agent</strong>, on n'a pas de levier d'automatisation. Les autres boucles existent mais ressemblent à de l'ingénierie classique.</li>
-      <li>Sans <strong>codebase</strong>, le terrain reste hostile. Les agents ne peuvent pas opérer efficacement.</li>
-    </ul>
-
-    <h3 style="margin-top:14px;">Anti-pattern central : la boucle individuelle</h3>
-    <p>Une boucle agent dégradée par individualisme : chaque dev a sa config locale qui ne se partage pas. Quand un dev part, ses commands partent avec lui. <em>Hook commercial originel : « tu n'as pas une équipe qui utilise l'IA, tu as N développeurs qui l'utilisent chacun dans leur coin »</em> — c'est la boucle équipe qui répare ça.</p>
-
-    <h3 style="margin-top:10px;">Une seule boucle = compounding faible. Quatre = compounding qui se renforce.</h3>
-    <p>Les quatre boucles activées simultanément créent un effet de levier. Une boucle isolée s'éteint. Deux ou trois boucles cohabitent à coût marginal. <strong>Quatre boucles s'auto-entretiennent et amplifient le ROI de chaque PR IA.</strong></p>
+    <p>Le programme installe les rituels qui font vivre chaque boucle après votre départ : revue des prompts, méta-debriefs hebdo, mesure baseline / finale, gouvernance d'équipe documentée.</p>
 
     <div class="programme-link">
       <div class="label">Où on voit ça dans le programme</div>
-      <p>Toutes les boucles sont activées progressivement. <span class="module-tag">Jour 1</span> baseline mesurée + carte d'orchestrabilité (boucle codebase, boucle observabilité). <span class="module-tag">Jour 2</span> <code>claude.md</code> d'équipe (boucle agent, boucle équipe) + modularité comme discipline (boucle codebase). <span class="module-tag">Jour 5</span> journal d'erreurs détectées (boucle observabilité). <span class="module-tag">Jour 6</span> gouvernance d'équipe + observabilité des appels agent (les quatre boucles consolidées). En inter-sessions : rituels installés (revue hebdo prompts, méta-debrief, capitalisation).</p>
+      <p>Toutes les boucles sont activées progressivement. <span class="module-tag">Jour 1</span> baseline mesurée + carte d'orchestrabilité. <span class="module-tag">Jour 2</span> <code>claude.md</code> d'équipe et modularité comme discipline. <span class="module-tag">Jour 5</span> journal d'erreurs détectées. <span class="module-tag">Jour 6</span> gouvernance d'équipe et observabilité des appels agent. En inter-sessions : les rituels qui maintiennent les boucles vivantes.</p>
     </div>
   </div>
 
@@ -1360,28 +1282,18 @@
   </div>
 
   <div class="page-content">
-    <h3>Pourquoi chaque problème occupe une position dans l'espace</h3>
-
-    <p>Un mode d'échec n'est jamais flottant. <strong>Régressions silencieuses</strong>, par exemple, est un problème de catégorie 1 (Intention) qui apparaît à l'étape 5 (Codage) ou 10 (Refactor), au palier B → D, sur du legacy critique, et qui dégrade les boucles codebase et observabilité. La mitigation ? Characterization tests avant tout refactor non trivial.</p>
-
-    <p>Cette position dans l'espace est ce qui permet de choisir <strong>la bonne mitigation</strong>. Les mitigations génériques (« faites du TDD ») ne marchent pas. Les mitigations situées dans l'espace marchent.</p>
+    <p>Un mode d'échec n'est jamais flottant : il occupe une <strong>position</strong> dans les quatre autres axes (étape × palier × périmètre × boucle dégradée). C'est cette position qui détermine la mitigation utile. Les mitigations génériques (« faites du TDD ») ne marchent pas — les mitigations situées dans l'espace, oui.</p>
 
     <div class="promesse-box">
-      <div class="label">La taxonomie technique des 9 erreurs IA</div>
-      <p>Distincte de la grille macro à 6 catégories ci-contre, une <strong>taxonomie technique des 9 erreurs IA</strong> est enseignée au Jour 5 comme outil opérationnel de review. Elle dit où chercher dans le code, à quels symptômes prêter attention, comment les distinguer d'erreurs humaines classiques. La grille à 6 catégories organise la conversation CTO ; la taxonomie à 9 erreurs guide la pratique de review.</p>
+      <div class="label">Deux grilles, deux usages</div>
+      <p>La <strong>grille macro à 6 catégories</strong> ci-contre organise la conversation avec un CTO. Une seconde grille opérationnelle, la <strong>taxonomie technique des 9 erreurs IA</strong>, guide la pratique de review au quotidien : où chercher dans le code, à quels symptômes prêter attention, comment distinguer une erreur IA d'une erreur humaine classique.</p>
     </div>
 
-    <h3 style="margin-top:12px;">Croisements typiques avec les autres axes</h3>
-    <ul class="clean">
-      <li><strong>Mode 2 (qualité)</strong> est dominant en greenfield au palier B → D, dégrade la boucle codebase. Mitigation : <em>discipline du minimum viable code</em>.</li>
-      <li><strong>Mode 3 (véracité)</strong> est dominant aux étapes 1, 2, 9, dégrade la boucle agent. Mitigation : <em>vérification systématique par doc primaire</em>.</li>
-      <li><strong>Mode 5 (opérationnel)</strong> est dominant en production au palier D, dégrade la boucle observabilité. Mitigation : <em>cinq garde-fous non négociables</em>.</li>
-      <li><strong>Mode 6 (humain)</strong> est transverse à toutes les phases, dégrade la boucle équipe. Mitigation : <em>gouvernance d'équipe documentée + rituels de méta-debrief</em>.</li>
-    </ul>
+    <p>Pour chaque mode d'échec, le programme expose <strong>le symptôme</strong>, <strong>où il apparaît</strong> dans les autres axes, et <strong>la mitigation</strong> à installer.</p>
 
     <div class="programme-link">
       <div class="label">Où on voit ça dans le programme</div>
-      <p>L'axe est traité explicitement <span class="module-tag">Jour 5</span> avec la grille de review IA-spécifique et la taxonomie des 9 erreurs. Mais chaque mode d'échec est nommé et travaillé au moment où il apparaît dans la pratique : <span class="module-tag">Jour 2</span> mode 2 (qualité) et mode 3 (véracité) sur le greenfield. <span class="module-tag">Jour 4</span> mode 1 (intention) en legacy. <span class="module-tag">Jour 6</span> mode 5 (opérationnel) en production. Le mode 6 (humain) est travaillé dans tous les modules — c'est le seul transverse.</p>
+      <p>L'axe est traité explicitement <span class="module-tag">Jour 5</span> avec la grille de review IA-spécifique et la taxonomie des 9 erreurs. Mais chaque mode est nommé et travaillé au moment où il apparaît : <span class="module-tag">Jour 2</span> et <span class="module-tag">Jour 3</span> sur le greenfield. <span class="module-tag">Jour 4</span> en legacy. <span class="module-tag">Jour 6</span> en production. Le mode 6 (humain) est transverse, travaillé sur tous les modules.</p>
     </div>
   </div>
 
