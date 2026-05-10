@@ -699,35 +699,39 @@
       white;
     border: 1px solid hsl(var(--primary) / 0.3);
     border-radius: 8px;
-    padding: 24px 28px;
+    padding: 32px 32px 36px;
     text-align: center;
-    margin-top: 14px;
+    margin-top: 20px;
   }
   .final-cta-block h2 {
-    font-size: 16pt; margin-bottom: 10px;
+    font-size: 17pt; margin-bottom: 12px;
   }
   .final-cta-block p {
-    font-size: 10pt; color: hsl(var(--muted-foreground));
-    margin-bottom: 14px;
-    max-width: 400px; margin-left: auto; margin-right: auto;
+    font-size: 10.5pt; color: hsl(var(--muted-foreground));
+    margin-bottom: 20px;
+    max-width: 420px; margin-left: auto; margin-right: auto;
+    line-height: 1.55;
   }
   .cta-block {
     display: inline-block;
-    padding: 10px 22px;
+    padding: 12px 26px;
     border-radius: 999px;
     background: hsl(var(--primary));
     color: hsl(var(--foreground));
     font-weight: 700;
-    font-size: 10.5pt;
+    font-size: 11pt;
     border: 2px solid hsl(var(--primary-dark));
     margin: 4px 6px;
     text-decoration: none;
   }
   .contact-row {
-    margin-top: 16px;
-    font-size: 9.5pt;
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid hsl(var(--border));
+    font-size: 9.8pt;
     color: hsl(var(--muted-foreground));
-    line-height: 1.6;
+    line-height: 1.8;
+    text-align: center;
   }
   .contact-row strong { color: hsl(var(--foreground)); }
 
@@ -946,6 +950,14 @@
       </div>
       <p>L'IA produit une pull request entière, le dev review en sortie. Bascule majeure : la review du code IA devient une activité distincte de la review classique, et c'est ce qui change radicalement le quotidien d'un senior.</p>
     </div>
+
+    <div class="palier-card">
+      <div class="palier-card-header">
+        <div class="palier-card-title">Palier D — IA en boucle semi-autonome</div>
+        <div class="palier-card-tag">Palier D</div>
+      </div>
+      <p>L'agent itère seul (planifie, code, teste, corrige). La supervision se déplace : le dev ne regarde plus les étapes intermédiaires, il valide le résultat et les métriques.</p>
+    </div>
   </div>
 
   <div class="page-footer">
@@ -961,15 +973,9 @@
   </div>
 
   <div class="page-content">
-    <div class="palier-card">
-      <div class="palier-card-header">
-        <div class="palier-card-title">Palier D — IA en boucle semi-autonome</div>
-        <div class="palier-card-tag">Palier D</div>
-      </div>
-      <p>L'agent itère seul (planifie, code, teste, corrige). La supervision se déplace : le dev ne regarde plus les étapes intermédiaires, il valide le résultat et les métriques.</p>
-    </div>
+    <p>Dans le programme, on travaille pour chaque palier <strong>les outils adaptés</strong> (de l'autocomplétion inline à l'agent autonome avec garde-fous) et <strong>les critères de bascule</strong> qui permettent de passer d'un palier au suivant sans accident.</p>
 
-    <p style="margin-top:18px;">Dans le programme, on travaille pour chaque palier <strong>les outils adaptés</strong> (de l'autocomplétion inline à l'agent autonome avec garde-fous) et <strong>les critères de bascule</strong> qui permettent de passer d'un palier au suivant sans accident.</p>
+    <p>Une équipe n'est jamais sur un seul palier. La même équipe peut être en palier B sur le code de paiement, en C sur les CRUD standardisés, en D sur les renames mécaniques. <strong>Choisir le palier juste, par tâche et par contexte, c'est l'arbitrage permanent du métier qui change.</strong></p>
 
     <div class="programme-link">
       <div class="label">Où on voit ça dans le programme</div>
@@ -1450,14 +1456,14 @@
 
     <div class="final-cta-block">
       <h2>Prêt pour l'appel de cadrage ?</h2>
-      <p>Trente minutes. Pas de pitch. On regarde votre équipe, votre codebase, vos contraintes. À la sortie, vous savez si le programme a du sens pour vous — ou pas.</p>
+      <p>Trente minutes. Pas de pitch. On regarde votre équipe, votre codebase, vos contraintes. À la sortie, vous savez si le programme a du sens pour vous, ou pas.</p>
       <div class="cta-block">Réserver un créneau</div>
+    </div>
 
-      <div class="contact-row">
-        <strong>Thibault Roussel</strong> &mdash; Automatik by Zenith<br>
-        thibault@automatik-by-zenith.com · 06 59 14 56 59<br>
-        transformation-ia.automatik.tools
-      </div>
+    <div class="contact-row">
+      <strong>Thibault Roussel</strong> &mdash; Automatik by Zenith<br>
+      thibault@automatik-by-zenith.com · 06 59 14 56 59<br>
+      transformation-ia.automatik.tools
     </div>
   </div>
 

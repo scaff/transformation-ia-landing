@@ -282,17 +282,28 @@
     align-items: center;
     gap: 10px;
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     color: hsl(var(--primary) / 0.95);
-    margin-bottom: 32px;
-    padding: 8px 14px;
+    margin-bottom: 28px;
+    padding: 6px 14px;
     border-radius: 999px;
     background: hsl(var(--primary) / 0.08);
     border: 1px solid hsl(var(--primary) / 0.2);
     width: fit-content;
-    flex-wrap: wrap;
+    max-width: 100%;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 720px) {
+    .hero-eyebrow {
+      white-space: normal;
+      flex-wrap: wrap;
+    }
   }
 
   .hero-eyebrow::before {
@@ -310,16 +321,16 @@
 
   .hero h1 {
     font-weight: 700;
-    font-size: clamp(2.2rem, 4.6vw, 3.8rem);
-    line-height: 1.06;
+    font-size: clamp(2rem, 3.6vw, 3rem);
+    line-height: 1.12;
     letter-spacing: -0.025em;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
     color: hsl(var(--foreground));
   }
 
   @media (max-width: 1080px) {
     .hero h1 {
-      font-size: clamp(2.4rem, 6.5vw, 4.6rem);
+      font-size: clamp(2rem, 4.6vw, 3.2rem);
     }
   }
 
