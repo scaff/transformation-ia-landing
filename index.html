@@ -258,6 +258,8 @@
     padding: 9px 18px;
     border-radius: 999px;
     transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .nav-cta:hover {
@@ -265,6 +267,20 @@
     color: hsl(var(--background));
     border-color: hsl(var(--foreground));
     opacity: 1;
+  }
+
+  .nav-cta-short { display: none; }
+
+  @media (max-width: 640px) {
+    .nav-cta {
+      font-size: 13px;
+      padding: 7px 14px;
+    }
+    .nav-cta-full { display: none; }
+    .nav-cta-short { display: inline; }
+    .brand { font-size: 15px; gap: 8px; }
+    .brand-logo { height: 22px; }
+    .brand .by { font-size: 13px; }
   }
 
   /* Hero */
@@ -293,8 +309,17 @@
     border: 1px solid hsl(var(--primary) / 0.2);
     width: fit-content;
     max-width: 100%;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    white-space: nowrap;
     line-height: 1.5;
+  }
+
+  @media (max-width: 480px) {
+    .hero-eyebrow {
+      font-size: 10px;
+      gap: 8px;
+      padding: 5px 12px;
+    }
   }
 
   .hero-eyebrow::before {
@@ -1529,7 +1554,7 @@
         <span class="zenith">Zenith</span>
       </span>
     </a>
-    <a href="mailto:thibault@automatik-by-zenith.com?subject=Atelier%20Transformation%20IA%20%E2%80%94%20Appel%20de%20cadrage" class="nav-cta">Écrire pour un appel</a>
+    <a href="mailto:thibault@automatik-by-zenith.com?subject=Atelier%20Transformation%20IA%20%E2%80%94%20Appel%20de%20cadrage" class="nav-cta"><span class="nav-cta-full">Écrire pour un appel</span><span class="nav-cta-short">Contact</span></a>
   </div>
 </nav>
 
@@ -1540,9 +1565,9 @@
     <div class="hero-grid">
       <div class="hero-content">
         <div class="hero-eyebrow">
-          Atelier Transformation IA — Équipes Tech
+          Atelier Transformation IA
           <span class="sep">·</span>
-          Offre de lancement — places limitées
+          Offre de lancement
         </div>
         <h1>L'IA change le métier des développeurs. <span class="accent">Pas pour les remplacer. Pour les transformer en architectes.</span></h1>
         <p class="hero-sub">Six jours pour accompagner le passage le plus profond du métier dev en 20 ans. On outille la posture autant que la technique — pour qu'ils y trouvent leur place.</p>
