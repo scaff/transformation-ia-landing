@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atelier Transformation IA — Programme | Automatik by Zenith</title>
+<meta name="description" content="Programme détaillé de l'Atelier Transformation IA — Équipes Tech. Six jours sur six à huit semaines, structurés autour de cinq axes.">
+
+<style>
+  :root {
+    --primary: 45 95% 48%;
+    --primary-dark: 45 95% 40%;
+    --primary-soft: 45 95% 95%;
+    --foreground: 222 47% 11%;
+    --muted-foreground: 215 16% 40%;
+    --border: 214 32% 88%;
+    --muted: 210 40% 97%;
+    --background: 0 0% 100%;
+
+    --gradient-title: linear-gradient(135deg, hsl(45 95% 48%), hsl(45 95% 40%));
+
+    --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-sans);
+    font-size: 10.5pt;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Print toolbar */
+  .print-toolbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: hsl(var(--foreground));
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 13px;
+    font-family: var(--font-sans);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .print-toolbar button {
+    background: hsl(var(--primary));
+    color: hsl(var(--foreground));
+    border: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 13px;
+    margin-left: 12px;
+  }
+  .print-toolbar button:hover { background: hsl(var(--primary-dark)); color: white; }
+  .print-toolbar a { color: white; margin-left: 16px; font-size: 12px; opacity: 0.7; }
+
+  /* Page wrapper */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 22mm 22mm 18mm;
+    margin: 60px auto 24px;
+    background: white;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    position: relative;
+    page-break-after: always;
+    overflow: hidden;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  .page-header {
+    position: absolute;
+    top: 12mm; left: 22mm; right: 22mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 9pt;
+    color: hsl(var(--muted-foreground));
+    border-bottom: 1px solid hsl(var(--border));
+    padding-bottom: 6mm;
+    letter-spacing: 0.04em;
+  }
+  .page-header .brand { font-weight: 600; color: hsl(var(--foreground)); letter-spacing: 0; }
+  .page-header .brand .accent {
+    color: hsl(45 95% 42%);
+  }
+
+  .page-footer {
+    position: absolute;
+    bottom: 10mm; left: 22mm; right: 22mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 9pt;
+    color: hsl(var(--muted-foreground));
+    letter-spacing: 0.04em;
+  }
+
+  .page-content {
+    padding-top: 14mm;
+    padding-bottom: 14mm;
+    height: 100%;
+  }
+
+  /* Cover */
+  .cover {
+    background:
+      radial-gradient(ellipse 600px 400px at 80% 10%, hsl(45 95% 88% / 0.5), transparent 60%),
+      radial-gradient(ellipse 500px 400px at 10% 90%, hsl(214 95% 90% / 0.4), transparent 60%),
+      white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 22mm;
+  }
+  .cover-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 10pt;
+    letter-spacing: 0.04em;
+  }
+  .cover-top .brand { font-size: 14pt; font-weight: 600; letter-spacing: -0.01em; }
+  .cover-top .brand .by { font-weight: 400; color: hsl(var(--muted-foreground)); margin: 0 4px; }
+  .cover-top .brand .zenith {
+    color: hsl(45 95% 42%);
+  }
+  .cover-top .doc-type { color: hsl(var(--primary)); text-transform: uppercase; font-weight: 600; }
+  .cover-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 9pt;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: hsl(var(--primary));
+    padding: 6px 12px; border-radius: 999px;
+    background: hsl(var(--primary) / 0.08);
+    border: 1px solid hsl(var(--primary) / 0.25);
+    width: fit-content;
+    margin-bottom: 18px; font-weight: 600;
+  }
+  .cover-eyebrow::before {
+    content: ""; width: 5px; height: 5px;
+    border-radius: 50%; background: hsl(var(--primary));
+  }
+  .cover h1 {
+    font-size: 28pt; line-height: 1.08;
+    letter-spacing: -0.025em; font-weight: 700;
+    margin-bottom: 28px; color: hsl(var(--foreground));
+  }
+  .cover h1 .accent {
+    color: hsl(45 95% 42%);
+  }
+  .cover-sub {
+    font-size: 13pt; line-height: 1.5;
+    color: hsl(var(--muted-foreground));
+    max-width: 500px; margin-bottom: 36px;
+  }
+  .cover-meta {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 24px 48px;
+    border-top: 2px solid hsl(var(--primary));
+    padding-top: 22px;
+    margin-top: auto;
+  }
+  .cover-meta-item .label {
+    font-family: var(--font-mono); font-size: 8pt;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: hsl(var(--primary)); font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .cover-meta-item .value {
+    font-size: 11pt; font-weight: 600;
+    color: hsl(var(--foreground)); line-height: 1.3;
+  }
+  .cover-meta-item .value .strike {
+    text-decoration: line-through;
+    color: hsl(var(--muted-foreground));
+    font-weight: 400;
+    margin-right: 6px;
+  }
+  .cover-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: var(--font-mono);
+    font-size: 9pt;
+    color: hsl(var(--muted-foreground));
+    letter-spacing: 0.04em;
+    margin-top: 24px;
+  }
+
+  /* Generic */
+  h2 {
+    font-size: 19pt; line-height: 1.15;
+    letter-spacing: -0.02em; font-weight: 700;
+    margin-bottom: 8px; color: hsl(var(--foreground));
+  }
+  h2 .accent {
+    color: hsl(45 95% 42%);
+  }
+  .section-eyebrow {
+    font-family: var(--font-mono); font-size: 9pt;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: hsl(var(--primary)); font-weight: 600;
+    margin-bottom: 14px; display: block;
+  }
+  h3 {
+    font-size: 12.5pt; line-height: 1.3;
+    font-weight: 600; margin-bottom: 8px;
+    color: hsl(var(--foreground)); letter-spacing: -0.01em;
+  }
+  h4 {
+    font-size: 10.5pt; font-weight: 600;
+    margin-bottom: 4px; line-height: 1.3;
+    color: hsl(var(--foreground));
+  }
+  p {
+    font-size: 10pt; line-height: 1.55;
+    color: hsl(var(--foreground)); margin-bottom: 9px;
+  }
+  p.muted { color: hsl(var(--muted-foreground)); }
+  p.lead {
+    font-size: 11.5pt; line-height: 1.5;
+    color: hsl(var(--foreground)); margin-bottom: 16px;
+  }
+  strong { font-weight: 600; }
+
+  ul.clean { list-style: none; padding: 0; margin: 0 0 12px; }
+  ul.clean li {
+    font-size: 9.8pt; line-height: 1.5;
+    padding-left: 16px; position: relative; margin-bottom: 5px;
+  }
+  ul.clean li::before {
+    content: ""; position: absolute;
+    left: 0; top: 8px;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: hsl(var(--primary));
+  }
+
+  /* Promesse box */
+  .promesse-box {
+    border-left: 3px solid hsl(var(--primary));
+    background: hsl(var(--primary) / 0.05);
+    padding: 16px 20px;
+    border-radius: 0 6px 6px 0;
+    margin: 16px 0;
+  }
+  .promesse-box .label {
+    font-family: var(--font-mono); font-size: 8.5pt;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: hsl(var(--primary)); font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .promesse-box p { margin-bottom: 0; font-size: 10.5pt; line-height: 1.5; }
+
+  /* Manifesto cells */
+  .manifesto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 28px;
+    margin-top: 14px;
+  }
+  .manifesto-cell {
+    border-left: 2px solid hsl(var(--primary) / 0.45);
+    padding: 2px 0 2px 14px;
+  }
+  .manifesto-cell .num {
+    font-family: var(--font-mono); font-size: 8.5pt;
+    letter-spacing: 0.14em; color: hsl(var(--primary));
+    font-weight: 700; text-transform: uppercase;
+    margin-bottom: 5px; display: block;
+  }
+  .manifesto-cell h3 { font-size: 10.5pt; margin-bottom: 5px; line-height: 1.3; }
+  .manifesto-cell p {
+    margin-bottom: 0; font-size: 9.5pt; line-height: 1.5;
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* Vue d'ensemble 5 axes — grid */
+  .axes-overview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .axe-overview-card {
+    border: 1px solid hsl(var(--border));
+    border-top: 3px solid hsl(var(--primary));
+    border-radius: 4px;
+    padding: 14px 16px;
+    background: white;
+  }
+  .axe-overview-card.featured {
+    grid-column: 1 / -1;
+    background: hsl(var(--primary) / 0.04);
+  }
+  .axe-overview-card .num {
+    font-family: var(--font-mono); font-size: 8.5pt;
+    color: hsl(var(--primary)); font-weight: 700;
+    letter-spacing: 0.1em; margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .axe-overview-card h4 {
+    font-size: 11pt; margin-bottom: 6px;
+  }
+  .axe-overview-card p {
+    font-size: 9.5pt; line-height: 1.5;
+    color: hsl(var(--muted-foreground));
+    margin: 0;
+  }
+
+  /* Tables */
+  table.data {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+    margin: 12px 0;
+  }
+  table.data th, table.data td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid hsl(var(--border));
+    line-height: 1.4;
+  }
+  table.data th {
+    font-family: var(--font-mono); font-size: 8pt;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    background: hsl(var(--muted));
+    color: hsl(var(--primary-dark));
+    font-weight: 700;
+  }
+  table.data tr:last-child td { border-bottom: none; }
+  table.data .palier {
+    font-family: var(--font-mono); font-weight: 700;
+    color: hsl(var(--primary)); width: 12%;
+  }
+
+  /* Cards horizontales (axes en détail) */
+  .palier-card {
+    border: 1px solid hsl(var(--border));
+    border-left: 3px solid hsl(var(--primary));
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    background: white;
+  }
+  .palier-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+    gap: 10px;
+  }
+  .palier-card-title {
+    font-size: 11pt; font-weight: 600;
+    color: hsl(var(--foreground));
+  }
+  .palier-card-tag {
+    font-family: var(--font-mono); font-size: 8pt;
+    color: hsl(var(--primary)); font-weight: 700;
+    background: hsl(var(--primary) / 0.08);
+    padding: 2px 8px; border-radius: 3px;
+    flex-shrink: 0; letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .palier-card p {
+    font-size: 9.5pt; line-height: 1.5;
+    margin-bottom: 4px; color: hsl(var(--foreground));
+  }
+  .palier-card .meta {
+    font-size: 8.5pt; color: hsl(var(--muted-foreground));
+    font-family: var(--font-mono); margin-top: 6px;
+    line-height: 1.4;
+  }
+  .palier-card .meta strong {
+    color: hsl(var(--primary-dark));
+    text-transform: uppercase; font-size: 8pt;
+    letter-spacing: 0.08em; margin-right: 6px;
+  }
+
+  /* "Où dans le programme" — encart en bas de chaque axe */
+  .programme-link {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: hsl(var(--primary-soft));
+    border-radius: 4px;
+    border-left: 3px solid hsl(var(--primary));
+  }
+  .programme-link .label {
+    font-family: var(--font-mono); font-size: 8.5pt;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: hsl(var(--primary-dark)); font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .programme-link p {
+    font-size: 9.5pt; line-height: 1.5;
+    margin: 0; color: hsl(var(--foreground));
+  }
+  .programme-link .module-tag {
+    display: inline-block;
+    background: hsl(var(--primary));
+    color: white;
+    font-family: var(--font-mono); font-size: 8pt;
+    font-weight: 700; padding: 1px 6px;
+    border-radius: 3px; margin: 0 2px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Trois terrains (greenfield/legacy/prod) */
+  .terrains-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0;
+  }
+  .terrain-card {
+    border: 1px solid hsl(var(--border));
+    border-top: 3px solid hsl(var(--primary));
+    border-radius: 4px;
+    padding: 12px 14px;
+    background: white;
+  }
+  .terrain-card.featured { background: hsl(var(--primary) / 0.04); }
+  .terrain-card .num {
+    font-family: var(--font-mono); font-size: 8pt;
+    color: hsl(var(--primary)); font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .terrain-card h4 { font-size: 10.5pt; margin-bottom: 6px; }
+  .terrain-card p {
+    font-size: 9pt; line-height: 1.45;
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 6px;
+  }
+  .terrain-card p:last-child { margin-bottom: 0; }
+  .terrain-card .tagline {
+    font-style: italic; color: hsl(var(--primary-dark));
+    font-size: 9pt; margin-bottom: 6px;
+  }
+
+  /* 4 boucles — cards verticales */
+  .boucles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0;
+  }
+  .boucle-card {
+    border: 1px solid hsl(var(--border));
+    border-radius: 4px;
+    padding: 14px 16px;
+    background: white;
+  }
+  .boucle-card .header {
+    display: flex; align-items: baseline; gap: 10px;
+    margin-bottom: 6px;
+  }
+  .boucle-card .num {
+    font-family: var(--font-mono);
+    font-size: 14pt; font-weight: 800;
+    color: hsl(var(--primary)); line-height: 1;
+  }
+  .boucle-card h4 {
+    font-size: 11pt; margin: 0;
+  }
+  .boucle-card p {
+    font-size: 9.5pt; line-height: 1.5;
+    margin-bottom: 6px;
+  }
+  .boucle-card .label-mini {
+    font-family: var(--font-mono); font-size: 8pt;
+    color: hsl(var(--primary-dark)); font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-top: 8px; margin-bottom: 3px;
+  }
+
+  /* 6 modes d'échec — cards */
+  .modes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+  }
+  .mode-card {
+    border: 1px solid hsl(var(--border));
+    border-top: 2px solid hsl(var(--primary));
+    border-radius: 4px;
+    padding: 12px 14px;
+    background: white;
+  }
+  .mode-card .num {
+    font-family: var(--font-mono); font-size: 8pt;
+    color: hsl(var(--primary)); font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .mode-card h4 { font-size: 10pt; margin-bottom: 4px; }
+  .mode-card p {
+    font-size: 9pt; line-height: 1.45;
+    margin-bottom: 5px;
+    color: hsl(var(--muted-foreground));
+  }
+  .mode-card p:last-child { margin-bottom: 0; }
+  .mode-card .examples {
+    font-size: 8.5pt; color: hsl(var(--foreground));
+    line-height: 1.4; padding-top: 6px;
+    border-top: 1px solid hsl(var(--border));
+    font-style: italic;
+  }
+
+  /* Format spec */
+  .format-spec {
+    border: 1px solid hsl(var(--primary) / 0.3);
+    border-radius: 6px;
+    padding: 16px 22px;
+    background: hsl(var(--primary-soft));
+    margin: 14px 0;
+  }
+  .format-spec dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 8px 18px;
+    margin: 0;
+    font-size: 9.5pt;
+    line-height: 1.4;
+  }
+  .format-spec dt {
+    font-family: var(--font-mono); font-size: 8.5pt;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    font-weight: 700; color: hsl(var(--primary-dark));
+    padding-top: 1px;
+  }
+  .format-spec dd { color: hsl(var(--foreground)); margin: 0; }
+
+  /* Pricing */
+  .pricing {
+    border: 2px solid hsl(var(--primary));
+    border-radius: 8px;
+    padding: 22px 26px;
+    background: white;
+    margin: 16px 0;
+    box-shadow: 0 4px 12px hsl(var(--primary) / 0.12);
+  }
+  .pricing-label {
+    font-family: var(--font-mono); font-size: 9pt;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: hsl(var(--primary)); font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .pricing-amount {
+    font-size: 22pt; font-weight: 700;
+    line-height: 1; letter-spacing: -0.02em;
+    margin-bottom: 4px;
+    color: hsl(45 95% 42%);
+  }
+  .pricing-amount .strike {
+    text-decoration: line-through;
+    color: hsl(var(--muted-foreground));
+    font-weight: 400;
+    background: none; -webkit-text-fill-color: hsl(var(--muted-foreground));
+    margin-right: 12px;
+    font-size: 16pt;
+  }
+  .pricing-detail {
+    font-size: 10pt;
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 6px;
+  }
+  .pricing-launch {
+    font-size: 10pt; line-height: 1.5;
+    color: hsl(var(--foreground));
+    padding-top: 12px;
+    border-top: 1px solid hsl(var(--border));
+    margin-top: 8px;
+  }
+  .pricing-launch strong { color: hsl(var(--primary-dark)); }
+
+  /* Stepper */
+  .stepper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .step {
+    border: 1px solid hsl(var(--border));
+    border-radius: 5px;
+    padding: 12px 14px;
+    background: white;
+  }
+  .step.optional { border-style: dashed; opacity: 0.75; }
+  .step-num {
+    font-family: var(--font-mono); font-size: 8.5pt;
+    color: hsl(var(--primary)); font-weight: 700;
+    letter-spacing: 0.08em; margin-bottom: 5px;
+  }
+  .step h4 { font-size: 10pt; }
+  .step p {
+    font-size: 8.8pt; line-height: 1.4;
+    color: hsl(var(--muted-foreground)); margin: 0;
+  }
+
+  /* Audience grid */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .audience-block {
+    border: 1px solid hsl(var(--border));
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+  .audience-block.include {
+    border-color: hsl(var(--primary) / 0.45);
+    background: hsl(var(--primary) / 0.04);
+  }
+  .audience-block h4 {
+    font-size: 10.5pt; margin-bottom: 8px;
+  }
+  .audience-block.include h4 { color: hsl(var(--foreground)); }
+  .audience-block.exclude h4 { color: hsl(var(--muted-foreground)); }
+  .audience-list { list-style: none; padding: 0; }
+  .audience-list li {
+    padding: 5px 0 5px 16px;
+    position: relative;
+    font-size: 9.2pt; line-height: 1.4;
+    border-bottom: 1px dashed hsl(var(--border));
+  }
+  .audience-list li:last-child { border-bottom: none; }
+  .audience-list li::before {
+    position: absolute; left: 0; top: 5px;
+    font-family: var(--font-mono); font-size: 11pt;
+    font-weight: 600; line-height: 1;
+  }
+  .audience-block.include li::before { content: "+"; color: hsl(var(--primary)); }
+  .audience-block.exclude li::before { content: "−"; color: hsl(var(--muted-foreground)); }
+  .audience-block.exclude li { color: hsl(var(--muted-foreground)); }
+
+  /* Programme synthétique */
+  .programme-modules {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .programme-module {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 14px;
+    padding: 10px 12px;
+    border: 1px solid hsl(var(--border));
+    border-left: 3px solid hsl(var(--primary));
+    border-radius: 4px;
+    background: white;
+  }
+  .programme-module .day {
+    font-family: var(--font-mono); font-size: 9pt;
+    color: hsl(var(--primary)); font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding-top: 2px;
+  }
+  .programme-module h4 {
+    font-size: 10.5pt; margin-bottom: 4px;
+  }
+  .programme-module p {
+    font-size: 9pt; line-height: 1.5;
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 4px;
+  }
+  .programme-module .axes-touched {
+    font-size: 8.5pt; color: hsl(var(--primary-dark));
+    font-family: var(--font-mono);
+  }
+
+  /* Final CTA */
+  .final-cta-block {
+    background:
+      radial-gradient(ellipse 400px 200px at 50% 0%, hsl(45 95% 90% / 0.6), transparent 70%),
+      white;
+    border: 1px solid hsl(var(--primary) / 0.3);
+    border-radius: 8px;
+    padding: 24px 28px;
+    text-align: center;
+    margin-top: 14px;
+  }
+  .final-cta-block h2 {
+    font-size: 16pt; margin-bottom: 10px;
+  }
+  .final-cta-block p {
+    font-size: 10pt; color: hsl(var(--muted-foreground));
+    margin-bottom: 14px;
+    max-width: 400px; margin-left: auto; margin-right: auto;
+  }
+  .cta-block {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 999px;
+    background: hsl(var(--primary));
+    color: hsl(var(--foreground));
+    font-weight: 700;
+    font-size: 10.5pt;
+    border: 2px solid hsl(var(--primary-dark));
+    margin: 4px 6px;
+    text-decoration: none;
+  }
+  .contact-row {
+    margin-top: 16px;
+    font-size: 9.5pt;
+    color: hsl(var(--muted-foreground));
+    line-height: 1.6;
+  }
+  .contact-row strong { color: hsl(var(--foreground)); }
+
+  /* Print */
+  @media print {
+    @page { size: A4 portrait; margin: 0; }
+    html, body { background: white; }
+    .print-toolbar { display: none !important; }
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0;
+      box-shadow: none;
+      page-break-after: always;
+    }
+    .page:last-child { page-break-after: auto; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  }
+
+  @media screen {
+    body { background: hsl(var(--muted)); padding-top: 50px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="print-toolbar">
+  <strong>Programme Atelier Transformation IA</strong> · Pour télécharger le PDF
+  <button onclick="window.print()">Imprimer / Enregistrer en PDF</button>
+  <a href="index.html">← retour</a>
+</div>
+
+<!-- ============= PAGE 1 — COUVERTURE ============= -->
+<section class="page cover">
+  <div class="cover-top">
+    <div class="brand">Automatik <span class="by">by</span><span class="zenith">Zenith</span></div>
+    <div class="doc-type">Programme · 2026</div>
+  </div>
+
+  <div>
+    <div class="cover-eyebrow">Atelier Transformation IA — Équipes Tech</div>
+    <h1>L'IA change le métier des développeurs.<br><span class="accent">Pas pour les remplacer. Pour les transformer en architectes.</span></h1>
+    <p class="cover-sub">Six jours pour accompagner le passage le plus profond du métier dev en 20 ans. On outille la posture autant que la technique — pour qu'ils y trouvent leur place.</p>
+
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <div class="label">Durée</div>
+        <div class="value">6 jours / 6 à 8 semaines</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="label">Format</div>
+        <div class="value">Distanciel · 4 à 8 devs / cohorte</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="label">Pratique</div>
+        <div class="value">70 % du temps</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="label">Tarif</div>
+        <div class="value"><span class="strike">12 000 €</span>9 000 € HT</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="label">Offre</div>
+        <div class="value">Lancement — places limitées</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="label">Animateur</div>
+        <div class="value">Thibault Roussel</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div>Document confidentiel</div>
+    <div>v2026.05 · Programme</div>
+  </div>
+</section>
+
+<!-- ============= PAGE 2 — LE PASSAGE ============= -->
+<section class="page">
+  <div class="page-header">
+    <div class="brand">Automatik <span class="accent">by Zenith</span></div>
+    <div>Le passage</div>
+  </div>
+
+  <div class="page-content">
+    <span class="section-eyebrow">Le passage</span>
+    <h2>On ne tape plus le code. <span class="accent">On donne une intention.</span></h2>
+
+    <div class="promesse-box">
+      <div class="label">Notre promesse</div>
+      <p>Vos développeurs ne ressortent pas avec une nouvelle compétence à empiler. Ils ressortent avec une <strong>posture installée</strong> — celle d'un architecte qui formule, cadre, valide. Et avec les outils pour la tenir au quotidien, dans leur codebase, avec leur équipe.</p>
+    </div>
+
+    <p>L'agent traduit une intention en code. Le métier du développeur monte d'un cran — il devient celui qui <strong>formule</strong>, qui <strong>cadre</strong>, qui <strong>valide</strong>. Cette montée d'abstraction repose sur une chaîne précise :</p>
+
+    <p style="text-align:center;font-family:var(--font-mono);font-size:9.5pt;color:hsl(var(--foreground));padding:12px 16px;background:hsl(var(--muted));border-radius:6px;margin:12px 0;line-height:1.7;">
+      intention <span style="color:hsl(var(--primary));">→</span> décisions <span style="color:hsl(var(--primary));">→</span> conventions <span style="color:hsl(var(--primary));">→</span> spec <span style="color:hsl(var(--primary));">→</span> tests <span style="color:hsl(var(--primary));">→</span> implémentation
+    </p>
+
+    <p>Chaque couche en amont rend la suivante possible. Sans décisions documentées ni conventions, pas de spec lisible. Sans spec, pas de test objectif. Sans test, pas d'implémentation fiable. <strong>C'est ce qu'on apprend à pratiquer dans le bon ordre.</strong></p>
+
+    <h3 style="margin-top:14px;">Pas un déclassement. Une montée d'un cran.</h3>
+
+    <div class="manifesto-grid">
+      <div class="manifesto-cell">
+        <span class="num">01</span>
+        <h3>Le métier monte d'un cran.</h3>
+        <p>Coder devenait routinier. Formuler, cadrer, valider — c'est plus exigeant, plus créatif, plus proche du sens.</p>
+      </div>
+      <div class="manifesto-cell">
+        <span class="num">02</span>
+        <h3>Les pratiques d'ingénierie reprennent leur valeur.</h3>
+        <p>DDD, hexagonal, TDD, deep modules. Pas comme dogmes — comme outils de réduction de contexte pour l'agent.</p>
+      </div>
+      <div class="manifesto-cell">
+        <span class="num">03</span>
+        <h3>La review devient l'activité différenciante.</h3>
+        <p>L'agent produit, l'humain arbitre. Reviewer du code IA avec une grille — pas à l'intuition.</p>
+      </div>
+      <div class="manifesto-cell">
+        <span class="num">04</span>
+        <h3>L'intelligence ne coûte plus rien.</h3>
+        <p>On peut explorer, jeter, recommencer. Un changement de nature de l'activité dev — pas une simple accélération.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>transformation-ia.automatik.tools</div>
+    <div>2 / 15</div>
+  </div>
+</section>
+
+<!-- ============= PAGE 3 — VUE D'ENSEMBLE 5 AXES ============= -->
+<section class="page">
+  <div class="page-header">
+    <div class="brand">Automatik <span class="accent">by Zenith</span></div>
+    <div>Cinq axes</div>
+  </div>
+
+  <div class="page-content">
+    <span class="section-eyebrow">La carte mentale</span>
+    <h2>Cinq axes pour lire <span class="accent">le passage.</span></h2>
+
+    <p class="lead">Chaque équipe est un point dans cet espace à cinq dimensions. Le programme avance sur les cinq simultanément — c'est ce qui le distingue d'une formation à un outil ou à une compétence isolée.</p>
+
+    <div class="axes-overview">
+      <div class="axe-overview-card">
+        <div class="num">Axe 1</div>
+        <h4>Quatre paliers d'autonomie</h4>
+        <p><strong>D'IA assistante à boucle semi-autonome.</strong> À quel niveau l'IA agit-elle ? Le palier détermine ce qu'on peut lui déléguer, et avec quels garde-fous. Quatre paliers progressifs (A → D), chacun avec ses critères de bascule.</p>
+      </div>
+      <div class="axe-overview-card">
+        <div class="num">Axe 2</div>
+        <h4>Treize étapes du cycle de dev</h4>
+        <p><strong>Où l'IA aide, où elle ment.</strong> De la spec à la production, treize étapes regroupées en quatre phases. Le ROI dépend autant de l'étape que du palier — une équipe qui n'utilise l'IA qu'au codage rate la moitié des gains.</p>
+      </div>
+      <div class="axe-overview-card">
+        <div class="num">Axe 3</div>
+        <h4>Trois terrains de pratique</h4>
+        <p><strong>Greenfield, legacy, production.</strong> Pas un seul modèle pour tout. Le greenfield est un laboratoire, le legacy pèse 80 % du temps réel, la production est une nouvelle catégorie d'infrastructure. Trois terrains, trois disciplines.</p>
+      </div>
+      <div class="axe-overview-card">
+        <div class="num">Axe 4</div>
+        <h4>Quatre boucles d'amélioration</h4>
+        <p><strong>L'équipe qui progresse seule, après votre départ.</strong> Agent, codebase, observabilité, équipe. Une formation qui n'installe pas de boucle crée une compétence qui s'érode. Les quatre activées, c'est une équipe qui s'améliore d'elle-même.</p>
+      </div>
+      <div class="axe-overview-card featured">
+        <div class="num">Axe 5</div>
+        <h4>Six modes d'échec</h4>
+        <p><strong>La grille de vigilance.</strong> Six catégories regroupant les ~22 problèmes structurels observés en pratique : intention, qualité de codebase, véracité, confiance déplacée, opérationnel, humain. C'est l'axe transverse — un problème occupe toujours une position dans les quatre autres axes.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>transformation-ia.automatik.tools</div>
+    <div>3 / 15</div>
+  </div>
+</section>
+
+<!-- ============= PAGES 4-5 — AXE 1 : PALIERS D'AUTONOMIE ============= -->
+<section class="page">
+  <div class="page-header">
+    <div class="brand">Automatik <span class="accent">by Zenith</span></div>
+    <div>Axe 1 · Paliers d'autonomie</div>
+  </div>
+
+  <div class="page-content">
+    <span class="section-eyebrow">Axe 1 sur 5</span>
+    <h2>Quatre paliers d'autonomie. <span class="accent">D'IA assistante à boucle semi-autonome.</span></h2>
+
+    <p>Le palier d'autonomie répond à la question : <strong>qui décide à quoi ?</strong> À chaque grain de décision (la ligne, le hunk, la PR), c'est soit le développeur, soit l'IA. Quatre paliers progressifs, qu'on installe l'un après l'autre.</p>
+
+    <table class="data">
+      <thead>
+        <tr><th>Palier</th><th>Nom</th><th>À la ligne</th><th>Au hunk</th><th>À la PR</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="palier">A</td><td>IA assistante</td><td>Dev</td><td>Dev</td><td>Dev</td></tr>
+        <tr><td class="palier">B</td><td>IA pair programmer</td><td>IA propose / Dev valide</td><td>Dev</td><td>Dev</td></tr>
+        <tr><td class="palier">C</td><td>IA contributrice</td><td>IA</td><td>IA</td><td>Dev (review)</td></tr>
+        <tr><td class="palier">D</td><td>IA en boucle semi-autonome</td><td>IA</td><td>IA</td><td>IA propose / Dev supervise résultat</td></tr>
+      </tbody>
+    </table>
+
+    <div class="palier-card">
+      <div class="palier-card-header">
+        <div class="palier-card-title">Palier A — IA assistante (suggest only)</div>
+        <div class="palier-card-tag">Palier A</div>
+      </div>
+      <p>Suggestions uniquement, le dev valide chaque ligne. L'IA est un correcteur orthographique de code. Le dev est pilote.</p>
+      <div class="meta"><strong>Outils</strong>Copilot inline, Cursor en mode tab. <strong>Risque</strong>Sous-utilisation, dev qui n'apprend jamais à laisser l'IA prendre la main.</div>
+    </div>
+
+    <div class="palier-card">
+      <div class="palier-card-header">
+        <div class="palier-card-title">Palier B — IA pair programmer</div>
+        <div class="palier-card-tag">Palier B</div>
+      </div>
+      <p>L'IA génère des hunks ou fonctions entières, le dev valide chaque hunk. Le dev cadre la demande, l'IA produit, le dev arbitre.</p>
+      <div class="meta"><strong>Outils</strong>Cursor / Claude Code en chat-to-edit. <strong>Compétences clés</strong>Décomposition de tâche, prompt cadré, review fine.</div>
+    </div>
+
+    <div class="palier-card">
+      <div class="palier-card-header">
+        <div class="palier-card-title">Palier C — IA contributrice (PR entière)</div>
+        <div class="palier-card-tag">Palier C</div>
+      </div>
+      <p>L'IA produit une PR entière, le dev review en sortie. <strong>Bascule pédagogique majeure</strong> : la review du code IA devient distincte de la review classique. C'est l'activité qui change radicalement le quotidien d'un senior.</p>
+      <div class="meta"><strong>Outils</strong>Claude Code autonome, agent custom orchestré. <strong>Compétences clés</strong>Taxonomie des erreurs IA, biais de plausibilité, checklist IA-spécifique.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>transformation-ia.automatik.tools</div>
+    <div>4 / 15</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <div class="brand">Automatik <span class="accent">by Zenith</span></div>
+    <div>Axe 1 · Paliers d'autonomie (suite)</div>
+  </div>
+
+  <div class="page-content">
+    <div class="palier-card">
+      <div class="palier-card-header">
+        <div class="palier-card-title">Palier D — IA en boucle semi-autonome</div>
+        <div class="palier-card-tag">Palier D</div>
+      </div>
+      <p>L'agent itère seul (planifie, code, teste, corrige). Supervision sur le <strong>résultat</strong> et les <strong>métriques</strong>, pas sur les étapes intermédiaires.</p>
+      <div class="meta"><strong>Périmètre</strong>Un module ou une slice cadrée du code client.</div>
+      <div class="meta" style="margin-top:8px;"><strong>Garde-fous non négociables</strong>Branche dédiée jamais sur main · Cap de coût par run · Timeout dur · Review humaine obligatoire · Rollback testé une fois pour de vrai.</div>
+    </div>
+
+    <h3 style="margin-top:18px;">Critères de bascule entre paliers</h3>
+    <ul class="clean">
+      <li><strong>A → B</strong> : le dev a un <code>claude.md</code> personnel fonctionnel et a accepté/rejeté consciemment 20+ hunks IA.</li>
+      <li><strong>B → C</strong> : le dev a produit une PR de bout en bout en mode pair, avec tests, qui passe la review d'un pair humain sans modification majeure.</li>
+      <li><strong>C → D</strong> : l'équipe a un périmètre cadré, des invariants métier couverts par tests, un codebook synthétique, et les garde-fous palier D installés.</li>
+    </ul>
+
+    <h3 style="margin-top:14px;">Pourquoi c'est un axe et pas une compétence</h3>
+    <p>Le palier d'autonomie n'est pas un outil ni une posture — c'est <strong>la décision principale</strong> qu'une équipe prend, par tâche et par contexte. La même équipe peut être en palier B sur le code de paiement, en C sur les CRUD, en D sur les renames. Choisir le palier juste, c'est l'arbitrage permanent du métier qui change.</p>
+
+    <div class="programme-link">
+      <div class="label">Où on voit ça dans le programme</div>
+      <p>L'axe est traversé du début à la fin. <span class="module-tag">Jour 1</span> introduction du palier A et premier passage <em>suggest only</em>. <span class="module-tag">Jour 2</span> et <span class="module-tag">Jour 3</span> consolidation du palier B sur hunks puis greenfield. <span class="module-tag">Jour 4</span> palier B en contexte legacy — le plus exigeant. <span class="module-tag">Jour 5</span> bascule au palier C avec la grille de review IA-spécifique. <span class="module-tag">Jour 6</span> mise en place d'une boucle semi-autonome au palier D, avec ses garde-fous non négociables.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>transformation-ia.automatik.tools</div>
+    <div>5 / 15</div>
+  </div>
+</section>
+
+<!-- ============= PAGES 6-7 — AXE 2 : CYCLE DE DEV ============= -->
+<section class="page">
+  <div class="page-header">
+    <div class="brand">Automatik <span class="accent">by Zenith</span></div>
+    <div>Axe 2 · Cycle de dev</div>
+  </div>
+
+  <div class="page-content">
+    <span class="section-eyebrow">Axe 2 sur 5</span>
+    <h2>L'IA dans le cycle de dev. <span class="accent">Où elle aide, où elle ment.</span></h2>
+
+    <p>Le cycle de dev moderne n'est pas linéaire — mais ses étapes décrivent des activités distinctes, avec des outils, des paliers d'autonomie dominants et des pièges propres. Le ROI réel de l'IA dépend autant du palier que de l'étape. <strong>Une équipe qui n'utilise l'IA qu'au codage rate la moitié des gains.</strong></p>
+
+    <table class="data">
+      <thead>
+        <tr><th>Phase</th><th>Étape</th><th>Palier dominant</th></tr>
+      </thead>
+      <tbody>
+        <tr><td rowspan="4" style="background:hsl(var(--primary)/0.05);font-weight:600;color:hsl(var(--primary-dark));">Amont</td><td>1. Spec &amp; désambiguïsation</td><td class="palier">B → C</td></tr>
+        <tr><td>2. Recherche &amp; exploration</td><td class="palier">C</td></tr>
+        <tr><td>3. Conception &amp; design</td><td class="palier">B</td></tr>
+        <tr><td>4. Architecture &amp; décisions</td><td class="palier">A → B</td></tr>
+        <tr><td rowspan="5" style="background:hsl(var(--primary)/0.05);font-weight:600;color:hsl(var(--primary-dark));">Développement</td><td>5. Itération &amp; codage</td><td class="palier">B → C, montées en D</td></tr>
+        <tr><td>6. Tests</td><td class="palier">B → C</td></tr>
+        <tr><td>7. Review</td><td class="palier">A (par grille humaine)</td></tr>
+        <tr><td>8. Debug &amp; investigation</td><td class="palier">B → C</td></tr>
+        <tr><td>9. Documentation</td><td class="palier">C → D</td></tr>
+        <tr><td style="background:hsl(var(--primary)/0.05);font-weight:600;color:hsl(var(--primary-dark));">Legacy</td><td>10. Refactor &amp; caractérisation</td><td class="palier">B → C</td></tr>
+        <tr><td rowspan="3" style="background:hsl(var(--primary)/0.05);font-weight:600;color:hsl(var(--primary-dark));">Opérationnel</td><td>11. Sécurité</td><td class="palier">A → B</td></tr>
+        <tr><td>12. Déploiement &amp; CI/CD</td><td class="palier">B → C</td></tr>
+        <tr><td>13. Observabilité &amp; supervision</td><td class="palier">B → C</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <div>transformation-ia.automatik.tools</div>
+    <div>6 / 15</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <div class="brand">Automatik <span class="accent">by Zenith</span></div>
+    <div>Axe 2 · Cycle de dev (suite)</div>
+  </div>
+
+  <div class="page-content">
+    <h3>La phase amont — le retour en grâce</h3>
+    <p>Avant qu'une ligne de code soit écrite, l'IA peut être un <strong>partenaire de cadrage</strong> qui interroge le besoin, fait remonter les ambiguïtés non résolues, propose plusieurs designs alternatifs en parallèle. Le passage <em>besoin → spec → décomposition</em> devient un dialogue, pas un monologue. <strong>Piège dominant</strong> : les sorties IA sont plausibles et complètes en apparence, mais lisses sur les cas limites — précisément ceux qui contiennent les bugs et les choix coûteux.</p>
+
+    <h3>La phase développement — le cœur du gain mesurable</h3>
+    <p>C'est là que les paliers A → D prennent tout leur sens. Génération de code à différents grains, tests, review, debug. <strong>Piège dominant</strong> : l'augmentation de la vélocité masque la dégradation de la qualité — pendant un trimestre. La courbe classique : +30 % de PRs mergées au premier mois, +50 % de bugs en production trois mois après. La vélocité n'est <em>jamais</em> une métrique seule.</p>
+
+    <h3>La phase legacy — le terrain qui pèse 80 % du temps</h3>
+    <p>Les LLMs ont moins d'exposition à <em>cette</em> codebase qu'à du code générique. Les conventions implicites passent à côté. Les outils de capitalisation (codebook synthétique, characterization tests) deviennent <strong>nécessaires</strong>, pas optionnels. <strong>Piège dominant</strong> : refactor qui efface des cas limites. L'IA « nettoie » un <code>if (user.legacyFlag === 'A_2018')</code> sans réaliser que c'est dix ans de bugfix encodé.</p>
+
+    <h3>La phase opérationnelle — la nouvelle infrastructure</h3>
+    <p>Sécurité, déploiement, supervision. C'est là que la boucle semi-autonome (palier D) opère réellement. <strong>Piège dominant</strong> : le coût qui explose quand un agent boucle sans cap, et la dérive d'autonomie quand un agent qu'on laisse en D sans audit régulier dévie progressivement de sa mission.</p>
+
+    <div class="promesse-box">
+      <div class="label">La règle d'or transversale</div>
+      <p><em>L'IA accélère la formation d'une opinion. Elle ne valide jamais une décision.</em> Cette règle s'applique à toutes les étapes — particulièrement aux décisions structurantes (architecture, choix de stack, choix de modèle de données) qui se mesurent à 6-18 mois et sur lesquelles l'IA n'a aucun feedback de justesse.</p>
+    </div>
+
+    <div class="programme-link">
+      <div class="label">Où on voit ça dans le programme</div>
+      <p>Cet axe traverse tous les modules. <span class="module-tag">Jour 2</span> couvre la spec et la conception. <span class="module-tag">Jour 3</span> et <span class="module-tag">Jour 4</span> sont centrés sur l'itération et le refactor. <span class="module-tag">Jour 5</span> est dédié à la review (étape 7) — la seule qui exige de redescendre au palier A. <span class="module-tag">Jour 6</span> couvre les étapes opérationnelles 11-13.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>transformation-ia.automatik.tools</div>
+    <div>7 / 15</div>
+  </div>
+</section>
+
+<!-- ============= PAGES 8-9 — AXE 3 : PÉRIMÈTRE ============= -->
+<section class="page">
+  <div class="page-header">
+    <div class="brand">Automatik <span class="accent">by Zenith</span></div>
+    <div>Axe 3 · Périmètre</div>
+  </div>
+
+  <div class="page-content">
+    <span class="section-eyebrow">Axe 3 sur 5</span>
+    <h2>Trois terrains, trois pratiques. <span class="accent">Greenfield, legacy, production.</span></h2>
+
+    <p>Le périmètre détermine plus de choses qu'on ne le croit : palier acceptable, formes des problèmes, mitigations utiles, métriques pertinentes. Un même problème (par exemple la surcomplexité) prend une forme et une gravité radicalement différentes selon le périmètre. <strong>Mêmes mots, conséquences disjointes.</strong></p>
+
+    <p class="muted">C'est aussi la première question d'un CTO. <em>« Sur quel terrain ? »</em> précède <em>« quel palier ? »</em> — il filtre tout le reste.</p>
+
+    <div class="terrains-grid">
+      <div class="terrain-card">
+        <div class="num">Terrain 1</div>
+        <h4>Greenfield</h4>
+        <div class="tagline">« tout est encore possible »</div>
+        <p><strong>Le laboratoire.</strong> Code neuf, pas de dette. L'IA produit du code de qualité raisonnable rapidement parce qu'elle n'a pas à comprendre une codebase préexistante. Paliers C et D accessibles plus tôt.</p>
+        <p><strong>Mais ce n'est pas le terrain représentatif.</strong> On ne fait pas du greenfield parce que c'est ce que vous ferez au quotidien. On en fait parce que c'est le seul endroit où on peut observer proprement ce qui se passe.</p>
+      </div>
+
+      <div class="terrain-card featured">
+        <div class="num">Terrain 2</div>
+        <h4>Legacy</h4>
+        <div class="tagline">« là où votre équipe passe l'essentiel de son temps »</div>
+        <p><strong>Le terrain qui pèse 80 % du temps des équipes établies.</strong> Les gains réels d'IA se mesurent ici, pas en greenfield. Une équipe qui ne sait pas faire IA + legacy n'a pas appris l'essentiel.</p>
+        <p>Le plus dur : LLMs moins exposés à <em>cette</em> codebase, conventions tacites qui passent à côté, modularité imparfaite. <strong>Mitigation centrale</strong> : caractériser avant de toucher.</p>
+      </div>
+
+      <div class="terrain-card">
+        <div class="num">Terrain 3</div>
+        <h4>Production</h4>
+        <div class="tagline">« le passage qui change le métier »</div>
+        <p><strong>Une nouvelle catégorie d'infrastructure.</strong> Pas du codage assisté — de l'opération d'agents. L'IA exécute des tâches déléguées dans des branches dédiées, derrière des garde-fous.</p>
+        <p>Palier D <strong>exclusivement</strong> avec garde-fous non négociables. Tout manque de garde-fou = retour immédiat en C.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>transformation-ia.automatik.tools</div>
+    <div>8 / 15</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <div class="brand">Automatik <span class="accent">by Zenith</span></div>
+    <div>Axe 3 · Périmètre (suite)</div>
+  </div>
+
+  <div class="page-content">
+    <h3>Les pièges propres à chaque terrain</h3>
+
+    <table class="data">
+      <thead>
+        <tr><th>Terrain</th><th>Forme typique des problèmes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="palier">Greenfield</td>
+          <td>Surcomplexité initiale (architectures sur-dimensionnées) · Cargo-culting (Repository / Factory imposés sans nécessité) · Conventions inconsistantes · <em>Faux sentiment de maîtrise — « si ça marche en greenfield, ça marchera ailleurs ». C'est faux.</em></td>
+        </tr>
+        <tr>
+          <td class="palier">Legacy</td>
+          <td>Refactor qui efface des cas limites (bugfix de 10 ans encodé en silence) · Hallucinations sur les conventions · Régressions silencieuses · Contexte trop volumineux qui noie l'IA</td>
+        </tr>
+        <tr>
+          <td class="palier">Production</td>
+          <td>Coût qui explose (agent en boucle sans cap) · Sécurité dégradée (secrets en dur, dépendances vulnérables) · Confidentialité (code propriétaire envoyé hors politique) · Drift d'autonomie sans audit régulier</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:14px;">La discipline du <em>chaque PR laisse le code plus orchestrable</em></h3>
+    <p>Sur les trois terrains, mais surtout en legacy, chaque PR IA touche le code et — bien faite — le laisse dans un état plus orchestrable qu'avant. Plus le code est orchestrable, plus les PRs suivantes coûtent peu et sont fiables. <strong>Compounding positif.</strong></p>
+    <p>L'inverse existe aussi : chaque PR IA mal faite ajoute une convention silencieusement violée, une fonction dupliquée, un test tautologique. La courbe descend en silence pendant deux trimestres avant que personne ne s'en aperçoive. <strong>Compounding négatif.</strong> Le programme installe le bon sens d'évolution.</p>
+
+    <div class="promesse-box">
+      <div class="label">Le piège du laboratoire</div>
+      <p>Le greenfield est le terrain où l'IA brille. C'est aussi celui où l'on prend des mauvaises habitudes par sur-confiance. <strong>Discipline imposée dans le programme</strong> : appliquer en greenfield les mêmes garde-fous qu'on appliquerait en legacy. Les automatismes pris en greenfield sont ceux qui resteront en legacy.</p>
+    </div>
+
+    <div class="programme-link">
+      <div class="label">Où on voit ça dans le programme</div>
+      <p><span class="module-tag">Jour 3</span> est dédié au greenfield (kata fil rouge orchestré). <span class="module-tag">Jour 4</span> est dédié au legacy (audit, characterization tests, codebook). <span class="module-tag">Jour 6</span> est dédié à la production (boucle semi-autonome déployée avec garde-fous, méta-observation, gouvernance). Les trois terrains sont travaillés <strong>dans cet ordre précis</strong> : observer en laboratoire, appliquer sur le réel, déployer en infrastructure.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>transformation-ia.automatik.tools</div>
+    <div>9 / 15</div>
+  </div>
+</section>
+
+<!-- ============= PAGES 10-11 — AXE 4 : BOUCLES DE COMPOUNDING ============= -->
+<section class="page">
+  <div class="page-header">
+    <div class="brand">Automatik <span class="accent">by Zenith</span></div>
+    <div>Axe 4 · Boucles d'amélioration</div>
+  </div>
+
+  <div class="page-content">
+    <span class="section-eyebrow">Axe 4 sur 5</span>
+    <h2>Quatre boucles d'amélioration. <span class="accent">L'équipe qui progresse seule.</span></h2>
+
+    <div class="promesse-box">
+      <div class="label">Pourquoi cet axe est central</div>
+      <p>Une équipe qui sort d'un programme de formation classique, six mois plus tard, est <em>moins</em> compétente que le jour J. La compétence non utilisée s'érode. Le compounding est l'inverse : <strong>ce qu'on installe doit faire progresser l'équipe d'elle-même</strong>. Sans formateur. Sans budget. Sans dépendance externe. C'est ce qui sépare une formation jetable d'une transformation qui tient.</p>
+    </div>
+
+    <p>Quatre boucles distinctes, chacune avec son mécanisme propre, son rituel et sa mesure de progrès. Elles ne sont pas équivalentes : on peut en activer une sans les autres, ou les activer mal. <strong>Le programme cherche à activer les quatre simultanément.</strong></p>
+
+    <div class="boucles-grid">
+      <div class="boucle-card">
+        <div class="header">
+          <div class="num">01</div>
+          <h4>Boucle Agent</h4>
+        </div>
+        <p>L'agent qu'on utilise s'améliore par l'usage : prompts mieux ciblés, slash commands accumulés, skills réutilisables, hooks installés, <code>claude.md</code> affiné, MCPs branchés. Plus on utilise, plus on configure ; plus on configure, plus l'agent devient compétent <strong>sur ce projet précis</strong>.</p>
+        <div class="label-mini">Rituel central</div>
+        <p style="margin:0;">Revue hebdo des prompts qui ont marché et ratés (15 min, vendredi). Ceux qui marchent → skill ou slash command.</p>
+      </div>
+
+      <div class="boucle-card">
+        <div class="header">
+          <div class="num">02</div>
+          <h4>Boucle Codebase</h4>
+        </div>
+        <p>Le code lui-même devient progressivement <strong>plus orchestrable</strong>. Modularité accrue, tests qui couvrent les invariants, conventions documentées, dette caractérisée. Chaque PR IA touche le code et, bien faite, le laisse plus orchestrable qu'avant.</p>
+        <div class="label-mini">Rituel central</div>
+        <p style="margin:0;">Mesure baseline → intermédiaire → finale. Discipline du <em>chaque PR laisse le code plus orchestrable</em> formalisée en checklist.</p>
+      </div>
+
+      <div class="boucle-card">
+        <div class="header">
+          <div class="num">03</div>
+          <h4>Boucle Observabilité</h4>
+        </div>
+        <p>On instrumente la <strong>chaîne de fabrication</strong> comme on instrumente la prod. Logs des interactions agent, traces des PRs IA (modèle, coût, temps, taux d'acceptation), méta-patterns d'échec. Ces données informent l'amélioration des autres boucles.</p>
+        <div class="label-mini">Rituel central</div>
+        <p style="margin:0;">Méta-debrief hebdo de 15 min : qu'est-ce qui a marché, qu'est-ce qui a raté, qu'est-ce qu'on apprend ? Audit aléatoire d'une PR IA sur dix par senior tournant.</p>
+      </div>
+
+      <div class="boucle-card">
+        <div class="header">
+          <div class="num">04</div>
+          <h4>Boucle Équipe</h4>
+        </div>
+        <p>L'équipe apprend des unes des autres. Chaque dev ramène ses prompts, ses échecs ; l'équipe fusionne, débriefe, ajuste les conventions. La compétence individuelle alimente la compétence d'équipe, qui à son tour relève chaque individu. <strong>La plus humaine, la plus difficile à installer.</strong></p>
+        <div class="label-mini">Rituel central</div>
+        <p style="margin:0;">Méta-debrief hebdo en équipe (15-30 min). Onboarding IA explicite pour les nouveaux. Échange croisé inter-équipes en post-formation.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>transformation-ia.automatik.tools</div>
+    <div>10 / 15</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <div class="brand">Automatik <span class="accent">by Zenith</span></div>
+    <div>Axe 4 · Boucles d'amélioration (suite)</div>
+  </div>
+
+  <div class="page-content">
+    <h3>Comment les quatre boucles se nourrissent</h3>
+
+    <p style="font-family:var(--font-mono);font-size:9pt;background:hsl(var(--muted));padding:14px 18px;border-radius:6px;line-height:1.7;text-align:center;color:hsl(var(--foreground));">
+      Agent ←─────────── Équipe<br>
+      &nbsp;&nbsp;↑ partage prompts/skills&nbsp;&nbsp;&nbsp;&nbsp;↓ documente conventions<br>
+      &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓<br>
+      &nbsp;&nbsp;└── Observabilité ─→ Codebase
+    </p>
+
+    <ul class="clean">
+      <li>Sans <strong>observabilité</strong>, les trois autres tournent à l'aveugle. <em>On améliore quoi ? On ne sait pas.</em> C'est la boucle la plus structurellement importante.</li>
+      <li>Sans <strong>équipe</strong>, les améliorations restent individuelles. Les boucles agent et codebase plafonnent au niveau du dev le plus discipliné.</li>
+      <li>Sans <strong>agent</strong>, on n'a pas de levier d'automatisation. Les autres boucles existent mais ressemblent à de l'ingénierie classique.</li>
+      <li>Sans <strong>codebase</strong>, le terrain reste hostile. Les agents ne peuvent pas opérer efficacement.</li>
+    </ul>
+
+    <h3 style="margin-top:14px;">Anti-pattern central : la boucle individuelle</h3>
+    <p>Une boucle agent dégradée par individualisme : chaque dev a sa config locale qui ne se partage pas. Quand un dev part, ses commands partent avec lui. <em>Hook commercial originel : « tu n'as pas une équipe qui utilise l'IA, tu as N développeurs qui l'utilisent chacun dans leur coin »</em> — c'est la boucle équipe qui répare ça.</p>
+
+    <h3 style="margin-top:10px;">Une seule boucle = compounding faible. Quatre = compounding qui se renforce.</h3>
+    <p>Les quatre boucles activées simultanément créent un effet de levier. Une boucle isolée s'éteint. Deux ou trois boucles cohabitent à coût marginal. <strong>Quatre boucles s'auto-entretiennent et amplifient le ROI de chaque PR IA.</strong></p>
+
+    <div class="programme-link">
+      <div class="label">Où on voit ça dans le programme</div>
+      <p>Toutes les boucles sont activées progressivement. <span class="module-tag">Jour 1</span> baseline mesurée + carte d'orchestrabilité (boucle codebase, boucle observabilité). <span class="module-tag">Jour 2</span> <code>claude.md</code> d'équipe (boucle agent, boucle équipe) + modularité comme discipline (boucle codebase). <span class="module-tag">Jour 5</span> journal d'erreurs détectées (boucle observabilité). <span class="module-tag">Jour 6</span> gouvernance d'équipe + observabilité des appels agent (les quatre boucles consolidées). En inter-sessions : rituels installés (revue hebdo prompts, méta-debrief, capitalisation).</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>transformation-ia.automatik.tools</div>
+    <div>11 / 15</div>
+  </div>
+</section>
+
+<!-- ============= PAGES 12-13 — AXE 5 : MODES D'ÉCHEC ============= -->
+<section class="page">
+  <div class="page-header">
+    <div class="brand">Automatik <span class="accent">by Zenith</span></div>
+    <div>Axe 5 · Modes d'échec</div>
+  </div>
+
+  <div class="page-content">
+    <span class="section-eyebrow">Axe 5 sur 5</span>
+    <h2>Six modes d'échec. <span class="accent">Six grilles de vigilance.</span></h2>
+
+    <p>Six catégories regroupent les <strong>~22 problèmes structurels</strong> observés en pratique quand une équipe utilise l'IA pour produire du code. Pour chaque problème : un symptôme, une position dans les quatre autres axes (étape × palier × périmètre × boucle dégradée), et une mitigation que le programme installe. <strong>C'est le seul axe qui se croise systématiquement avec les quatre autres.</strong></p>
+
+    <div class="modes-grid">
+      <div class="mode-card">
+        <div class="num">Mode 1</div>
+        <h4>Intention</h4>
+        <p>La sortie ne fait pas ce qu'on voulait. L'IA optimise pour la lettre de la demande, pas pour le but.</p>
+        <div class="examples">Divergence vs vision · Régressions silencieuses · Spec floue → hypothèse cristallisée</div>
+      </div>
+
+      <div class="mode-card">
+        <div class="num">Mode 2</div>
+        <h4>Qualité de codebase</h4>
+        <p>La sortie dégrade le code. Surcomplexité, duplication, conventions tacites violées, réécritures invasives.</p>
+        <div class="examples">Surcomplexité / over-engineering · Cargo-culting · Duplication silencieuse · Conventions implicites violées · Réécritures invasives</div>
+      </div>
+
+      <div class="mode-card">
+        <div class="num">Mode 3</div>
+        <h4>Véracité</h4>
+        <p>La sortie ment ou invente. Hallucinations confiantes — d'API, de libs, d'auteurs, de versions.</p>
+        <div class="examples">Hallucinations d'API · Conseils sécurité confiants et faux · Doc qui dérive du code · Sources fabriquées</div>
+      </div>
+
+      <div class="mode-card">
+        <div class="num">Mode 4</div>
+        <h4>Confiance déplacée</h4>
+        <p>La sortie n'est pas vérifiable. Tests qui passent sans rien tester, code « qui a l'air bon » qui passe en review à l'intuition.</p>
+        <div class="examples">Tests tautologiques · Plausibilité confondue avec correction · Review à l'intuition</div>
+      </div>
+
+      <div class="mode-card">
+        <div class="num">Mode 5</div>
+        <h4>Opérationnel</h4>
+        <p>Le système qui exécute déraille. Coût qui explose, sécurité dégradée, dépendances fragilisées.</p>
+        <div class="examples">Coût en boucle · Fuites de secrets · Dépendances vulnérables · Drift d'autonomie</div>
+      </div>
+
+      <div class="mode-card">
+        <div class="num">Mode 6</div>
+        <h4>Humain</h4>
+        <p>L'équipe se dégrade. Atrophie senior, dépendance junior, ressenti +20 % / mesuré −20 %.</p>
+        <div class="examples">Atrophie senior par fatigue de review · Dépendance junior à l'outil · Biais de plausibilité / autorité · Divergence ressenti / mesuré</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>transformation-ia.automatik.tools</div>
+    <div>12 / 15</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="page-header">
+    <div class="brand">Automatik <span class="accent">by Zenith</span></div>
+    <div>Axe 5 · Modes d'échec (suite)</div>
+  </div>
+
+  <div class="page-content">
+    <h3>Pourquoi chaque problème occupe une position dans l'espace</h3>
+
+    <p>Un mode d'échec n'est jamais flottant. <strong>Régressions silencieuses</strong>, par exemple, est un problème de catégorie 1 (Intention) qui apparaît à l'étape 5 (Codage) ou 10 (Refactor), au palier B → D, sur du legacy critique, et qui dégrade les boucles codebase et observabilité. La mitigation ? Characterization tests avant tout refactor non trivial.</p>
+
+    <p>Cette position dans l'espace est ce qui permet de choisir <strong>la bonne mitigation</strong>. Les mitigations génériques (« faites du TDD ») ne marchent pas. Les mitigations situées dans l'espace marchent.</p>
+
+    <div class="promesse-box">
+      <div class="label">La taxonomie technique des 9 erreurs IA</div>
+      <p>Distincte de la grille macro à 6 catégories ci-contre, une <strong>taxonomie technique des 9 erreurs IA</strong> est enseignée au Jour 5 comme outil opérationnel de review. Elle dit où chercher dans le code, à quels symptômes prêter attention, comment les distinguer d'erreurs humaines classiques. La grille à 6 catégories organise la conversation CTO ; la taxonomie à 9 erreurs guide la pratique de review.</p>
+    </div>
+
+    <h3 style="margin-top:12px;">Croisements typiques avec les autres axes</h3>
+    <ul class="clean">
+      <li><strong>Mode 2 (qualité)</strong> est dominant en greenfield au palier B → D, dégrade la boucle codebase. Mitigation : <em>discipline du minimum viable code</em>.</li>
+      <li><strong>Mode 3 (véracité)</strong> est dominant aux étapes 1, 2, 9, dégrade la boucle agent. Mitigation : <em>vérification systématique par doc primaire</em>.</li>
+      <li><strong>Mode 5 (opérationnel)</strong> est dominant en production au palier D, dégrade la boucle observabilité. Mitigation : <em>cinq garde-fous non négociables</em>.</li>
+      <li><strong>Mode 6 (humain)</strong> est transverse à toutes les phases, dégrade la boucle équipe. Mitigation : <em>gouvernance d'équipe documentée + rituels de méta-debrief</em>.</li>
+    </ul>
+
+    <div class="programme-link">
+      <div class="label">Où on voit ça dans le programme</div>
+      <p>L'axe est traité explicitement <span class="module-tag">Jour 5</span> avec la grille de review IA-spécifique et la taxonomie des 9 erreurs. Mais chaque mode d'échec est nommé et travaillé au moment où il apparaît dans la pratique : <span class="module-tag">Jour 2</span> mode 2 (qualité) et mode 3 (véracité) sur le greenfield. <span class="module-tag">Jour 4</span> mode 1 (intention) en legacy. <span class="module-tag">Jour 6</span> mode 5 (opérationnel) en production. Le mode 6 (humain) est travaillé dans tous les modules — c'est le seul transverse.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>transformation-ia.automatik.tools</div>
+    <div>13 / 15</div>
+  </div>
+</section>
+
+<!-- ============= PAGE 14 — PROGRAMME SYNTHÉTIQUE ============= -->
+<section class="page">
+  <div class="page-header">
+    <div class="brand">Automatik <span class="accent">by Zenith</span></div>
+    <div>Programme · chronologie</div>
+  </div>
+
+  <div class="page-content">
+    <span class="section-eyebrow">La chronologie</span>
+    <h2>Six jours, six modules. <span class="accent">Six à huit semaines.</span></h2>
+
+    <div class="format-spec">
+      <dl>
+        <dt>Durée</dt><dd>6 jours, 1 jour / semaine sur 6 à 8 semaines (rythme adaptable)</dd>
+        <dt>Format</dt><dd>Intra-entreprise · <strong>distanciel</strong> · 4 à 8 développeurs / cohorte</dd>
+        <dt>Pratique</dt><dd>70 % du temps de formation · codebases fournies + travail sur la vôtre dès le Jour 4</dd>
+        <dt>Public</dt><dd>Équipes qui pratiquent déjà l'IA (cherchent méthode) <strong>ou</strong> équipes qui n'y sont pas encore passées (cherchent cadrage)</dd>
+      </dl>
+    </div>
+
+    <div class="programme-modules">
+      <div class="programme-module">
+        <div class="day">Jour 1</div>
+        <div>
+          <h4>Cadrage &amp; sens</h4>
+          <p>Pourquoi la transition. La place du dev qui change. Hiérarchie d'intention. Cartographie d'orchestrabilité de la codebase cible.</p>
+          <div class="axes-touched">Axes touchés : palier A · cycle (étape 4) · périmètre (audit initial) · boucles (baseline mesurée)</div>
+        </div>
+      </div>
+      <div class="programme-module">
+        <div class="day">Jour 2</div>
+        <div>
+          <h4>Fondations IA-natives</h4>
+          <p>Prompt vs context engineering. Trois couches de contexte (tacite, technique, stratégique). Architecture orientée agent. Tests revisités. Mise en place du <code>claude.md</code> d'équipe.</p>
+          <div class="axes-touched">Axes touchés : palier B · cycle (étapes 1, 3, 6) · boucles (agent + équipe)</div>
+        </div>
+      </div>
+      <div class="programme-module">
+        <div class="day">Jour 3</div>
+        <div>
+          <h4>Greenfield — le laboratoire</h4>
+          <p>Spec-first vs explore-first. Itérations parallèles autorisées. Quand prototyper, quand cadrer. Application des paliers B → C en conditions optimales.</p>
+          <div class="axes-touched">Axes touchés : palier B → C · cycle (étapes 1, 5) · périmètre (greenfield) · modes 2, 3</div>
+        </div>
+      </div>
+      <div class="programme-module">
+        <div class="day">Jour 4</div>
+        <div>
+          <h4>Legacy — le terrain réel</h4>
+          <p>Audit de codebase, characterization tests (Feathers), refactor guidé par churn × complexité (Tornhill). C'est là que se joue 80 % du temps des équipes établies.</p>
+          <div class="axes-touched">Axes touchés : palier B · cycle (étapes 8, 10) · périmètre (legacy) · modes 1, 4</div>
+        </div>
+      </div>
+      <div class="programme-module">
+        <div class="day">Jour 5</div>
+        <div>
+          <h4>Review &amp; qualité</h4>
+          <p>La taxonomie des 9 erreurs IA. Construction de la grille de review IA-spécifique. Journal d'erreurs détectées. La compétence qui change le métier du senior.</p>
+          <div class="axes-touched">Axes touchés : palier C · cycle (étape 7) · boucles (observabilité) · modes 1-6 (transverse)</div>
+        </div>
+      </div>
+      <div class="programme-module">
+        <div class="day">Jour 6</div>
+        <div>
+          <h4>Production, perf, multi-agent</h4>
+          <p>Observabilité LLM + applicative, méta-observation, cinq garde-fous non négociables, multi-agent (et quand <em>ne pas</em> l'utiliser). Gouvernance d'équipe formalisée.</p>
+          <div class="axes-touched">Axes touchés : palier D · cycle (étapes 11-13) · périmètre (production) · boucles (les 4) · mode 5</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>transformation-ia.automatik.tools</div>
+    <div>14 / 15</div>
+  </div>
+</section>
+
+<!-- ============= PAGE 15 — TARIF, PARCOURS, CONTACT ============= -->
+<section class="page">
+  <div class="page-header">
+    <div class="brand">Automatik <span class="accent">by Zenith</span></div>
+    <div>Tarif, parcours, contact</div>
+  </div>
+
+  <div class="page-content">
+    <span class="section-eyebrow">Investissement</span>
+    <h2>Le tarif. <span class="accent">Sans détour.</span></h2>
+
+    <div class="pricing">
+      <div class="pricing-label">Atelier complet — cohorte</div>
+      <div class="pricing-amount"><span class="strike">12 000 €</span>9 000 € HT</div>
+      <div class="pricing-detail">6 jours sur 6 à 8 semaines · 4 à 8 développeurs · intra-entreprise distanciel · 1 500 € / jour de formation.</div>
+      <div class="pricing-launch"><strong>Offre de lancement.</strong> Tarif valable pour les premières cohortes. Places limitées, ouvert sans contrepartie autre que votre engagement à suivre le programme dans l'ordre prévu.</div>
+    </div>
+
+    <h3>Variante exécutive</h3>
+    <p>Format condensé <strong>1 à 2 jours</strong> pour CTO et leadership : cadrage des cinq axes, six modes d'échec, posture, arbitrages structurants. Sans la pratique technique. <strong>À partir de 3 000 € HT / jour</strong>, modulable selon le périmètre.</p>
+
+    <h3 style="margin-top:14px;">Pour qui &mdash; et pas pour qui</h3>
+    <div class="audience-grid">
+      <div class="audience-block include">
+        <h4>Pour vous, si</h4>
+        <ul class="audience-list">
+          <li>CTO, dirigeant tech, ou tech lead, avec un sponsor direction.</li>
+          <li>Au moins 4 développeurs, à dominante senior.</li>
+          <li>Codebase avec tests, CI, observabilité minimale.</li>
+          <li>Vous voulez outiller vos devs et leur donner leur place.</li>
+        </ul>
+      </div>
+      <div class="audience-block exclude">
+        <h4>Pas pour vous, si</h4>
+        <ul class="audience-list">
+          <li>Équipe très junior, sans senior pour porter les conventions.</li>
+          <li>Codebase zombie, sans tests ni CI. Commencez par là.</li>
+          <li>Vous voulez « l'IA qui code à votre place ».</li>
+          <li>Vous cherchez un slide deck pour un comité.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:14px;">Comment on démarre</h3>
+    <div class="stepper">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h4>Appel de cadrage</h4>
+        <p>30 min, gratuit. On qualifie ensemble. Pas de pitch.</p>
+      </div>
+      <div class="step optional">
+        <div class="step-num">02 · optionnel</div>
+        <h4>Audit codebase</h4>
+        <p>1 jour, facturé. Recommandé si legacy ou doute prérequis.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4>Proposition</h4>
+        <p>Format, calendrier, prix fermes sous 5 jours ouvrés.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h4>Démarrage cohorte</h4>
+        <p>Sous 4 à 8 semaines selon disponibilité.</p>
+      </div>
+    </div>
+
+    <div class="final-cta-block">
+      <h2>Prêt pour l'appel de cadrage ?</h2>
+      <p>Trente minutes. Pas de pitch. On regarde votre équipe, votre codebase, vos contraintes. À la sortie, vous savez si le programme a du sens pour vous — ou pas.</p>
+      <div class="cta-block">Réserver un créneau</div>
+
+      <div class="contact-row">
+        <strong>Thibault Roussel</strong> &mdash; Automatik by Zenith<br>
+        thibault@automatik-by-zenith.com · 06 59 14 56 59<br>
+        transformation-ia.automatik.tools
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>transformation-ia.automatik.tools</div>
+    <div>15 / 15</div>
+  </div>
+</section>
+
+</body>
+</html>

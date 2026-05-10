@@ -183,10 +183,10 @@
     opacity: 0.75;
   }
 
-  /* Navigation */
+  /* Navigation — décalée pour laisser place au draft banner */
   nav {
     position: fixed;
-    top: 0;
+    top: 28px;
     left: 0;
     right: 0;
     z-index: 100;
@@ -258,7 +258,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 140px 24px 100px;
+    padding: 168px 24px 100px;
     position: relative;
   }
 
@@ -1500,6 +1500,11 @@
 </head>
 <body>
 
+<!-- Banner draft v2 — visible en permanence -->
+<div class="v2-draft-banner">
+  DRAFT v2 — optimisation vente · Les <code>TODO</code> en orange sont à compléter par Thibault · <a href="index.html">← retour à l'index v1</a>
+</div>
+
 <div class="bg-ambience" aria-hidden="true"></div>
 
 <nav id="nav">
@@ -1509,7 +1514,7 @@
       <span class="by">by</span>
       <span class="zenith">Zenith</span>
     </div>
-    <a href="mailto:thibault@automatik-by-zenith.com?subject=Atelier%20Transformation%20IA%20%E2%80%94%20Appel%20de%20cadrage" class="nav-cta">Écrire pour un appel</a>
+    <a href="#qualification" class="nav-cta">Réserver un appel de cadrage</a>
   </div>
 </nav>
 
@@ -1531,11 +1536,11 @@
           pas une nouvelle compétence à empiler — une posture installée. Vos seniors ressortent en sachant <strong>formuler une intention, cadrer un contexte, arbitrer une sortie IA</strong>. Et en y trouvant du sens.
         </div>
         <div class="cta-row">
-          <a href="mailto:thibault@automatik-by-zenith.com?subject=Atelier%20Transformation%20IA%20%E2%80%94%20Appel%20de%20cadrage" class="btn-primary">
-            Écrire pour un appel de cadrage
+          <a href="#qualification" class="btn-primary">
+            Réserver un appel de cadrage
             <span class="arrow">&rarr;</span>
           </a>
-          <a href="syllabus.pdf" class="btn-outline" target="_blank">
+          <a href="syllabus.html" class="btn-outline" target="_blank">
             Télécharger le programme (PDF)
           </a>
         </div>
@@ -1574,6 +1579,10 @@
 <span class="h2">Ressenti ET mesuré</span>
 <span class="h2">alignés</span></pre>
         </div>
+        <p style="font-size:11px;text-align:center;margin-top:12px;color:hsl(var(--muted-foreground));font-family:var(--font-mono);">
+          v2 hero visual — option A (avant/après).<br>
+          <a href="#" onclick="document.querySelector('.code-card pre').innerHTML = altCodeCard; return false;">basculer en option B (hiérarchie d'intention)</a>
+        </p>
       </aside>
     </div>
   </div>
@@ -1613,8 +1622,8 @@
         <h3>Format condensé 1 à 2 jours, pour CTO et leadership.</h3>
         <p>Cadrage, six modes d'échec, mesure, posture. Sans la pratique technique, mais avec les arbitrages structurants. <strong>À partir de 3 000 € HT / jour</strong> — modulable selon le périmètre.</p>
       </div>
-      <a href="mailto:thibault@automatik-by-zenith.com?subject=Atelier%20Transformation%20IA%20%E2%80%94%20Variante%20ex%C3%A9cutive" class="btn-outline">
-        Écrire pour la variante exécutive →
+      <a href="#qualification" class="btn-outline">
+        Découvrir →
       </a>
     </div>
   </div>
@@ -1698,7 +1707,7 @@
 
     <!-- CTA secondaire répété en bas du programme -->
     <div class="programme-cta-row">
-      <a href="syllabus.pdf" target="_blank" class="btn-outline">
+      <a href="#programme-pdf" class="btn-outline" id="programme-pdf">
         Télécharger le programme complet (PDF)
       </a>
     </div>
@@ -1823,7 +1832,7 @@
         <span class="eyebrow">La carte mentale</span>
         <h2>Cinq axes pour lire <span class="accent">le passage.</span></h2>
         <p class="competences-aside-desc">Chaque équipe est un point dans cet espace à cinq dimensions. Le programme avance sur les cinq simultanément — c'est ce qui le distingue d'une formation à un outil ou à une compétence isolée.</p>
-        <p style="margin-top:24px;"><a href="syllabus.pdf" target="_blank" style="font-size:14px;font-weight:600;color:hsl(var(--primary));">Voir les cinq axes en détail dans le programme PDF →</a></p>
+        <p style="margin-top:24px;"><a href="syllabus.html" target="_blank" style="font-size:14px;font-weight:600;color:hsl(var(--primary));">Voir les cinq axes en détail dans le programme PDF →</a></p>
       </aside>
       <div class="competencies">
 
@@ -2006,24 +2015,21 @@
     </div>
 
     <div class="final-cta-row">
-      <a href="mailto:thibault@automatik-by-zenith.com?subject=Atelier%20Transformation%20IA%20%E2%80%94%20Appel%20de%20cadrage" class="btn-primary">
-        Écrire pour un appel de cadrage
+      <a href="#" class="btn-primary">
+        Réserver un créneau
         <span class="arrow">&rarr;</span>
       </a>
-      <a href="syllabus.pdf" target="_blank" class="btn-outline">
+      <a href="#programme-pdf" class="btn-outline">
         Télécharger le programme (PDF)
       </a>
     </div>
-    <p style="margin-top:24px;font-size:0.95rem;color:hsl(var(--muted-foreground));">
-      Ou directement par téléphone : <strong style="color:hsl(var(--foreground));">06&nbsp;59&nbsp;14&nbsp;56&nbsp;59</strong>
-    </p>
   </div>
 </section>
 
 <footer>
   <p>Automatik by Zenith — Thibault Roussel</p>
-  <p>thibault@automatik-by-zenith.com · 06 59 14 56 59</p>
   <p>Une formation pour faire monter les développeurs d'un cran dans l'abstraction</p>
+  <p style="margin-top:14px;color:hsl(var(--todo-color));font-weight:600;">DRAFT v2 · index-v2.html</p>
 </footer>
 
 <script>
