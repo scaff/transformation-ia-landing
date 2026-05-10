@@ -554,19 +554,18 @@
   .pricing {
     border: 2px solid hsl(var(--primary));
     border-radius: 8px;
-    padding: 22px 26px;
+    padding: 14px 20px;
     background: white;
-    margin: 16px 0;
-    box-shadow: 0 4px 12px hsl(var(--primary) / 0.12);
+    margin: 10px 0;
   }
   .pricing-label {
     font-family: var(--font-mono); font-size: 9pt;
     text-transform: uppercase; letter-spacing: 0.14em;
     color: hsl(var(--primary)); font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
   }
   .pricing-amount {
-    font-size: 22pt; font-weight: 700;
+    font-size: 18pt; font-weight: 700;
     line-height: 1; letter-spacing: -0.02em;
     margin-bottom: 4px;
     color: hsl(45 95% 42%);
@@ -575,21 +574,20 @@
     text-decoration: line-through;
     color: hsl(var(--muted-foreground));
     font-weight: 400;
-    background: none; -webkit-text-fill-color: hsl(var(--muted-foreground));
-    margin-right: 12px;
-    font-size: 16pt;
+    margin-right: 10px;
+    font-size: 14pt;
   }
   .pricing-detail {
-    font-size: 10pt;
+    font-size: 9.5pt;
     color: hsl(var(--muted-foreground));
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
   .pricing-launch {
-    font-size: 10pt; line-height: 1.5;
+    font-size: 9.5pt; line-height: 1.5;
     color: hsl(var(--foreground));
-    padding-top: 12px;
+    padding-top: 8px;
     border-top: 1px solid hsl(var(--border));
-    margin-top: 8px;
+    margin-top: 6px;
   }
   .pricing-launch strong { color: hsl(var(--primary-dark)); }
 
@@ -597,24 +595,24 @@
   .stepper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin: 16px 0;
+    gap: 8px;
+    margin: 10px 0;
   }
   .step {
     border: 1px solid hsl(var(--border));
     border-radius: 5px;
-    padding: 12px 14px;
+    padding: 10px 12px;
     background: white;
   }
   .step.optional { border-style: dashed; opacity: 0.75; }
   .step-num {
-    font-family: var(--font-mono); font-size: 8.5pt;
+    font-family: var(--font-mono); font-size: 8pt;
     color: hsl(var(--primary)); font-weight: 700;
-    letter-spacing: 0.08em; margin-bottom: 5px;
+    letter-spacing: 0.08em; margin-bottom: 4px;
   }
-  .step h4 { font-size: 10pt; }
+  .step h4 { font-size: 9.8pt; margin-bottom: 2px; }
   .step p {
-    font-size: 8.8pt; line-height: 1.4;
+    font-size: 8.5pt; line-height: 1.4;
     color: hsl(var(--muted-foreground)); margin: 0;
   }
 
@@ -695,42 +693,42 @@
   /* Final CTA */
   .final-cta-block {
     background:
-      radial-gradient(ellipse 400px 200px at 50% 0%, hsl(45 95% 90% / 0.6), transparent 70%),
+      radial-gradient(ellipse 400px 160px at 50% 0%, hsl(45 95% 90% / 0.6), transparent 70%),
       white;
     border: 1px solid hsl(var(--primary) / 0.3);
     border-radius: 8px;
-    padding: 32px 32px 36px;
+    padding: 22px 28px 24px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 14px;
   }
   .final-cta-block h2 {
-    font-size: 17pt; margin-bottom: 12px;
+    font-size: 15pt; margin-bottom: 8px;
   }
   .final-cta-block p {
-    font-size: 10.5pt; color: hsl(var(--muted-foreground));
-    margin-bottom: 20px;
+    font-size: 10pt; color: hsl(var(--muted-foreground));
+    margin-bottom: 14px;
     max-width: 420px; margin-left: auto; margin-right: auto;
-    line-height: 1.55;
+    line-height: 1.5;
   }
   .cta-block {
     display: inline-block;
-    padding: 12px 26px;
+    padding: 10px 22px;
     border-radius: 999px;
     background: hsl(var(--primary));
     color: hsl(var(--foreground));
     font-weight: 700;
-    font-size: 11pt;
+    font-size: 10.5pt;
     border: 2px solid hsl(var(--primary-dark));
-    margin: 4px 6px;
+    margin: 2px 6px;
     text-decoration: none;
   }
   .contact-row {
-    margin-top: 36px;
-    padding-top: 28px;
+    margin-top: 18px;
+    padding-top: 16px;
     border-top: 1px solid hsl(var(--border));
-    font-size: 9.8pt;
+    font-size: 9.5pt;
     color: hsl(var(--muted-foreground));
-    line-height: 1.8;
+    line-height: 1.7;
     text-align: center;
   }
   .contact-row strong { color: hsl(var(--foreground)); }
@@ -1402,7 +1400,7 @@
       <div class="pricing-label">Atelier complet — cohorte</div>
       <div class="pricing-amount"><span class="strike">12 000 €</span>9 000 € HT</div>
       <div class="pricing-detail">6 jours sur 6 à 8 semaines · 4 à 8 développeurs · intra-entreprise distanciel · 1 500 € / jour de formation.</div>
-      <div class="pricing-launch"><strong>Offre de lancement.</strong> Tarif valable pour les premières cohortes. Places limitées, ouvert sans contrepartie autre que votre engagement à suivre le programme dans l'ordre prévu.</div>
+      <div class="pricing-launch"><strong>Offre de lancement.</strong> Tarif valable pour les premières cohortes, places limitées.</div>
     </div>
 
     <h3>Variante exécutive</h3>
